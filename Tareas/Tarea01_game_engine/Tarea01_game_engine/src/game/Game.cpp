@@ -21,7 +21,8 @@ Game::Game() {
 			>> this->font.b >> this->font.size;
 	}
 	archivoEntrada >> etiqueta;
-	while (etiqueta.compare("entity") == 0 && !etiqueta.compare("")) {
+	bool exit = true;
+	while (etiqueta.compare("entity") == 0 && exit) {
 		Entity entity;
 		archivoEntrada >> entity.name >> entity.directory >> entity.imgWidth
 			>> entity.imgHeight >> entity.pos.x >> entity.pos.y 
@@ -29,7 +30,11 @@ Game::Game() {
 
 		entitiesVector.push_back(entity);
 
+		etiqueta = "";
 		archivoEntrada >> etiqueta;
+		if (etiqueta == "") {
+			exit = false;
+		}
 	}
 	//while (archivoEntrada >> etiqueta) {
 	//}
