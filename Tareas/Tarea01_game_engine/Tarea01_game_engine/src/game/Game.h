@@ -6,6 +6,7 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <string>
+#include "../util/Color.h"
 
 const int FPS = 60;
 const int MILLISECS_PER_FRAME = 1000 / FPS; //16.6
@@ -16,6 +17,7 @@ class Game {
 
 	size_t windowWidth = 0;
 	size_t windowHeight = 0;
+	Color windowColor;
 
 	TTF_Font* font = nullptr;
 	int fontSize = 0;

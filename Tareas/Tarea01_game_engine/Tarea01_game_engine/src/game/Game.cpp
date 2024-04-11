@@ -1,8 +1,33 @@
 #include "Game.h"
 #include <iostream>
+#include <fstream>
 
 Game::Game() {
 	std::cout << "Se ejecuta el constructor de GAME" << std::endl;
+
+	std::string nombreArchivo = "config.txt";
+	std::ifstream archivoEntrada(nombreArchivo);
+
+	std::string etiqueta;
+
+	archivoEntrada >> etiqueta;
+	if (etiqueta.compare("window") == 0) {
+		archivoEntrada >> this->windowWidth >> this->windowHeight 
+			>> this->windowColor.r >> this->windowColor.g 
+			>> this->windowColor.b;
+	}
+	archivoEntrada >> etiqueta;
+	if (etiqueta.compare("font") == 0) {
+
+	} else if ("entity") {
+	
+	}
+	archivoEntrada >> etiqueta;
+	if (etiqueta.compare("font") == 0) {
+
+	}
+	//while (archivoEntrada >> etiqueta) {
+	//}
 }
 
 Game::~Game() {
@@ -21,8 +46,8 @@ void Game::init() {
 		return;
 	}
 
-	this->windowWidth = 800;
-	this->windowHeight = 600;
+	//this->windowWidth = 800;
+	//this->windowHeight = 600;
 
 	// Crear la ventana
 	this->window = SDL_CreateWindow(
@@ -117,7 +142,13 @@ void Game::update() {
 }
 
 void Game::render() {
-	SDL_SetRenderDrawColor(this->renderer, 30, 30, 30, 255);
+	SDL_SetRenderDrawColor(renderer,
+		this->windowColor.r,
+		this->windowColor.g,
+		this->windowColor.b,
+		this->windowColor.a
+	);
+	//SDL_SetRenderDrawColor(this->renderer, 30, 30, 30, 255);
 	SDL_RenderClear(this->renderer);
 
 	SDL_Rect imgDstRect = {
