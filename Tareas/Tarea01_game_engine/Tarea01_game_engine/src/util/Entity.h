@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <glm/glm.hpp>
+#include <SDL.h>
 
 struct Entity
 {
@@ -10,9 +11,9 @@ struct Entity
 	size_t imgHeight;
 	glm::vec2 pos = glm::vec2();
 	glm::vec2 imgVel = glm::vec2();
-	int xPos;
-	int yPos;
-	int xVel;
-	int yVel;
 	double angle;
+	SDL_Rect srcRect = { 0, 0, 0, 0 };
+	SDL_Surface* imgSurface = nullptr;
+	SDL_Texture* imgTexture = nullptr;
+	SDL_Rect imgDstRect = { 0, 0, 0, 0 };
 };

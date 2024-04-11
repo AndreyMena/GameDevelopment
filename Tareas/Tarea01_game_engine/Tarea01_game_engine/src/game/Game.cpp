@@ -4,7 +4,7 @@
 
 Game::Game() {
 	std::cout << "Se ejecuta el constructor de GAME" << std::endl;
-
+	/*
 	std::string nombreArchivo = "config.txt";
 	std::ifstream archivoEntrada(nombreArchivo);
 	std::string etiqueta;
@@ -27,17 +27,29 @@ Game::Game() {
 		archivoEntrada >> entity.name >> entity.directory >> entity.imgWidth
 			>> entity.imgHeight >> entity.pos.x >> entity.pos.y 
 			>> entity.imgVel.x >> entity.imgVel.y >> entity.angle;
+		
+		entity.imgSurface = IMG_Load(entity.name.c_str());
+		entity.imgTexture = SDL_CreateTextureFromSurface(this->renderer, entity.imgSurface);
+		SDL_FreeSurface(entity.imgSurface);
 
+		entity.imgDstRect.x = entity.pos.x;
+		entity.imgDstRect.y = entity.pos.x;
+		entity.imgDstRect.w = entity.imgWidth;
+		entity.imgDstRect.h = entity.imgHeight;
+
+		entity.srcRect.x = 0;
+		entity.srcRect.y = 0;
+		entity.srcRect.w = entity.imgWidth;
+		entity.srcRect.h = entity.imgHeight;
+		
 		entitiesVector.push_back(entity);
-
 		etiqueta = "";
 		archivoEntrada >> etiqueta;
 		if (etiqueta == "") {
 			exit = false;
 		}
 	}
-	//while (archivoEntrada >> etiqueta) {
-	//}
+	*/
 }
 
 Game::~Game() {
@@ -45,6 +57,19 @@ Game::~Game() {
 }
 
 void Game::init() {
+	std::string nombreArchivo = "config.txt";
+	std::ifstream archivoEntrada(nombreArchivo);
+	std::string etiqueta;
+
+	archivoEntrada >> etiqueta;
+	if (etiqueta.compare("window") == 0) {
+		archivoEntrada >> this->windowWidth >> this->windowHeight
+			>> this->windowColor.r >> this->windowColor.g
+			>> this->windowColor.b;
+	}
+
+
+
 	// Inicializar SDL
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		std::cout << "Error al inicializar SDL" << std::endl;
@@ -56,8 +81,6 @@ void Game::init() {
 		return;
 	}
 
-	//this->windowWidth = 800;
-	//this->windowHeight = 600;
 
 	// Crear la ventana
 	this->window = SDL_CreateWindow(
@@ -75,6 +98,51 @@ void Game::init() {
 		-1,
 		0
 	);
+
+
+
+
+	archivoEntrada >> etiqueta;
+	if (etiqueta.compare("font") == 0) {
+		archivoEntrada >> this->font.name >> this->font.r >> this->font.g
+			>> this->font.b >> this->font.size;
+	}
+	archivoEntrada >> etiqueta;
+	bool exit = true;
+	while (etiqueta.compare("entity") == 0 && exit) {
+		Entity entity;
+		archivoEntrada >> entity.name >> entity.directory >> entity.imgWidth
+			>> entity.imgHeight >> entity.pos.x >> entity.pos.y
+			>> entity.imgVel.x >> entity.imgVel.y >> entity.angle;
+
+		entity.imgSurface = IMG_Load(entity.directory.c_str());
+		entity.imgTexture = SDL_CreateTextureFromSurface(this->renderer, entity.imgSurface);
+		SDL_FreeSurface(entity.imgSurface);
+
+		entity.imgDstRect.x = entity.pos.x;
+		entity.imgDstRect.y = entity.pos.x;
+		entity.imgDstRect.w = entity.imgWidth;
+		entity.imgDstRect.h = entity.imgHeight;
+
+		entity.srcRect.x = 0;
+		entity.srcRect.y = 0;
+		entity.srcRect.w = entity.imgWidth;
+		entity.srcRect.h = entity.imgHeight;
+
+		entitiesVector.push_back(entity);
+		etiqueta = "";
+		archivoEntrada >> etiqueta;
+		if (etiqueta == "") {
+			exit = false;
+		}
+
+		entity.imgVel.x = 50; // 50 pixels por segundo
+		entity.imgVel.y = -50;
+	}
+
+
+
+
 
 	// Cargar texto
 	this->ttfFont = TTF_OpenFont(this->font.name.c_str(), this->font.size);
@@ -96,7 +164,7 @@ void Game::init() {
 	this->srcRect.w = this->imgWidth;
 	this->srcRect.h = this->imgHeight;
 
-	// Inicializardatos del texto
+	// Inicializar datos del texto
 	this->message = "Lab 04: Intro al motor de videojuegos";
 	this->fontColor.r = 255;
 	SDL_Surface* txtSurface = TTF_RenderText_Solid(this->ttfFont,
@@ -145,6 +213,12 @@ void Game::update() {
 
 	this->mPrvsFrame = SDL_GetTicks();
 
+
+	for (int index = 0; index < entitiesVector.size(); index++) {
+		this->entitiesVector[index].pos.x += this->entitiesVector[index].imgVel.x * deltaTime;
+		this->entitiesVector[index].pos.y += this->entitiesVector[index].imgVel.y * deltaTime;
+	}
+
 	this->pos.x += this->imgVel.x * deltaTime;
 	this->pos.y += this->imgVel.y * deltaTime;
 }
@@ -157,6 +231,7 @@ void Game::render() {
 		this->windowColor.a
 	);
 	//SDL_SetRenderDrawColor(this->renderer, 30, 30, 30, 255);
+
 	SDL_RenderClear(this->renderer);
 
 	SDL_Rect imgDstRect = {
@@ -167,14 +242,32 @@ void Game::render() {
 	};
 
 	SDL_Rect txtDstRect = {
-	this->txtPos.x,
-	this->txtPos.y,
-	this->txtWidth,
-	this->txtHeight
+		this->txtPos.x,
+		this->txtPos.y,
+		this->txtWidth,
+		this->txtHeight
 	};
 
-	// Dibujar imagen
-	// https://wiki.libsdl.org/SDL2/SDL_RenderCopyEx
+	this->entitiesVector[0].angle = 0.0;
+	for (int index = 0; index < entitiesVector.size(); index++) {
+		this->entitiesVector[index].imgDstRect.x = this->entitiesVector[index].pos.x;
+		this->entitiesVector[index].imgDstRect.y = this->entitiesVector[index].pos.y;
+		this->entitiesVector[index].imgDstRect.w = this->entitiesVector[index].imgWidth;
+		this->entitiesVector[index].imgDstRect.h = this->entitiesVector[index].imgHeight;
+
+		// Dibujar imagen
+		// https://wiki.libsdl.org/SDL2/SDL_RenderCopyEx
+		SDL_RenderCopyEx(
+			this->renderer,
+			this->entitiesVector[index].imgTexture,
+			&this->entitiesVector[index].srcRect,
+			&this->entitiesVector[index].imgDstRect,
+			this->entitiesVector[index].angle,
+			NULL,
+			SDL_FLIP_NONE
+		);
+	}
+
 	SDL_RenderCopyEx(
 		this->renderer,
 		this->imgTexture,
