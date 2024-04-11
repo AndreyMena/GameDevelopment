@@ -7,6 +7,9 @@
 #include <SDL_ttf.h>
 #include <string>
 #include "../util/Color.h"
+#include "../util/Font.h"
+#include "../util/Entity.h"
+#include <vector>
 
 const int FPS = 60;
 const int MILLISECS_PER_FRAME = 1000 / FPS; //16.6
@@ -19,12 +22,14 @@ class Game {
 	size_t windowHeight = 0;
 	Color windowColor;
 
-	TTF_Font* font = nullptr;
-	int fontSize = 0;
+	Font font;
+	TTF_Font* ttfFont = nullptr;
 	SDL_Color fontColor = { 0, 0, 0 };
 
 	bool isRunning = false;
 	int mPrvsFrame = 0; //miliseconds previous frame
+
+	std::vector<Entity> entitiesVector;
 
 	// Atributos de la imagen
 	SDL_Texture* imgTexture = nullptr;

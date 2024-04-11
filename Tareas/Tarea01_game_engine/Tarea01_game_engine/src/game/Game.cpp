@@ -7,7 +7,6 @@ Game::Game() {
 
 	std::string nombreArchivo = "config.txt";
 	std::ifstream archivoEntrada(nombreArchivo);
-
 	std::string etiqueta;
 
 	archivoEntrada >> etiqueta;
@@ -18,13 +17,19 @@ Game::Game() {
 	}
 	archivoEntrada >> etiqueta;
 	if (etiqueta.compare("font") == 0) {
-
-	} else if ("entity") {
-	
+		archivoEntrada >> this->font.name >> this->font.r >> this->font.g
+			>> this->font.b >> this->font.size;
 	}
 	archivoEntrada >> etiqueta;
-	if (etiqueta.compare("font") == 0) {
+	while (etiqueta.compare("entity") == 0 && !etiqueta.compare("")) {
+		Entity entity;
+		archivoEntrada >> entity.name >> entity.directory >> entity.imgWidth
+			>> entity.imgHeight >> entity.pos.x >> entity.pos.y 
+			>> entity.imgVel.x >> entity.imgVel.y >> entity.angle;
 
+		entitiesVector.push_back(entity);
+
+		archivoEntrada >> etiqueta;
 	}
 	//while (archivoEntrada >> etiqueta) {
 	//}
@@ -67,9 +72,7 @@ void Game::init() {
 	);
 
 	// Cargar texto
-	this->fontSize = 12;
-	this->font = TTF_OpenFont("./assets/fonts/highway_gothic.ttf",
-		this->fontSize);
+	this->ttfFont = TTF_OpenFont(this->font.name.c_str(), this->font.size);
 
 	this->isRunning = true;
 
@@ -84,14 +87,14 @@ void Game::init() {
 	this->imgTexture = SDL_CreateTextureFromSurface(this->renderer, imgSurface);
 	SDL_FreeSurface(imgSurface);
 	this->srcRect.x = 0;
-	this->srcRect.x = 0;
+	this->srcRect.y = 0;
 	this->srcRect.w = this->imgWidth;
 	this->srcRect.h = this->imgHeight;
 
 	// Inicializardatos del texto
 	this->message = "Lab 04: Intro al motor de videojuegos";
 	this->fontColor.r = 255;
-	SDL_Surface* txtSurface = TTF_RenderText_Solid(this->font,
+	SDL_Surface* txtSurface = TTF_RenderText_Solid(this->ttfFont,
 		this->message.c_str(),
 		this->fontColor
 	);
