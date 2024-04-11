@@ -4,52 +4,6 @@
 
 Game::Game() {
 	std::cout << "Se ejecuta el constructor de GAME" << std::endl;
-	/*
-	std::string nombreArchivo = "config.txt";
-	std::ifstream archivoEntrada(nombreArchivo);
-	std::string etiqueta;
-
-	archivoEntrada >> etiqueta;
-	if (etiqueta.compare("window") == 0) {
-		archivoEntrada >> this->windowWidth >> this->windowHeight 
-			>> this->windowColor.r >> this->windowColor.g 
-			>> this->windowColor.b;
-	}
-	archivoEntrada >> etiqueta;
-	if (etiqueta.compare("font") == 0) {
-		archivoEntrada >> this->font.name >> this->font.r >> this->font.g
-			>> this->font.b >> this->font.size;
-	}
-	archivoEntrada >> etiqueta;
-	bool exit = true;
-	while (etiqueta.compare("entity") == 0 && exit) {
-		Entity entity;
-		archivoEntrada >> entity.name >> entity.directory >> entity.imgWidth
-			>> entity.imgHeight >> entity.pos.x >> entity.pos.y 
-			>> entity.imgVel.x >> entity.imgVel.y >> entity.angle;
-		
-		entity.imgSurface = IMG_Load(entity.name.c_str());
-		entity.imgTexture = SDL_CreateTextureFromSurface(this->renderer, entity.imgSurface);
-		SDL_FreeSurface(entity.imgSurface);
-
-		entity.imgDstRect.x = entity.pos.x;
-		entity.imgDstRect.y = entity.pos.x;
-		entity.imgDstRect.w = entity.imgWidth;
-		entity.imgDstRect.h = entity.imgHeight;
-
-		entity.srcRect.x = 0;
-		entity.srcRect.y = 0;
-		entity.srcRect.w = entity.imgWidth;
-		entity.srcRect.h = entity.imgHeight;
-		
-		entitiesVector.push_back(entity);
-		etiqueta = "";
-		archivoEntrada >> etiqueta;
-		if (etiqueta == "") {
-			exit = false;
-		}
-	}
-	*/
 }
 
 Game::~Game() {
@@ -61,26 +15,23 @@ void Game::init() {
 	std::ifstream archivoEntrada(nombreArchivo);
 	std::string etiqueta;
 
+	// Inicializar SDL
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+		std::cout << "Error al inicializar SDL" << std::endl;
+		return;
+	}
+	if (TTF_Init() < 0) {
+		std::cout << "Error al inicializar SDL_TTF" << std::endl;
+		return;
+	}
+
+	// Lectura de datos para la ventana
 	archivoEntrada >> etiqueta;
 	if (etiqueta.compare("window") == 0) {
 		archivoEntrada >> this->windowWidth >> this->windowHeight
 			>> this->windowColor.r >> this->windowColor.g
 			>> this->windowColor.b;
 	}
-
-
-
-	// Inicializar SDL
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-		std::cout << "Error al inicializar SDL" << std::endl;
-		return;
-	}
-
-	if (TTF_Init() < 0) {
-		std::cout << "Error al inicializar SDL_TTF" << std::endl;
-		return;
-	}
-
 
 	// Crear la ventana
 	this->window = SDL_CreateWindow(
@@ -98,9 +49,6 @@ void Game::init() {
 		-1,
 		0
 	);
-
-
-
 
 	archivoEntrada >> etiqueta;
 	if (etiqueta.compare("font") == 0) {
@@ -120,12 +68,12 @@ void Game::init() {
 		SDL_FreeSurface(entity.imgSurface);
 
 		entity.imgDstRect.x = entity.pos.x;
-		entity.imgDstRect.y = entity.pos.x;
+		entity.imgDstRect.y = entity.pos.y;
 		entity.imgDstRect.w = entity.imgWidth;
 		entity.imgDstRect.h = entity.imgHeight;
 
-		entity.srcRect.x = 0;
-		entity.srcRect.y = 0;
+		entity.srcRect.x = 0; //Borrar
+		entity.srcRect.y = 0; //Borrar
 		entity.srcRect.w = entity.imgWidth;
 		entity.srcRect.h = entity.imgHeight;
 
@@ -135,34 +83,12 @@ void Game::init() {
 		if (etiqueta == "") {
 			exit = false;
 		}
-
-		entity.imgVel.x = 50; // 50 pixels por segundo
-		entity.imgVel.y = -50;
 	}
-
-
-
-
 
 	// Cargar texto
 	this->ttfFont = TTF_OpenFont(this->font.name.c_str(), this->font.size);
 
 	this->isRunning = true;
-
-	// Inicializar datos de la imagen
-	this->imgWidth = 32;
-	this->imgHeight = 32;
-	this->pos.x = (this->windowWidth / 2) - (this->imgWidth / 2);
-	this->pos.y = (this->windowHeight / 2) - (this->imgHeight / 2);
-	this->imgVel.x = 50; // 50 pixels por segundo
-	this->imgVel.y = -50;
-	SDL_Surface* imgSurface = IMG_Load("./assets/images/skull.png");
-	this->imgTexture = SDL_CreateTextureFromSurface(this->renderer, imgSurface);
-	SDL_FreeSurface(imgSurface);
-	this->srcRect.x = 0;
-	this->srcRect.y = 0;
-	this->srcRect.w = this->imgWidth;
-	this->srcRect.h = this->imgHeight;
 
 	// Inicializar datos del texto
 	this->message = "Lab 04: Intro al motor de videojuegos";
@@ -213,14 +139,11 @@ void Game::update() {
 
 	this->mPrvsFrame = SDL_GetTicks();
 
-
 	for (int index = 0; index < entitiesVector.size(); index++) {
 		this->entitiesVector[index].pos.x += this->entitiesVector[index].imgVel.x * deltaTime;
 		this->entitiesVector[index].pos.y += this->entitiesVector[index].imgVel.y * deltaTime;
 	}
 
-	this->pos.x += this->imgVel.x * deltaTime;
-	this->pos.y += this->imgVel.y * deltaTime;
 }
 
 void Game::render() {
@@ -230,16 +153,7 @@ void Game::render() {
 		this->windowColor.b,
 		this->windowColor.a
 	);
-	//SDL_SetRenderDrawColor(this->renderer, 30, 30, 30, 255);
-
 	SDL_RenderClear(this->renderer);
-
-	SDL_Rect imgDstRect = {
-		this->pos.x,
-		this->pos.y,
-		this->imgWidth,
-		this->imgHeight
-	};
 
 	SDL_Rect txtDstRect = {
 		this->txtPos.x,
@@ -267,16 +181,6 @@ void Game::render() {
 			SDL_FLIP_NONE
 		);
 	}
-
-	SDL_RenderCopyEx(
-		this->renderer,
-		this->imgTexture,
-		&this->srcRect,
-		&imgDstRect,
-		this->angle,
-		NULL,
-		SDL_FLIP_NONE
-	);
 
 	SDL_RenderCopyEx(
 		this->renderer,
