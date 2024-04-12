@@ -221,6 +221,7 @@ void Game::destroy() {
 		SDL_DestroyTexture(this->entitiesVector[index].txtTexture);
 	}
 
+	TTF_CloseFont(ttfFont);
 	SDL_DestroyRenderer(this->renderer);
 	SDL_DestroyWindow(this->window);
 
