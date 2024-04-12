@@ -27,6 +27,7 @@ class Game {
 	SDL_Color fontColor = { 0, 0, 0 };
 
 	bool isRunning = false;
+	bool pause = false;
 	int mPrvsFrame = 0; //miliseconds previous frame
 
 	std::vector<Entity> entitiesVector;

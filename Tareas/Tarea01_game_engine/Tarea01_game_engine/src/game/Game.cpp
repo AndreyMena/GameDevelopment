@@ -14,6 +14,7 @@ void Game::init() {
 	std::string nombreArchivo = "config.txt";
 	std::ifstream archivoEntrada(nombreArchivo);
 	std::string etiqueta;
+	this->pause = false;
 
 	// Inicializar SDL
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -133,6 +134,9 @@ void Game::processInput() {
 			if (sdlEvent.key.keysym.sym == SDLK_ESCAPE) {
 				this->isRunning = false;
 			}
+			if (sdlEvent.key.keysym.sym == SDLK_p) {
+				this->pause = !this->pause;
+			}
 			break;
 		default:
 			break;
@@ -155,29 +159,31 @@ void Game::update() {
 
 	this->mPrvsFrame = SDL_GetTicks();
 
-	for (int index = 0; index < entitiesVector.size(); index++) {
-		this->entitiesVector[index].pos.x += this->entitiesVector[index].imgVel.x * deltaTime;
-		this->entitiesVector[index].pos.y += this->entitiesVector[index].imgVel.y * deltaTime;
+	if (!this->pause) {
+		for (int index = 0; index < entitiesVector.size(); index++) {
+			this->entitiesVector[index].pos.x += this->entitiesVector[index].imgVel.x * deltaTime;
+			this->entitiesVector[index].pos.y += this->entitiesVector[index].imgVel.y * deltaTime;
 
-		if (this->entitiesVector[index].pos.x + this->entitiesVector[index].imgWidth >= this->windowWidth 
-			|| this->entitiesVector[index].pos.x <= 0.0) {
-			this->entitiesVector[index].imgVel.x = this->entitiesVector[index].imgVel.x * -1;
-		}
+			if (this->entitiesVector[index].pos.x + this->entitiesVector[index].imgWidth >= this->windowWidth 
+				|| this->entitiesVector[index].pos.x <= 0.0) {
+				this->entitiesVector[index].imgVel.x = this->entitiesVector[index].imgVel.x * -1;
+			}
 
-		if (this->entitiesVector[index].pos.y + this->entitiesVector[index].imgHeight >= this->windowHeight 
-			|| this->entitiesVector[index].pos.y <= 0.0) {
-			this->entitiesVector[index].imgVel.y = this->entitiesVector[index].imgVel.y * -1;
-		}
+			if (this->entitiesVector[index].pos.y + this->entitiesVector[index].imgHeight >= this->windowHeight 
+				|| this->entitiesVector[index].pos.y <= 0.0) {
+				this->entitiesVector[index].imgVel.y = this->entitiesVector[index].imgVel.y * -1;
+			}
 
-		float centerOfImageX = (this->entitiesVector[index].pos.x) + 
-			(this->entitiesVector[index].imgWidth / 2);
-		this->entitiesVector[index].txtPos.x = centerOfImageX - 
-			(this->entitiesVector[index].txtWidth / 2);
+			float centerOfImageX = (this->entitiesVector[index].pos.x) + 
+				(this->entitiesVector[index].imgWidth / 2);
+			this->entitiesVector[index].txtPos.x = centerOfImageX - 
+				(this->entitiesVector[index].txtWidth / 2);
 		
-		float centerOfImageY = (this->entitiesVector[index].pos.y) + 
-			(this->entitiesVector[index].imgHeight / 2);
-		this->entitiesVector[index].txtPos.y = centerOfImageY - 
-			(this->entitiesVector[index].txtHeight / 2);
+			float centerOfImageY = (this->entitiesVector[index].pos.y) + 
+				(this->entitiesVector[index].imgHeight / 2);
+			this->entitiesVector[index].txtPos.y = centerOfImageY - 
+				(this->entitiesVector[index].txtHeight / 2);
+		}
 	}
 
 }
