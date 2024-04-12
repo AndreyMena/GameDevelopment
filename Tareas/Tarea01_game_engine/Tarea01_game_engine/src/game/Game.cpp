@@ -49,6 +49,9 @@ void Game::init() {
 	if (etiqueta.compare("font") == 0) {
 		archivoEntrada >> this->font.address >> this->font.r >> this->font.g
 			>> this->font.b >> this->font.size;
+		this->fontColor.r = this->font.r;
+		this->fontColor.g = this->font.g;
+		this->fontColor.b = this->font.b;
 	}
 	archivoEntrada >> etiqueta;
 	bool exit = true;
@@ -74,7 +77,6 @@ void Game::init() {
 
 		// Cargar texto
 		entity.message = entity.name;
-		this->fontColor.r = 255;
 		this->ttfFont = TTF_OpenFont(this->font.address.c_str(), this->font.size);
 		SDL_Surface* txtSurface = TTF_RenderText_Solid(this->ttfFont,
 			entity.message.c_str(),
@@ -157,6 +159,16 @@ void Game::update() {
 		this->entitiesVector[index].pos.x += this->entitiesVector[index].imgVel.x * deltaTime;
 		this->entitiesVector[index].pos.y += this->entitiesVector[index].imgVel.y * deltaTime;
 
+		if (this->entitiesVector[index].pos.x + this->entitiesVector[index].imgWidth >= this->windowWidth 
+			|| this->entitiesVector[index].pos.x <= 0.0) {
+			this->entitiesVector[index].imgVel.x = this->entitiesVector[index].imgVel.x * -1;
+		}
+
+		if (this->entitiesVector[index].pos.y + this->entitiesVector[index].imgHeight >= this->windowHeight 
+			|| this->entitiesVector[index].pos.y <= 0.0) {
+			this->entitiesVector[index].imgVel.y = this->entitiesVector[index].imgVel.y * -1;
+		}
+
 		float centerOfImageX = (this->entitiesVector[index].pos.x) + 
 			(this->entitiesVector[index].imgWidth / 2);
 		this->entitiesVector[index].txtPos.x = centerOfImageX - 
@@ -178,13 +190,6 @@ void Game::render() {
 		this->windowColor.a
 	);
 	SDL_RenderClear(this->renderer);
-
-	SDL_Rect txtDstRect = {
-		this->txtPos.x,
-		this->txtPos.y,
-		this->txtWidth,
-		this->txtHeight
-	};
 
 	this->entitiesVector[0].angle = 0.0;
 	for (int index = 0; index < entitiesVector.size(); index++) {
@@ -221,6 +226,13 @@ void Game::render() {
 			SDL_FLIP_NONE
 		);
 	}
+
+	SDL_Rect txtDstRect = {
+		this->txtPos.x,
+		this->txtPos.y,
+		this->txtWidth,
+		this->txtHeight
+	};
 
 	SDL_RenderCopyEx(
 		this->renderer,
