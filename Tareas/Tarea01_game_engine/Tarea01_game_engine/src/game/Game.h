@@ -31,15 +31,6 @@ class Game {
 
 	std::vector<Entity> entitiesVector;
 
-	// Atributos de la imagen
-	SDL_Texture* imgTexture = nullptr;
-	glm::vec2 pos = glm::vec2();
-	glm::vec2 imgVel = glm::vec2();
-	size_t imgWidth = 0;
-	size_t imgHeight = 0;
-	SDL_Rect srcRect = { 0, 0, 0, 0 };
-	double angle = 0.0;
-
 	// Atributos del texto
 	SDL_Texture* txtTexture = nullptr;
 	std::string message = "";

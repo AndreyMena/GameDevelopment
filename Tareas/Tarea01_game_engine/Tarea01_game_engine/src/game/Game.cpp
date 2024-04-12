@@ -28,9 +28,8 @@ void Game::init() {
 	// Lectura de datos para la ventana
 	archivoEntrada >> etiqueta;
 	if (etiqueta.compare("window") == 0) {
-		archivoEntrada >> this->windowWidth >> this->windowHeight
-			>> this->windowColor.r >> this->windowColor.g
-			>> this->windowColor.b;
+		archivoEntrada >> this->windowWidth >> this->windowHeight >> 
+			this->windowColor.r >> this->windowColor.g >> this->windowColor.b;
 	}
 
 	// Crear la ventana
@@ -44,15 +43,11 @@ void Game::init() {
 	);
 
 	//Crear el renderer
-	this->renderer = SDL_CreateRenderer(
-		this->window,
-		-1,
-		0
-	);
+	this->renderer = SDL_CreateRenderer(this->window, -1, 0);
 
 	archivoEntrada >> etiqueta;
 	if (etiqueta.compare("font") == 0) {
-		archivoEntrada >> this->font.name >> this->font.r >> this->font.g
+		archivoEntrada >> this->font.address >> this->font.r >> this->font.g
 			>> this->font.b >> this->font.size;
 	}
 	archivoEntrada >> etiqueta;
@@ -77,6 +72,25 @@ void Game::init() {
 		entity.srcRect.w = entity.imgWidth;
 		entity.srcRect.h = entity.imgHeight;
 
+		// Cargar texto
+		entity.message = entity.name;
+		this->fontColor.r = 255;
+		this->ttfFont = TTF_OpenFont(this->font.address.c_str(), this->font.size);
+		SDL_Surface* txtSurface = TTF_RenderText_Solid(this->ttfFont,
+			entity.message.c_str(),
+			this->fontColor
+		);
+		
+		entity.txtTexture = SDL_CreateTextureFromSurface(this->renderer, txtSurface);
+		entity.txtWidth = txtSurface->w;
+		entity.txtHeight = txtSurface->h;
+		float centerOfImageX = (entity.pos.x) + (entity.imgWidth / 2);
+		entity.txtPos.x = centerOfImageX - (entity.txtWidth / 2);
+		float centerOfImageY = (entity.pos.y) + (entity.imgHeight / 2);
+		entity.txtPos.y = centerOfImageY - (entity.txtHeight / 2);
+		entity.txtAngle = 0.0;
+		SDL_FreeSurface(txtSurface);
+		
 		entitiesVector.push_back(entity);
 		etiqueta = "";
 		archivoEntrada >> etiqueta;
@@ -86,7 +100,7 @@ void Game::init() {
 	}
 
 	// Cargar texto
-	this->ttfFont = TTF_OpenFont(this->font.name.c_str(), this->font.size);
+	this->ttfFont = TTF_OpenFont(this->font.address.c_str(), this->font.size);
 
 	this->isRunning = true;
 
@@ -142,6 +156,16 @@ void Game::update() {
 	for (int index = 0; index < entitiesVector.size(); index++) {
 		this->entitiesVector[index].pos.x += this->entitiesVector[index].imgVel.x * deltaTime;
 		this->entitiesVector[index].pos.y += this->entitiesVector[index].imgVel.y * deltaTime;
+
+		float centerOfImageX = (this->entitiesVector[index].pos.x) + 
+			(this->entitiesVector[index].imgWidth / 2);
+		this->entitiesVector[index].txtPos.x = centerOfImageX - 
+			(this->entitiesVector[index].txtWidth / 2);
+		
+		float centerOfImageY = (this->entitiesVector[index].pos.y) + 
+			(this->entitiesVector[index].imgHeight / 2);
+		this->entitiesVector[index].txtPos.y = centerOfImageY - 
+			(this->entitiesVector[index].txtHeight / 2);
 	}
 
 }
@@ -169,6 +193,12 @@ void Game::render() {
 		this->entitiesVector[index].imgDstRect.w = this->entitiesVector[index].imgWidth;
 		this->entitiesVector[index].imgDstRect.h = this->entitiesVector[index].imgHeight;
 
+		this->entitiesVector[index].txtDstRect.x = this->entitiesVector[index].txtPos.x;
+		this->entitiesVector[index].txtDstRect.y = this->entitiesVector[index].txtPos.y;
+		this->entitiesVector[index].txtDstRect.w = this->entitiesVector[index].txtWidth;
+		this->entitiesVector[index].txtDstRect.h = this->entitiesVector[index].txtHeight;
+
+
 		// Dibujar imagen
 		// https://wiki.libsdl.org/SDL2/SDL_RenderCopyEx
 		SDL_RenderCopyEx(
@@ -177,6 +207,16 @@ void Game::render() {
 			&this->entitiesVector[index].srcRect,
 			&this->entitiesVector[index].imgDstRect,
 			this->entitiesVector[index].angle,
+			NULL,
+			SDL_FLIP_NONE
+		);
+
+		SDL_RenderCopyEx(
+			this->renderer,
+			this->entitiesVector[index].txtTexture,
+			NULL, // Si es NULL dibuja toda la textura
+			&this->entitiesVector[index].txtDstRect,
+			this->entitiesVector[index].txtAngle,
 			NULL,
 			SDL_FLIP_NONE
 		);
@@ -205,7 +245,9 @@ void Game::run() {
 
 void Game::destroy() {
 	SDL_DestroyTexture(this->txtTexture);
-	SDL_DestroyTexture(this->imgTexture);
+	for (int index = 0; index < entitiesVector.size(); index++) {
+		SDL_DestroyTexture(this->entitiesVector[index].imgTexture);
+	}
 
 	SDL_DestroyRenderer(this->renderer);
 	SDL_DestroyWindow(this->window);

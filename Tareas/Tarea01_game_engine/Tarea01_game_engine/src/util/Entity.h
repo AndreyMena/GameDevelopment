@@ -16,4 +16,12 @@ struct Entity
 	SDL_Surface* imgSurface = nullptr;
 	SDL_Texture* imgTexture = nullptr;
 	SDL_Rect imgDstRect = { 0, 0, 0, 0 };
+
+	SDL_Texture* txtTexture = nullptr;
+	std::string message = "";
+	glm::vec2 txtPos = glm::vec2();
+	size_t txtWidth = 0;
+	size_t txtHeight = 0;
+	double txtAngle = 0.0;
+	SDL_Rect txtDstRect = { 0, 0, 0, 0 };
 };
