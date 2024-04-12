@@ -15,6 +15,8 @@ const int FPS = 60;
 const int MILLISECS_PER_FRAME = 1000 / FPS; //16.6
 
 class Game {
+private:
+	std::string fileConfig = "config.txt";
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 
@@ -32,17 +34,14 @@ class Game {
 
 	std::vector<Entity> entitiesVector;
 
-	// Atributos del texto
-	SDL_Texture* txtTexture = nullptr;
-	std::string message = "";
-	glm::vec2 txtPos = glm::vec2();
-	size_t txtWidth = 0;
-	size_t txtHeight = 0;
-	double txtAngle = 0.0;
-
 	void processInput();
 	void update();
 	void render();
+
+	//Functions that read configs
+	void setWindow(std::ifstream& archivoEntrada);
+	void setFont(std::ifstream& archivoEntrada);
+	void setEntities(std::ifstream& archivoEntrada);
 public:
 	Game();
 	~Game();

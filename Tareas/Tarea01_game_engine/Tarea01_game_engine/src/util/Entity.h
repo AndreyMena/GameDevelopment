@@ -5,6 +5,7 @@
 
 struct Entity
 {
+	//Image attributes
 	std::string name;
 	std::string directory;
 	size_t imgWidth;
@@ -17,6 +18,7 @@ struct Entity
 	SDL_Texture* imgTexture = nullptr;
 	SDL_Rect imgDstRect = { 0, 0, 0, 0 };
 
+	//Text attributes
 	SDL_Texture* txtTexture = nullptr;
 	std::string message = "";
 	glm::vec2 txtPos = glm::vec2();
