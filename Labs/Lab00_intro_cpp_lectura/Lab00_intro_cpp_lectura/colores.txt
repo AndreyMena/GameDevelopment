@@ -1,0 +1,5 @@
+color cobalt 3 97 175
+color islamic_green 1 175 8
+color alizarin 240 51 26
+color broom 240 211 26
+color roof_terracotta 155 79 69
