@@ -4,7 +4,7 @@
 #include "./Game/Game.H"
 
 int main(int argc, char* argv[]) {
-	std::cout << "Lab 05: Motor de videojuegos" << std::endl;
+	std::cout << "Tarea 02: Motor de videojuegos" << std::endl;
 	
 	Game game;
 	game.init();
