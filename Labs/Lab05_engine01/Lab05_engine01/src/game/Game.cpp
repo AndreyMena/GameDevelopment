@@ -1,18 +1,21 @@
 #include "Game.h"
 
 #include "../Components/CircleColliderComponent.h"
-#include "../Components/RigidbodyComponent.h"
-#include "../Components/TransformComponent.h"
-#include "../Components/SpriteComponent.h"
+#include "../Components/MouseControllerComponent.h"
 #include "../Components/KeyboardControllerComponent.h"
+#include "../Components/RigidbodyComponent.h"
+#include "../Components/SpriteComponent.h"
+#include "../Components/TransformComponent.h"
 
 #include "../Events/KeyboardEvent.h"
+#include "../Events/MouseMotionEvent.h"
 
-#include "../Systems/RenderSystem.h"
-#include "../Systems/KeyboardControllerSystem.h"
-#include "../Systems/MovementSystem.h"
 #include "../Systems/CollisionSystem.h"
 #include "../Systems/DamageSystem.h"
+#include "../Systems/KeyboardControllerSystem.h"
+#include "../Systems/MouseControllerSystem.h"
+#include "../Systems/MovementSystem.h"
+#include "../Systems/RenderSystem.h"
 
 #include <iostream>
 #include <glm/glm.hpp>
@@ -56,6 +59,7 @@ void Game::Setup() {
 	manager->AddSystem<MovementSystem>();
 	manager->AddSystem<CollisionSystem>();
 	manager->AddSystem<DamageSystem>();
+	manager->AddSystem<MouseControllerSystem>();
 
 	// Cargar Texturas
 	assetStore->AddTexture("ship-img", "./assets/img/ship.png", renderer);
@@ -69,6 +73,7 @@ void Game::Setup() {
 	s01.AddComponent<SpriteComponent>("ship-img", 16, 16, 16, 0);
 	s01.AddComponent<TransformComponent>(glm::vec2(100.0f, 100.0f), 
 		glm::vec2(2.0, 2.0), 0.0);
+	s01.AddComponent<MouseControllerComponent>();
 
 	/*Entity s02 = manager->CreateEntity();
 	s02.AddComponent<CircleColliderComponent>(16);
@@ -94,6 +99,11 @@ void Game::processInput() {
 			break;
 		case SDL_KEYUP:
 			eventManager->EmitteEvent<KeyboardEvent>(false, sdlEvent.key.keysym.sym);
+			break;
+		case SDL_MOUSEMOTION:
+			int x, y;
+			SDL_GetMouseState(&x, &y);
+			eventManager->EmitteEvent<MouseMotionEvent>(glm::vec2(x, y));
 			break;
 		default:
 			break;
@@ -122,6 +132,8 @@ void Game::update() {
 	manager->GetSystem<KeyboardControllerSystem>().SubscribeToKeyboardEvent(
 		eventManager);
 	manager->GetSystem<DamageSystem>().SubscribeToCollisionEvent(eventManager);
+	manager->GetSystem<MouseControllerSystem>().SubscribeToMouseMotionEvent(
+		eventManager);
 
 	//Ejecutar funcion update
 	manager->GetSystem<MovementSystem>().Update(static_cast<float>(deltaTime));
