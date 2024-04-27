@@ -4,6 +4,7 @@
 #include "../Components/RigidbodyComponent.h"
 #include "../Components/TransformComponent.h"
 #include "../Components/SpriteComponent.h"
+#include "../Components/KeyboardControllerComponent.h"
 
 #include "../Events/KeyboardEvent.h"
 
@@ -62,16 +63,19 @@ void Game::Setup() {
 
 	// Creacion de entidades
 	Entity s01 = manager->CreateEntity();
-	s01.AddComponent<CircleColliderComponent>(16);
-	s01.AddComponent<RigidbodyComponent>(glm::vec2(50, 0));
+	s01.AddComponent<CircleColliderComponent>(16.0f);
+	s01.AddComponent<KeyboardControllerComponent>();
+	s01.AddComponent<RigidbodyComponent>(glm::vec2(0.0, 0.0), 150.0f);
 	s01.AddComponent<SpriteComponent>("ship-img", 16, 16, 16, 0);
-	s01.AddComponent<TransformComponent>(glm::vec2(100, 100), glm::vec2(2, 2), 0);
+	s01.AddComponent<TransformComponent>(glm::vec2(100.0f, 100.0f), 
+		glm::vec2(2.0, 2.0), 0.0);
 
-	Entity s02 = manager->CreateEntity();
+	/*Entity s02 = manager->CreateEntity();
 	s02.AddComponent<CircleColliderComponent>(16);
 	s02.AddComponent<RigidbodyComponent>(glm::vec2(-50, 0));
 	s02.AddComponent<SpriteComponent>("ship-img", 16, 16, 16, 0);
-	s02.AddComponent<TransformComponent>(glm::vec2(700, 100), glm::vec2(2, 2), 0);
+	s02.AddComponent<TransformComponent>(glm::vec2(700, 100), glm::vec2(2, 2), 0);*/
+	
 }
 
 void Game::processInput() {

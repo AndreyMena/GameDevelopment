@@ -3,13 +3,17 @@
 #include "../ECS/ECS.h"
 #include "../EventManager/EventManager.h"
 #include "../Events/KeyboardEvent.h"
+#include "../Components/KeyboardControllerComponent.h"
+#include "../Components/RigidbodyComponent.h"
+#include <glm/glm.hpp>
 #include <memory>
 #include <iostream>
 
 class KeyboardControllerSystem : public System {
 public:
 	KeyboardControllerSystem() {
-		// TODO agregar los componentes q requiere
+		RequireComponent<KeyboardControllerComponent>();
+		RequireComponent<RigidbodyComponent>();
 	}
 	//~KeyboardControllerSystem();
 
@@ -19,32 +23,53 @@ public:
 	}
 
 	void OnKeyboardEvent(KeyboardEvent& e) {
+		auto entities = GetSystemEntities();
+		auto entity = entities[0];  // Player
+		auto& controller = entity.GetComponent<KeyboardControllerComponent>();
+		auto& rigidbody = entity.GetComponent<RigidbodyComponent>();
+
 		if (e.keyDown) {
 			if (e.keyCode == SDLK_w) {
-				std::cout << "Tecla W: ABAJO" << std::endl;
+				controller.up = true;
 			}
 			if (e.keyCode == SDLK_d) {
-				std::cout << "Tecla D: ABAJO" << std::endl;
+				controller.right = true;
 			}
 			if (e.keyCode == SDLK_s) {
-				std::cout << "Tecla S: ABAJO" << std::endl;
+				controller.down = true;
 			}
 			if (e.keyCode == SDLK_a) {
-				std::cout << "Tecla A: ABAJO" << std::endl;
+				controller.left = true;
 			}
 		}else{
 			if (e.keyCode == SDLK_w) {
-				std::cout << "Tecla W: ARRIBA" << std::endl;
+				controller.up = false;
 			}
 			if (e.keyCode == SDLK_d) {
-				std::cout << "Tecla D: ARRIBA" << std::endl;
+				controller.right = false;
 			}
 			if (e.keyCode == SDLK_s) {
-				std::cout << "Tecla S: ARRIBA" << std::endl;
+				controller.down = false;
 			}
 			if (e.keyCode == SDLK_a) {
-				std::cout << "Tecla A: ARRIBA" << std::endl;
+				controller.left = false;
 			}
 		}
+
+		rigidbody.velocity = glm::vec2(0);
+
+		if (controller.up) {
+			rigidbody.velocity.y += -rigidbody.speed;
+		}
+		if (controller.right) {
+			rigidbody.velocity.x += rigidbody.speed;
+		}
+		if (controller.down) {
+			rigidbody.velocity.y += rigidbody.speed;
+		}
+		if (controller.left) {
+			rigidbody.velocity.x += -rigidbody.speed;
+		}
+
 	}
 };
