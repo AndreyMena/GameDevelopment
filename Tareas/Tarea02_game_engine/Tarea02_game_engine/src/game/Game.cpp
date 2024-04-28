@@ -60,9 +60,31 @@ void Game::setTextures(std::ifstream& archivoEntrada, std::string& etiqueta) {
 		archivoEntrada >> assetId >> address >> size;
 		assetStore->AddFont(assetId, address, size, renderer);
 	}else if(typeOfAsset.compare("image") == 0) {
-		archivoEntrada >> assetId >> address >> size;
-		assetStore->AddTexture(assetId, address, renderer);
+		int width;
+		int height;
+		archivoEntrada >> assetId >> address >> width >> height;
+		assetStore->AddTexture(assetId, address, renderer, width, height);
 	}
+}
+void Game::addPlayer(std::ifstream& archivoEntrada) {
+	std::string textureId;
+	int lifes;
+	int speed;
+	archivoEntrada >> textureId >> lifes >> speed;
+	
+	Image image = this->assetStore->GetImage(textureId);
+
+	Entity s01 = manager->CreateEntity();
+	s01.AddComponent<CircleColliderComponent>(16.0f);
+	s01.AddComponent<KeyboardControllerComponent>();
+	s01.AddComponent<RigidbodyComponent>(glm::vec2(0.0, 0.0), speed);
+	s01.AddComponent<SpriteComponent>(textureId, image.width, image.height, image.width, 0);
+	glm::vec2 position;
+	position.x = (this->windowWidth / 2) - (image.width / 2);
+	position.y = (this->windowHeight / 2) - (image.height / 2);
+	s01.AddComponent<TransformComponent>(position,
+		glm::vec2(2.0, 2.0), 0);
+	s01.AddComponent<MouseControllerComponent>();
 }
 
 void Game::readInput() {
@@ -77,13 +99,16 @@ void Game::readInput() {
 			this->setTextures(archivoEntrada, etiqueta);
 		}
 		else if (etiqueta == "player") {
-
+			this->addPlayer(archivoEntrada);
 		}
 		else if (etiqueta == "bullet") {
-
+			// TODO
+			std::string todo;
+			archivoEntrada >> todo >> todo;
 		}
 		else if (etiqueta == "enemy") {
-
+			std::string todo;
+			archivoEntrada >> todo >> todo >> todo >> todo >> todo;
 		}
 
 		etiqueta = "";
@@ -100,12 +125,7 @@ void Game::init() {
 		return;
 	}
 
-	std::ifstream archivoEntrada(this->fileConfig);
-	std::string etiqueta;
-	archivoEntrada >> etiqueta;
-	//this->readInput();
-
-	this->initWindow(archivoEntrada);
+	this->readInput();
 
 	isRunning = true;
 }
@@ -119,21 +139,6 @@ void Game::Setup() {
 	manager->AddSystem<CollisionSystem>();
 	manager->AddSystem<DamageSystem>();
 	manager->AddSystem<MouseControllerSystem>();
-
-	// Cargar Texturas
-	
-	assetStore->AddTexture("ship-img", "./assets/img/ship.png", renderer);
-
-
-	// Creacion de entidades
-	Entity s01 = manager->CreateEntity();
-	s01.AddComponent<CircleColliderComponent>(16.0f);
-	s01.AddComponent<KeyboardControllerComponent>();
-	s01.AddComponent<RigidbodyComponent>(glm::vec2(0.0, 0.0), 150.0f);
-	s01.AddComponent<SpriteComponent>("ship-img", 16, 16, 16, 0);
-	s01.AddComponent<TransformComponent>(glm::vec2(100.0f, 100.0f), 
-		glm::vec2(2.0, 2.0), 0.0);
-	s01.AddComponent<MouseControllerComponent>();
 
 	/*Entity s02 = manager->CreateEntity();
 	s02.AddComponent<CircleColliderComponent>(16);

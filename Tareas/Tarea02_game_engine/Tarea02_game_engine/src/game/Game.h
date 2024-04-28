@@ -33,7 +33,7 @@ class Game {
 	void readInput();
 	void initWindow(std::ifstream& archivoEntrada);
 	void setTextures(std::ifstream& archivoEntrada, std::string& etiqueta);
-	void setEntities(std::ifstream& archivoEntrada, std::string& etiqueta);
+	void addPlayer(std::ifstream& archivoEntrada);
 public:
 	Game();
 	~Game();
