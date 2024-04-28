@@ -93,4 +93,10 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\fonts\press_start.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\.editorconfig" />
+  </ItemGroup>
 </Project>

@@ -5,10 +5,15 @@
 
 AssetStore::AssetStore() {
 	std::cout << "ASSETSTORE: Se ejecuta constructor" << std::endl;
+	if (TTF_Init() < 0) {
+		std::cout << "Error al inicializar SDL_TTF" << std::endl;
+		return;
+	}
 }
 
 AssetStore::~AssetStore() {
 	std::cout << "ASSETSTORE: Se ejecuta destructor" << std::endl;
+	this->ClearAssets();
 }
 
 void AssetStore::ClearAssets() {
@@ -16,6 +21,11 @@ void AssetStore::ClearAssets() {
 		SDL_DestroyTexture(texture.second);
 	}
 	textures.clear();
+	for (auto font : fonts) {
+		TTF_CloseFont(font.second);
+	}
+	fonts.clear();
+	TTF_Quit();
 }
 
 void AssetStore::AddTexture(const std::string& assetId,
@@ -28,7 +38,16 @@ void AssetStore::AddTexture(const std::string& assetId,
 	textures.emplace(assetId, texture);
 }
 
-SDL_Texture* AssetStore::GetTexture(const std::string& assetId)
-{
+void AssetStore::AddFont(const std::string& assetId, 
+	const std::string& filepath, size_t sizeFont, SDL_Renderer* renderer) {
+	TTF_Font* font = TTF_OpenFont(filepath.c_str(), sizeFont);
+	fonts.emplace(assetId, font);
+}
+
+SDL_Texture* AssetStore::GetTexture(const std::string& assetId) {
 	return textures[assetId];
+}
+
+TTF_Font* AssetStore::GetFont(const std::string& assetId) {
+	return fonts[assetId];
 }

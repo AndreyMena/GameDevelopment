@@ -18,7 +18,9 @@
 #include "../Systems/RenderSystem.h"
 
 #include <iostream>
+#include <fstream>
 #include <glm/glm.hpp>
+#include <string>
 
 Game::Game() {
 	assetStore = std::make_shared<AssetStore>();
@@ -31,26 +33,83 @@ Game::~Game() {
 	std::cout << "Se ejecuta el destructor de GAME" << std::endl;
 }
 
-void Game::init() {
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-		std::cout << "Error al inicializar SDL" << std::endl;
-		return;
-	}
+void Game::initWindow(std::ifstream& archivoEntrada) {
+	// Lectura de datos para la ventana
+	archivoEntrada >> this->windowWidth >> this->windowHeight;
 
-	windowWidth = 800;
-	windowHeight = 600;
-
+	// Crear la ventana
 	this->window = SDL_CreateWindow("Tarea 02: Motor de videojuegos",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, this->windowWidth,
 		this->windowHeight, SDL_WINDOW_SHOWN);
 	// TODO: Verificar que se crea la ventana
 
 	this->renderer = SDL_CreateRenderer(this->window, -1, 0);
-
 	// TODO: Verificar que se crea el renderer
-	
+}
+
+void Game::setTextures(std::ifstream& archivoEntrada, std::string& etiqueta) {
+	// Lectura de datos para la ventana
+	std::string typeOfAsset;
+	archivoEntrada >> typeOfAsset;
+
+	std::string assetId;
+	std::string address;
+	std::size_t size;
+
+	if (typeOfAsset.compare("font") == 0) {
+		archivoEntrada >> assetId >> address >> size;
+		assetStore->AddFont(assetId, address, size, renderer);
+	}else if(typeOfAsset.compare("image") == 0) {
+		archivoEntrada >> assetId >> address >> size;
+		assetStore->AddTexture(assetId, address, renderer);
+	}
+}
+
+void Game::readInput() {
+	std::ifstream archivoEntrada(this->fileConfig);
+	bool exit = true;
+	std::string etiqueta;
+	archivoEntrada >> etiqueta;
+	while (exit) {
+		if (etiqueta.compare("window") == 0) {
+			this->initWindow(archivoEntrada);
+		} else if (etiqueta == "asset") {
+			this->setTextures(archivoEntrada, etiqueta);
+		}
+		else if (etiqueta == "player") {
+
+		}
+		else if (etiqueta == "bullet") {
+
+		}
+		else if (etiqueta == "enemy") {
+
+		}
+
+		etiqueta = "";
+		archivoEntrada >> etiqueta;
+		if (etiqueta == "") {
+			exit = false;
+		}
+	}
+}
+
+void Game::init() {
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+		std::cout << "Error al inicializar SDL" << std::endl;
+		return;
+	}
+
+	std::ifstream archivoEntrada(this->fileConfig);
+	std::string etiqueta;
+	archivoEntrada >> etiqueta;
+	//this->readInput();
+
+	this->initWindow(archivoEntrada);
+
 	isRunning = true;
 }
+
 
 void Game::Setup() {
 	// Agregar Sistema
@@ -62,6 +121,7 @@ void Game::Setup() {
 	manager->AddSystem<MouseControllerSystem>();
 
 	// Cargar Texturas
+	
 	assetStore->AddTexture("ship-img", "./assets/img/ship.png", renderer);
 
 
@@ -82,6 +142,7 @@ void Game::Setup() {
 	s02.AddComponent<TransformComponent>(glm::vec2(700, 100), glm::vec2(2, 2), 0);*/
 	
 }
+
 
 void Game::processInput() {
 	SDL_Event sdlEvent;

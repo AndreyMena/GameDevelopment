@@ -9,6 +9,7 @@ const int FPS = 60;
 const int MILLISECS_PER_FRAME = 1000 / FPS; //16.6
 
 class Game {
+	std::string fileConfig = "config.txt";
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 
@@ -28,6 +29,11 @@ class Game {
 	void update();
 	void render();
 
+	//Functions that read configs
+	void readInput();
+	void initWindow(std::ifstream& archivoEntrada);
+	void setTextures(std::ifstream& archivoEntrada, std::string& etiqueta);
+	void setEntities(std::ifstream& archivoEntrada, std::string& etiqueta);
 public:
 	Game();
 	~Game();

@@ -1,5 +1,12 @@
-window 800 600 35 35 35
-font ./assets/fonts/highway_gothic.ttf 255 255 255 12
-entity calavera ./assets/images/skull.png 32 32 100 100 -50 94 0
-entity anillo ./assets/images/ring.png 32 32 600 400 45 -100 0
-entity carta ./assets/images/letter.png 32 32 500 250 -84 14 0
+window 800 600
+asset font press-start-20-score ./assets/fonts/press_start.ttf 20
+asset font press-start-30-game-over ./assets/fonts/press_start.ttf 30
+asset image bg-img ./assets/img/space_bg.png 800 600
+asset image ship-img ./assets/img/ship.png 16 16
+asset image bonbon-img ./assets/img/bonbon.png 16 16
+asset image lips-img ./assets/img/lips.png 16 16
+asset image bullet-img ./assets/img/beam.png 16 16
+player ship-img 3 175
+bullet bullet-img 300
+enemy bonbon-img 100 10 100 1000
+enemy lips-img 200 50 150 1000
