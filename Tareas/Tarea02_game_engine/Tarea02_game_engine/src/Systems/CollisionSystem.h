@@ -2,6 +2,7 @@
 
 #include "../Components/CircleColliderComponent.h"
 #include "../Components/TransformComponent.h"
+#include "../Components/SpriteComponent.h"
 #include "../EventManager/EventManager.h"
 #include "../ECS/ECS.h"
 #include "../Events/CollisionEvent.h"
@@ -25,8 +26,28 @@ public:
 		RequireComponent<TransformComponent>();
 	}
 
-	void Update(std::shared_ptr<EventManager>& eventManager) {
+	void Update(std::shared_ptr<EventManager>& eventManager, size_t windowWidth, size_t windowHeight) {
 		auto entities = GetSystemEntities();
+
+		for (auto entity : GetSystemEntities()) {
+			auto& rigidbody = entity.GetComponent<RigidbodyComponent>();
+			auto& transform = entity.GetComponent<TransformComponent>();
+			auto& sprite = entity.GetComponent<SpriteComponent>();
+
+			
+			//Verificacion de rebotes
+			if (entity.GetId() != 0) {
+				if (transform.position.x + sprite.width >= windowWidth
+					|| transform.position.x <= 0.0) {
+					rigidbody.velocity.x = rigidbody.velocity.x * -1;
+				}
+				if (transform.position.y + sprite.height >= windowHeight
+					|| transform.position.y <= 0.0) {
+					rigidbody.velocity.y = rigidbody.velocity.y * -1;
+				}
+			}
+		}
+
 		for (auto i = entities.begin(); i != entities.end(); i++) {
 			auto a = *i;
 			auto& aCollider = a.GetComponent<CircleColliderComponent>();

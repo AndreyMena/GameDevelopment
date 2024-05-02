@@ -21,6 +21,8 @@
 #include <fstream>
 #include <glm/glm.hpp>
 #include <string>
+#include <ctime>
+#include <cstdlib>
 
 Game::Game() {
 	assetStore = std::make_shared<AssetStore>();
@@ -70,21 +72,57 @@ void Game::addPlayer(std::ifstream& archivoEntrada) {
 	std::string textureId;
 	int lifes;
 	int speed;
+	float scale = 2.0;
 	archivoEntrada >> textureId >> lifes >> speed;
 	
 	Image image = this->assetStore->GetImage(textureId);
 
-	Entity s01 = manager->CreateEntity();
-	s01.AddComponent<CircleColliderComponent>(16.0f);
-	s01.AddComponent<KeyboardControllerComponent>();
-	s01.AddComponent<RigidbodyComponent>(glm::vec2(0.0, 0.0), speed);
-	s01.AddComponent<SpriteComponent>(textureId, image.width, image.height, image.width, 0);
+	Entity player = manager->CreateEntity();
+	player.AddComponent<CircleColliderComponent>(16.0f);
+	player.AddComponent<KeyboardControllerComponent>();
+	player.AddComponent<RigidbodyComponent>(glm::vec2(0.0, 0.0), speed);
+	player.AddComponent<SpriteComponent>(textureId, image.width, image.height, image.width, 0);
 	glm::vec2 position;
 	position.x = (this->windowWidth / 2) - (image.width / 2);
 	position.y = (this->windowHeight / 2) - (image.height / 2);
-	s01.AddComponent<TransformComponent>(position,
-		glm::vec2(2.0, 2.0), 0);
-	s01.AddComponent<MouseControllerComponent>();
+
+	player.AddComponent<TransformComponent>(position,
+		glm::vec2(scale, scale), 0);
+	player.AddComponent<MouseControllerComponent>();
+}
+
+void Game::addEnemy(std::ifstream& archivoEntrada) {
+	std::string textureId;
+	int score;
+	int minSpeed;
+	int maxSpeed;
+	int spawnRate;
+	archivoEntrada >> textureId >> score >> minSpeed >>minSpeed >> maxSpeed >>
+		spawnRate;
+	srand(time(0));  // Initialize random number generator.
+	float speed = (rand() % maxSpeed) + minSpeed;
+	float speedX = (rand() % maxSpeed) + minSpeed;
+	float speedY = (rand() % maxSpeed) + minSpeed;
+
+	Image image = this->assetStore->GetImage(textureId);
+	float scale = 2.0;
+	glm::vec2 position;
+	int maxWidth = windowWidth - (image.width * scale);
+	int maxHeight = windowHeight - (image.height * scale);
+	position.x = (rand() % maxWidth);
+	position.y = (rand() % maxHeight);
+	std::cout << position.x << " "<< position.y << std::endl;
+
+	Entity enemy = manager->CreateEntity();
+	enemy.AddComponent<CircleColliderComponent>(16.0f);
+	enemy.AddComponent<RigidbodyComponent>(glm::vec2(speedX, speedY), speed);
+	enemy.AddComponent<SpriteComponent>(textureId, image.width, image.height, image.width, 0);
+	enemy.AddComponent<TransformComponent>(position,
+		glm::vec2(scale, scale), 0);
+
+	//s02.AddComponent<RigidbodyComponent>(glm::vec2(-50, 0));
+	//s02.AddComponent<SpriteComponent>("ship-img", 16, 16, 16, 0);
+	//s02.AddComponent<TransformComponent>(glm::vec2(700, 100), glm::vec2(2, 2), 0)
 }
 
 void Game::readInput() {
@@ -107,8 +145,10 @@ void Game::readInput() {
 			archivoEntrada >> todo >> todo;
 		}
 		else if (etiqueta == "enemy") {
-			std::string todo;
-			archivoEntrada >> todo >> todo >> todo >> todo >> todo;
+			std::cout << "aaa" << std::endl;
+			this->addEnemy(archivoEntrada);
+			//std::string todo;
+			//archivoEntrada >> todo >> todo >> todo >> todo >> todo;
 		}
 
 		etiqueta = "";
@@ -203,7 +243,7 @@ void Game::update() {
 
 	//Ejecutar funcion update
 	manager->GetSystem<MovementSystem>().Update(static_cast<float>(deltaTime));
-	manager->GetSystem<CollisionSystem>().Update(eventManager);
+	manager->GetSystem<CollisionSystem>().Update(eventManager, windowWidth, windowHeight);
 
 	manager->Update();
 }

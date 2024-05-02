@@ -34,6 +34,7 @@ class Game {
 	void initWindow(std::ifstream& archivoEntrada);
 	void setTextures(std::ifstream& archivoEntrada, std::string& etiqueta);
 	void addPlayer(std::ifstream& archivoEntrada);
+	void addEnemy(std::ifstream& archivoEntrada);
 public:
 	Game();
 	~Game();
