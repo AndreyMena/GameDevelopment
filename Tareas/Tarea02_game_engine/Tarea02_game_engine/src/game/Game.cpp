@@ -25,6 +25,8 @@
 #include <cstdlib>
 
 Game::Game() {
+	srand(time(0));  // Initialize random number generator.
+
 	assetStore = std::make_shared<AssetStore>();
 	manager = std::make_shared<ECSManager>();
 	eventManager = std::make_shared<EventManager>();
@@ -97,20 +99,20 @@ void Game::addEnemy(std::ifstream& archivoEntrada) {
 	int minSpeed;
 	int maxSpeed;
 	int spawnRate;
-	archivoEntrada >> textureId >> score >> minSpeed >>minSpeed >> maxSpeed >>
+	archivoEntrada >> textureId >> score >> minSpeed >> maxSpeed >>
 		spawnRate;
-	srand(time(0));  // Initialize random number generator.
-	float speed = (rand() % maxSpeed) + minSpeed;
-	float speedX = (rand() % maxSpeed) + minSpeed;
-	float speedY = (rand() % maxSpeed) + minSpeed;
+	
+	float speed = rand() % maxSpeed + minSpeed;
+	float speedX = rand() % maxSpeed + minSpeed;
+	float speedY = rand() % maxSpeed + minSpeed;
 
 	Image image = this->assetStore->GetImage(textureId);
 	float scale = 2.0;
 	glm::vec2 position;
 	int maxWidth = windowWidth - (image.width * scale);
 	int maxHeight = windowHeight - (image.height * scale);
-	position.x = (rand() % maxWidth);
-	position.y = (rand() % maxHeight);
+	position.x = rand() % maxWidth;
+	position.y = rand() % maxHeight;
 	std::cout << position.x << " "<< position.y << std::endl;
 
 	Entity enemy = manager->CreateEntity();
