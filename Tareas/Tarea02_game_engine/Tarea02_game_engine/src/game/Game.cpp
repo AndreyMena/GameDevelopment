@@ -127,8 +127,8 @@ void Game::addEnemy(std::ifstream& archivoEntrada) {
 	enemy.AddComponent<SpriteComponent>(textureId, image.width, image.height, image.width, 0);
 	enemy.AddComponent<TransformComponent>(position,
 		glm::vec2(scale, scale), 0);
-	enemy.AddComponent<EnemyGeneratorComponent>(textureId, image, score,
-		minSpeed, maxSpeed, spawnRate, 0.0);
+	//enemy.AddComponent<EnemyGeneratorComponent>(textureId, image, score,
+	//	minSpeed, maxSpeed, spawnRate, 0.0);
 }
 
 void Game::readInput() {

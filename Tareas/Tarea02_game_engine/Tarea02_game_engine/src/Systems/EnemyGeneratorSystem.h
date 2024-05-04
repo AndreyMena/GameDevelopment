@@ -49,7 +49,7 @@ public:
 		//std::cout << position.x << " " << position.y << std::endl;
 
 		Entity enemy = manager->CreateEntity();
-		enemy.AddComponent<CircleColliderComponent>(16.0f);
+		//enemy.AddComponent<CircleColliderComponent>(16.0f);
 		enemy.AddComponent<RigidbodyComponent>(glm::vec2(speedX, speedY), speed);
 		enemy.AddComponent<SpriteComponent>(enemyGenerator.image.textureId, 
 			enemyGenerator.image.width, enemyGenerator.image.height, 

@@ -28,11 +28,22 @@ public:
 					|| transform.position.y <= 0.0) {
 					rigidbody.velocity.y = rigidbody.velocity.y * -1;
 				}
+				transform.position += rigidbody.velocity * deltaTyme;
+			}else{
+				if ((transform.position.y >= 0 || rigidbody.velocity.y > 0)
+					&& (transform.position.y + (sprite.height * transform.scale.y) <= windowHeight || rigidbody.velocity.y < 0)) {
+					transform.position.y += rigidbody.velocity.y * deltaTyme;
+
+				}				
+				if ((transform.position.x >= 0 || rigidbody.velocity.x > 0)
+					&& (transform.position.x + (sprite.width * transform.scale.x) <= windowWidth || rigidbody.velocity.x < 0)) {
+					transform.position.x += rigidbody.velocity.x * deltaTyme;
+
+				}
+
 			}
 
-
-			transform.position += rigidbody.velocity * deltaTyme;
-
+			
 
 		}
 	}
