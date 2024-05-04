@@ -6,6 +6,7 @@
 #include "../Components/RigidbodyComponent.h"
 #include "../Components/SpriteComponent.h"
 #include "../Components/TransformComponent.h"
+#include "../Components/EnemyGeneratorComponent.h"
 
 #include "../Events/KeyboardEvent.h"
 #include "../Events/MouseMotionEvent.h"
@@ -16,6 +17,7 @@
 #include "../Systems/MouseControllerSystem.h"
 #include "../Systems/MovementSystem.h"
 #include "../Systems/RenderSystem.h"
+#include "../Systems/EnemyGeneratorSystem.h"
 
 #include <iostream>
 #include <fstream>
@@ -98,10 +100,14 @@ void Game::addEnemy(std::ifstream& archivoEntrada) {
 	int score;
 	int minSpeed;
 	int maxSpeed;
-	int spawnRate;
+	int intSpawnRate;
 	archivoEntrada >> textureId >> score >> minSpeed >> maxSpeed >>
-		spawnRate;
-	
+		intSpawnRate;
+	double spawnRate; // La variable donde almacenaremos el valor convertido
+
+	// Convertir el entero a double
+	spawnRate = static_cast<double>(intSpawnRate);
+
 	float speed = rand() % maxSpeed + minSpeed;
 	float speedX = rand() % maxSpeed + minSpeed;
 	float speedY = rand() % maxSpeed + minSpeed;
@@ -121,6 +127,8 @@ void Game::addEnemy(std::ifstream& archivoEntrada) {
 	enemy.AddComponent<SpriteComponent>(textureId, image.width, image.height, image.width, 0);
 	enemy.AddComponent<TransformComponent>(position,
 		glm::vec2(scale, scale), 0);
+	enemy.AddComponent<EnemyGeneratorComponent>(textureId, image, score,
+		minSpeed, maxSpeed, spawnRate, 0.0);
 }
 
 void Game::readInput() {
@@ -177,13 +185,7 @@ void Game::Setup() {
 	manager->AddSystem<CollisionSystem>();
 	manager->AddSystem<DamageSystem>();
 	manager->AddSystem<MouseControllerSystem>();
-
-	/*Entity s02 = manager->CreateEntity();
-	s02.AddComponent<CircleColliderComponent>(16);
-	s02.AddComponent<RigidbodyComponent>(glm::vec2(-50, 0));
-	s02.AddComponent<SpriteComponent>("ship-img", 16, 16, 16, 0);
-	s02.AddComponent<TransformComponent>(glm::vec2(700, 100), glm::vec2(2, 2), 0);*/
-	
+	manager->AddSystem<EnemyGeneratorSystem>(windowWidth, windowHeight);
 }
 
 
@@ -228,8 +230,8 @@ void Game::update() {
 	double deltaTime = (SDL_GetTicks() - this->mPrvsFrame) / 1000.0;
 
 	this->mPrvsFrame = SDL_GetTicks();
-
-	std::cout << this->mPrvsFrame << std::endl;
+	
+	//std::cout << this->a << std::endl;
 
 	// Limpiar los subscriptores
 	eventManager->Clear();
@@ -242,8 +244,9 @@ void Game::update() {
 		eventManager);
 
 	//Ejecutar funcion update
-	manager->GetSystem<MovementSystem>().Update(static_cast<float>(deltaTime));
-	manager->GetSystem<CollisionSystem>().Update(eventManager, windowWidth, windowHeight);
+	manager->GetSystem<MovementSystem>().Update(static_cast<float>(deltaTime), windowWidth, windowHeight);
+	manager->GetSystem<CollisionSystem>().Update(eventManager);
+	manager->GetSystem<EnemyGeneratorSystem>().Update(deltaTime, this->manager);
 
 	manager->Update();
 }

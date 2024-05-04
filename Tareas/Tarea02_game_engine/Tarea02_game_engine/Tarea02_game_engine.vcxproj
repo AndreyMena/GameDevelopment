@@ -162,6 +162,7 @@
     <ClInclude Include="src\game\Game.h" />
     <ClInclude Include="src\Systems\CollisionSystem.h" />
     <ClInclude Include="src\Systems\DamageSystem.h" />
+    <ClInclude Include="src\Systems\EnemyGeneratorSystem.h" />
     <ClInclude Include="src\Systems\KeyboardControllerSystem.h" />
     <ClInclude Include="src\Systems\MouseControllerSystem.h" />
     <ClInclude Include="src\Systems\MovementSystem.h" />
