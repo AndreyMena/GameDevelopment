@@ -121,10 +121,6 @@ void Game::addEnemy(std::ifstream& archivoEntrada) {
 	enemy.AddComponent<SpriteComponent>(textureId, image.width, image.height, image.width, 0);
 	enemy.AddComponent<TransformComponent>(position,
 		glm::vec2(scale, scale), 0);
-
-	//s02.AddComponent<RigidbodyComponent>(glm::vec2(-50, 0));
-	//s02.AddComponent<SpriteComponent>("ship-img", 16, 16, 16, 0);
-	//s02.AddComponent<TransformComponent>(glm::vec2(700, 100), glm::vec2(2, 2), 0)
 }
 
 void Game::readInput() {
@@ -232,6 +228,8 @@ void Game::update() {
 	double deltaTime = (SDL_GetTicks() - this->mPrvsFrame) / 1000.0;
 
 	this->mPrvsFrame = SDL_GetTicks();
+
+	std::cout << this->mPrvsFrame << std::endl;
 
 	// Limpiar los subscriptores
 	eventManager->Clear();

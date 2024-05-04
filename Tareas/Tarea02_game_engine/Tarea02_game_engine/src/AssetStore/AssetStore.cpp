@@ -34,6 +34,7 @@ void AssetStore::AddTexture(const std::string& assetId,
 	SDL_Surface* surface = IMG_Load(filepath.c_str());
 	image.texture = SDL_CreateTextureFromSurface(renderer, surface);
 	image.width = width;
+	image.textureId = assetId;
 	image.height = height;
 	SDL_FreeSurface(surface);
 
