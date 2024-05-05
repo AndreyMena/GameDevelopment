@@ -7,9 +7,11 @@
 #include "../Components/SpriteComponent.h"
 #include "../Components/TransformComponent.h"
 #include "../Components/EnemyGeneratorComponent.h"
+#include "../Components/ProjectileEmitterComponent.h"
 
 #include "../Events/KeyboardEvent.h"
 #include "../Events/MouseMotionEvent.h"
+#include "../Events/MouseClickEvent.h"
 
 #include "../Systems/CollisionSystem.h"
 #include "../Systems/DamageSystem.h"
@@ -18,6 +20,7 @@
 #include "../Systems/MovementSystem.h"
 #include "../Systems/RenderSystem.h"
 #include "../Systems/EnemyGeneratorSystem.h"
+#include "../Systems/ProjectileEmitterSystem.h"
 
 #include <iostream>
 #include <fstream>
@@ -93,6 +96,16 @@ void Game::addPlayer(std::ifstream& archivoEntrada) {
 	player.AddComponent<TransformComponent>(position,
 		glm::vec2(scale, scale), 0);
 	player.AddComponent<MouseControllerComponent>();
+
+	//Read bullet
+	std::string assetBullet;
+	std::string bullet;
+	int speedBullet;
+	archivoEntrada >> bullet;
+	if (bullet == "bullet") {
+		archivoEntrada >> assetBullet >> speedBullet;
+	}
+	player.AddComponent<ProjectileEmitterComponent>(assetBullet, speedBullet);
 }
 
 void Game::addEnemy(std::ifstream& archivoEntrada) {
@@ -139,18 +152,15 @@ void Game::readInput() {
 	while (exit) {
 		if (etiqueta.compare("window") == 0) {
 			this->initWindow(archivoEntrada);
-		} else if (etiqueta == "asset") {
+		}else if (etiqueta == "asset") {
 			this->setTextures(archivoEntrada, etiqueta);
-		}
-		else if (etiqueta == "player") {
+		}else if (etiqueta == "player") {
 			this->addPlayer(archivoEntrada);
-		}
-		else if (etiqueta == "bullet") {
+		}else if (etiqueta == "bullet") {
 			// TODO
-			std::string todo;
-			archivoEntrada >> todo >> todo;
-		}
-		else if (etiqueta == "enemy") {
+			//std::string todo;
+			//archivoEntrada >> todo >> todo;
+		}else if (etiqueta == "enemy") {
 			std::cout << "aaa" << std::endl;
 			this->addEnemy(archivoEntrada);
 			//std::string todo;
@@ -186,6 +196,7 @@ void Game::Setup() {
 	manager->AddSystem<DamageSystem>();
 	manager->AddSystem<MouseControllerSystem>();
 	manager->AddSystem<EnemyGeneratorSystem>(windowWidth, windowHeight);
+	manager->AddSystem<ProjectileEmitterSystem>(manager);
 }
 
 
@@ -210,6 +221,10 @@ void Game::processInput() {
 			int x, y;
 			SDL_GetMouseState(&x, &y);
 			eventManager->EmitteEvent<MouseMotionEvent>(glm::vec2(x, y));
+			break;
+		case SDL_MOUSEBUTTONDOWN:
+			eventManager->EmitteEvent<MouseClickEvent>(
+				glm::vec2(sdlEvent.button.x, sdlEvent.button.y));
 			break;
 		default:
 			break;
@@ -241,6 +256,8 @@ void Game::update() {
 		eventManager);
 	manager->GetSystem<DamageSystem>().SubscribeToCollisionEvent(eventManager);
 	manager->GetSystem<MouseControllerSystem>().SubscribeToMouseMotionEvent(
+		eventManager);
+	manager->GetSystem<ProjectileEmitterSystem>().SubscribeToMouseClickEvent(
 		eventManager);
 
 	//Ejecutar funcion update

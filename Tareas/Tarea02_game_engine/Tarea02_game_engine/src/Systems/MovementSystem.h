@@ -40,11 +40,7 @@ public:
 					transform.position.x += rigidbody.velocity.x * deltaTyme;
 
 				}
-
 			}
-
-			
-
 		}
 	}
 };
