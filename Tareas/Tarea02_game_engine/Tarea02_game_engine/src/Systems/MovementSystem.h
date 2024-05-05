@@ -4,6 +4,7 @@
 #include "../Components/RigidbodyComponent.h"
 #include "../Components/TransformComponent.h"
 #include "../Components/SpriteComponent.h"
+#include "../Components/TagComponent.h"
 
 class MovementSystem : public System {
 public:
@@ -17,9 +18,10 @@ public:
 			auto& rigidbody = entity.GetComponent<RigidbodyComponent>();
 			auto& transform = entity.GetComponent<TransformComponent>();
 			auto& sprite = entity.GetComponent<SpriteComponent>();
+			auto& tag = entity.GetComponent<TagComponent>();
 
-			//Verificacion de rebotes
-			if (entity.GetId() != 0) {
+			//Verificacion de rebotes y bordes
+			if (tag.tag == 1 /*Enemys*/) {
 				if (transform.position.x + sprite.width >= windowWidth
 					|| transform.position.x <= 0.0) {
 					rigidbody.velocity.x = rigidbody.velocity.x * -1;
@@ -29,7 +31,7 @@ public:
 					rigidbody.velocity.y = rigidbody.velocity.y * -1;
 				}
 				transform.position += rigidbody.velocity * deltaTyme;
-			}else{
+			}else if (tag.tag == 0 /*Player*/) {
 				if ((transform.position.y >= 0 || rigidbody.velocity.y > 0)
 					&& (transform.position.y + (sprite.height * transform.scale.y) <= windowHeight || rigidbody.velocity.y < 0)) {
 					transform.position.y += rigidbody.velocity.y * deltaTyme;
@@ -40,6 +42,8 @@ public:
 					transform.position.x += rigidbody.velocity.x * deltaTyme;
 
 				}
+			}else if (tag.tag == 2 /*Bullet*/) {
+				transform.position += rigidbody.velocity * deltaTyme;
 			}
 		}
 	}
