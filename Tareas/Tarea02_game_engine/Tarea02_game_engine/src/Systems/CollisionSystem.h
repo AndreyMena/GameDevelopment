@@ -3,6 +3,7 @@
 #include "../Components/CircleColliderComponent.h"
 #include "../Components/TransformComponent.h"
 #include "../Components/SpriteComponent.h"
+#include "../Components/TagComponent.h"
 #include "../EventManager/EventManager.h"
 #include "../ECS/ECS.h"
 #include "../Events/CollisionEvent.h"
@@ -39,6 +40,15 @@ public:
 				if (a == b) {
 					continue;
 				}
+				auto& aTag = a.GetComponent<TagComponent>();
+				auto& bTag = b.GetComponent<TagComponent>();
+				if (aTag.tag == 0 && bTag.tag == 2) {
+					continue;  //Player vs Bullet continue
+				}
+				if (aTag.tag == 2 && bTag.tag == 2) {
+					continue;  //Bullet vs Bullet continue
+				}
+
 
 				auto& bCollider = b.GetComponent<CircleColliderComponent>();
 				auto& bTransform = b.GetComponent<TransformComponent>();

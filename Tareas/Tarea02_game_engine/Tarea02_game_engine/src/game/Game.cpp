@@ -8,6 +8,7 @@
 #include "../Components/TransformComponent.h"
 #include "../Components/EnemyGeneratorComponent.h"
 #include "../Components/ProjectileEmitterComponent.h"
+#include "../Components/TagComponent.h"
 
 #include "../Events/KeyboardEvent.h"
 #include "../Events/MouseMotionEvent.h"
@@ -96,6 +97,7 @@ void Game::addPlayer(std::ifstream& archivoEntrada) {
 	player.AddComponent<TransformComponent>(position,
 		glm::vec2(scale, scale), 0);
 	player.AddComponent<MouseControllerComponent>();
+	player.AddComponent<TagComponent>(0);
 
 	//Read bullet
 	std::string assetBullet;
@@ -142,6 +144,7 @@ void Game::addEnemy(std::ifstream& archivoEntrada) {
 		glm::vec2(scale, scale), 0);
 	//enemy.AddComponent<EnemyGeneratorComponent>(textureId, image, score,
 	//	minSpeed, maxSpeed, spawnRate, 0.0);
+	enemy.AddComponent<TagComponent>(1);
 }
 
 void Game::readInput() {

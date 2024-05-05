@@ -153,6 +153,7 @@
     <ClInclude Include="src\Components\ProjectileEmitterComponent.h" />
     <ClInclude Include="src\Components\RigidbodyComponent.h" />
     <ClInclude Include="src\Components\SpriteComponent.h" />
+    <ClInclude Include="src\Components\TagComponent.h" />
     <ClInclude Include="src\Components\TransformComponent.h" />
     <ClInclude Include="src\ECS\ECS.h" />
     <ClInclude Include="src\EventManager\Event.h" />

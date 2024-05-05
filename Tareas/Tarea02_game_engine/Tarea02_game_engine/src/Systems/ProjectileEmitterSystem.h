@@ -8,6 +8,7 @@
 #include "../Components/RigidbodyComponent.h"
 #include "../Components/CircleColliderComponent.h"
 #include "../Components/SpriteComponent.h"
+#include "../Components/TagComponent.h"
 #include <memory>
 #include <cmath>
 #include <iostream>
@@ -47,14 +48,15 @@ public:
 		std::cout <<"Dir: " << direccion.x << " " << direccion.y << std::endl;
 
 		
-		Entity enemy = manager->CreateEntity();
-		//enemy.AddComponent<CircleColliderComponent>(16.0f);
-		enemy.AddComponent<RigidbodyComponent>(glm::vec2(direccion.x, direccion.y), projectile.speed);
-		enemy.AddComponent<SpriteComponent>(projectile.assetId, 16.0f, 16.0f, 0.0f, 0);
+		Entity bullet = manager->CreateEntity();
+		bullet.AddComponent<CircleColliderComponent>(16.0f);
+		bullet.AddComponent<RigidbodyComponent>(glm::vec2(direccion.x, direccion.y), projectile.speed);
+		bullet.AddComponent<SpriteComponent>(projectile.assetId, 16.0f, 16.0f, 0.0f, 0);
 		glm::vec2 pos;
 		pos.x = transform.position.x;
 		pos.y = transform.position.y;
-		enemy.AddComponent<TransformComponent>(pos,
+		bullet.AddComponent<TransformComponent>(pos,
 			glm::vec2(2, 2), 0);
+		bullet.AddComponent<TagComponent>(2);
 	}
 };

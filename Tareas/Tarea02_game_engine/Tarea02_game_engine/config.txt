@@ -7,6 +7,6 @@ asset image bonbon-img ./assets/img/bonbon.png 16 16
 asset image lips-img ./assets/img/lips.png 16 16
 asset image bullet-img ./assets/img/beam.png 16 16
 player ship-img 3 175
-bullet bullet-img 300
+bullet bullet-img 600
 enemy bonbon-img 100 10 100 1000
 enemy lips-img 200 50 150 1000
