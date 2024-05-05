@@ -6,6 +6,10 @@
 #include "../Components/SpriteComponent.h"
 #include "../Components/TagComponent.h"
 
+#include "../EventManager/EventManager.h"
+#include "../Events/OutOfLimitEvent.h"
+#include <iostream>
+
 class MovementSystem : public System {
 public:
 	MovementSystem() {
@@ -13,7 +17,16 @@ public:
 		RequireComponent<TransformComponent>();
 	}
 
-	void Update(float deltaTyme, size_t windowWidth, size_t windowHeight) {
+	void SubscribeToOutOfLimitEvent(std::shared_ptr<EventManager>& eventManager) {
+		eventManager->SubscribeToEvent<MovementSystem, OutOfLimitEvent>(this,
+			&MovementSystem::OnOutOfLimitEvent);
+	}
+
+	void OnOutOfLimitEvent(OutOfLimitEvent& e) {
+		e.bullet.Kill();
+	}
+
+	void Update(std::shared_ptr<EventManager>& eventManager, float deltaTyme, size_t windowWidth, size_t windowHeight) {
 		for (auto entity : GetSystemEntities()) {
 			auto& rigidbody = entity.GetComponent<RigidbodyComponent>();
 			auto& transform = entity.GetComponent<TransformComponent>();
@@ -43,7 +56,15 @@ public:
 
 				}
 			}else if (tag.tag == 2 /*Bullet*/) {
-				transform.position += rigidbody.velocity * deltaTyme;
+				if (transform.position.x >= windowWidth
+					|| transform.position.x - (sprite.width * transform.scale.x) <= 0
+					|| transform.position.y >= windowHeight
+					|| transform.position.y - (sprite.height * transform.scale.y) <= 0) {
+					std::cout << "Muero" << std::endl;
+					eventManager->EmitteEvent<OutOfLimitEvent>(entity);
+				}else{
+					transform.position += rigidbody.velocity * deltaTyme;
+				}
 			}
 		}
 	}

@@ -162,6 +162,7 @@
     <ClInclude Include="src\Events\KeyboardEvent.h" />
     <ClInclude Include="src\Events\MouseClickEvent.h" />
     <ClInclude Include="src\Events\MouseMotionEvent.h" />
+    <ClInclude Include="src\Events\OutOfLimitEvent.h" />
     <ClInclude Include="src\game\Game.h" />
     <ClInclude Include="src\Systems\CollisionSystem.h" />
     <ClInclude Include="src\Systems\DamageSystem.h" />

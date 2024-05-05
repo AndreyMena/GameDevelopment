@@ -262,9 +262,11 @@ void Game::update() {
 		eventManager);
 	manager->GetSystem<ProjectileEmitterSystem>().SubscribeToMouseClickEvent(
 		eventManager);
+	manager->GetSystem<MovementSystem>().SubscribeToOutOfLimitEvent(
+		eventManager);
 
 	//Ejecutar funcion update
-	manager->GetSystem<MovementSystem>().Update(static_cast<float>(deltaTime), windowWidth, windowHeight);
+	manager->GetSystem<MovementSystem>().Update(eventManager, static_cast<float>(deltaTime), windowWidth, windowHeight);
 	manager->GetSystem<CollisionSystem>().Update(eventManager);
 	manager->GetSystem<EnemyGeneratorSystem>().Update(deltaTime, this->manager);
 
