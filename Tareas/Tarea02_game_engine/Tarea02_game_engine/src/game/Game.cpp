@@ -9,6 +9,8 @@
 #include "../Components/EnemyGeneratorComponent.h"
 #include "../Components/ProjectileEmitterComponent.h"
 #include "../Components/TagComponent.h"
+#include "../Components/LifesComponent.h"
+#include "../Components/RespawnComponent.h"
 
 #include "../Events/KeyboardEvent.h"
 #include "../Events/MouseMotionEvent.h"
@@ -86,7 +88,7 @@ void Game::addPlayer(std::ifstream& archivoEntrada) {
 	Image image = this->assetStore->GetImage(textureId);
 
 	Entity player = manager->CreateEntity();
-	player.AddComponent<CircleColliderComponent>(16.0f);
+	player.AddComponent<CircleColliderComponent>(image.width);
 	player.AddComponent<KeyboardControllerComponent>();
 	player.AddComponent<RigidbodyComponent>(glm::vec2(0.0, 0.0), speed);
 	player.AddComponent<SpriteComponent>(textureId, image.width, image.height, image.width, 0);
@@ -98,6 +100,7 @@ void Game::addPlayer(std::ifstream& archivoEntrada) {
 		glm::vec2(scale, scale), 0);
 	player.AddComponent<MouseControllerComponent>();
 	player.AddComponent<TagComponent>(0);
+	player.AddComponent<LifesComponent>(lifes);
 
 	//Read bullet
 	std::string assetBullet;
@@ -108,6 +111,7 @@ void Game::addPlayer(std::ifstream& archivoEntrada) {
 		archivoEntrada >> assetBullet >> speedBullet;
 	}
 	player.AddComponent<ProjectileEmitterComponent>(assetBullet, speedBullet);
+	player.AddComponent<RespawnComponent>(image, speed, position, scale, assetBullet, speedBullet);
 }
 
 void Game::addEnemy(std::ifstream& archivoEntrada) {
@@ -145,6 +149,10 @@ void Game::addEnemy(std::ifstream& archivoEntrada) {
 	//enemy.AddComponent<EnemyGeneratorComponent>(textureId, image, score,
 	//	minSpeed, maxSpeed, spawnRate, 0.0);
 	enemy.AddComponent<TagComponent>(1);
+
+	Entity enemyGenerator = manager->CreateEntity();
+	enemyGenerator.AddComponent<EnemyGeneratorComponent>(textureId, image, score,
+		minSpeed, maxSpeed, spawnRate, 0.0);
 }
 
 void Game::readInput() {
@@ -269,6 +277,7 @@ void Game::update() {
 	manager->GetSystem<MovementSystem>().Update(eventManager, static_cast<float>(deltaTime), windowWidth, windowHeight);
 	manager->GetSystem<CollisionSystem>().Update(eventManager);
 	manager->GetSystem<EnemyGeneratorSystem>().Update(deltaTime, this->manager);
+
 
 	manager->Update();
 }

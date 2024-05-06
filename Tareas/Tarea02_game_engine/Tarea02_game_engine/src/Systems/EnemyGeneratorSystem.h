@@ -6,6 +6,7 @@
 #include "../Components/RigidbodyComponent.h"
 #include "../Components/SpriteComponent.h"
 #include "../Components/TransformComponent.h"
+#include "../Components/TagComponent.h"
 #include "../Util/Image.h"
 
 class EnemyGeneratorSystem : public System {
@@ -57,8 +58,10 @@ public:
 		enemy.AddComponent<TransformComponent>(position,
 			glm::vec2(scale, scale), 0);
 
-		enemy.AddComponent<EnemyGeneratorComponent>(
-			enemyGenerator.image.textureId, enemyGenerator.image, enemyGenerator.score,
-			enemyGenerator.minSpeed, enemyGenerator.maxSpeed, enemyGenerator.spawnRate, 0.0);
+		//enemy.AddComponent<EnemyGeneratorComponent>(
+		//	enemyGenerator.image.textureId, enemyGenerator.image, enemyGenerator.score,
+		//	enemyGenerator.minSpeed, enemyGenerator.maxSpeed, enemyGenerator.spawnRate, 0.0);
+		enemy.AddComponent<TagComponent>(1);
+
 	}
 };
