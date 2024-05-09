@@ -33,7 +33,7 @@ public:
 
 		if (e.a.GetComponent<TagComponent>().tag == 0) {
 			auto& lifes = e.a.GetComponent<LifesComponent>();
-			if (lifes.lifes > 0) {
+			if (lifes.lifes > 1) {
 				lifes.lifes = lifes.lifes - 1;
 				auto& transform = e.a.GetComponent<TransformComponent>();
 				auto& respawn = e.a.GetComponent<RespawnComponent>();
@@ -50,7 +50,7 @@ public:
 		}
 		if (e.b.GetComponent<TagComponent>().tag == 0) {
 			auto& lifes = e.b.GetComponent<LifesComponent>();
-			if (lifes.lifes > 0) {
+			if (lifes.lifes > 1) {
 				lifes.lifes = lifes.lifes - 1;
 				auto& transform = e.a.GetComponent<TransformComponent>();
 				auto& respawn = e.a.GetComponent<RespawnComponent>();

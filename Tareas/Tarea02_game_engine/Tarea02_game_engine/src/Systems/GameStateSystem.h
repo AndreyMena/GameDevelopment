@@ -33,13 +33,16 @@ public:
 		assetGameOver = e.a.GetComponent<GameStateComponent>().assetGameOver;
 	}
 
-	void Update(SDL_Renderer* renderer, std::shared_ptr<AssetStore>& assetStore) {
+	void Update(SDL_Renderer* renderer, std::shared_ptr<AssetStore>& assetStore,
+		size_t windowWidth, size_t windowHeight) {
 		if (state == 1) {
+			int widht = 300;
+			int height = 100;
 			SDL_Rect txtDstRect = {
-				250,
-				250,
-				300,
-				100
+				(windowWidth / 2) - (widht / 2),
+				(windowHeight / 2) - (height / 2),
+				widht,
+				height
 			};
 
 			SDL_Color fontColor = { 255, 0, 0 };

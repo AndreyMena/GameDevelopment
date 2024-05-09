@@ -332,7 +332,7 @@ void Game::render() {
 	
 	manager->GetSystem<RenderScoreSystem>().Update(renderer, assetStore);
 
-	manager->GetSystem<GameStateSystem>().Update(renderer, assetStore);
+	manager->GetSystem<GameStateSystem>().Update(renderer, assetStore, windowWidth, windowHeight);
 	
 	manager->GetSystem<RenderSystem>().Update(renderer, assetStore);
 
