@@ -8,6 +8,7 @@
 #include "../EventManager/EventManager.h"
 #include "../Events/CollisionEvent.h"
 #include "../Events/EnemyKilledEvent.h"
+#include "../Events/PlayerDeathEvent.h"
 #include <memory>
 
 class DamageSystem : public System {
@@ -22,6 +23,14 @@ public:
 	}
 
 	void OnCollisionEvent(CollisionEvent& e) {
+		if (e.a.GetComponent<TagComponent>().tag == 1 && 
+			e.b.GetComponent<TagComponent>().tag == 1) {
+			e.b.Kill();
+			e.b.Kill();
+			//No emite evento de enemigo asesinado ya que fue colision enemigo vs enemigo
+			return;
+		}
+
 		if (e.a.GetComponent<TagComponent>().tag == 0) {
 			auto& lifes = e.a.GetComponent<LifesComponent>();
 			if (lifes.lifes > 0) {
@@ -30,6 +39,7 @@ public:
 				auto& respawn = e.a.GetComponent<RespawnComponent>();
 				transform.position = respawn.position;
 			}else{
+				this->eventManager->EmitteEvent<PlayerDeathEvent>(e.a);
 				e.a.Kill();
 			}
 		}else if (e.a.GetComponent<TagComponent>().tag == 1) {
@@ -46,6 +56,7 @@ public:
 				auto& respawn = e.a.GetComponent<RespawnComponent>();
 				transform.position = respawn.position;
 			}else{
+				this->eventManager->EmitteEvent<PlayerDeathEvent>(e.b);
 				e.b.Kill();
 			}
 		}else if (e.b.GetComponent<TagComponent>().tag == 1) {

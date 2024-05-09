@@ -5,17 +5,22 @@
 #include "../Components/TransformComponent.h"
 #include "../Components/SpriteComponent.h"
 #include "../Components/TagComponent.h"
+#include "../Components/GameStateComponent.h"
 
+#include "../AssetStore/AssetStore.h"
 #include "../EventManager/EventManager.h"
 #include "../Events/PlayerDeathEvent.h"
 #include <iostream>
+#include <string>
+#include <SDL.h>
 
 class GameStateSystem : public System {
+	std::string assetGameOver;
 public:
+	int state = 0;
 	GameStateSystem() {
 		RequireComponent<RigidbodyComponent>();
 		RequireComponent<TransformComponent>();
-		this->SetPlayer(0);
 	}
 
 	void SubscribeToOnPlayerDeathEvent(std::shared_ptr<EventManager>& eventManager) {
@@ -24,9 +29,35 @@ public:
 	}
 
 	void OnPlayerDeathEvent(PlayerDeathEvent& e) {
-		//e.bullet.Kill();
+		state = 1;
+		assetGameOver = e.a.GetComponent<GameStateComponent>().assetGameOver;
 	}
 
-	void Update(std::shared_ptr<EventManager>& eventManager) {
+	void Update(SDL_Renderer* renderer, std::shared_ptr<AssetStore>& assetStore) {
+		if (state == 1) {
+			SDL_Rect txtDstRect = {
+				250,
+				250,
+				300,
+				100
+			};
+
+			SDL_Color fontColor = { 255, 0, 0 };
+			SDL_Surface* txtSurface = TTF_RenderText_Solid(assetStore->GetFont("press-start-30-game-over"),
+				"Game Over",
+				fontColor
+			);
+			SDL_Texture* txtTexture = SDL_CreateTextureFromSurface(renderer, txtSurface);
+
+			SDL_RenderCopyEx(
+				renderer,
+				txtTexture,
+				NULL, // Si es NULL dibuja toda la textura
+				&txtDstRect,
+				0.0,
+				NULL,
+				SDL_FLIP_NONE
+			);
+		}
 	}
 };

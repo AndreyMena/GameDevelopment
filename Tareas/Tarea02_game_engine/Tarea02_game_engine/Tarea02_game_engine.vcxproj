@@ -148,6 +148,7 @@
     <ClInclude Include="src\AssetStore\AssetStore.h" />
     <ClInclude Include="src\Components\CircleColliderComponent.h" />
     <ClInclude Include="src\Components\EnemyGeneratorComponent.h" />
+    <ClInclude Include="src\Components\GameStateComponent.h" />
     <ClInclude Include="src\Components\KeyboardControllerComponent.h" />
     <ClInclude Include="src\Components\LifesComponent.h" />
     <ClInclude Include="src\Components\MouseControllerComponent.h" />

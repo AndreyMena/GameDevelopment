@@ -13,6 +13,7 @@
 #include "../Components/RespawnComponent.h"
 #include "../Components/ScoreComponent.h"
 #include "../Components/PointsComponent.h"
+#include "../Components/GameStateComponent.h"
 
 #include "../Events/KeyboardEvent.h"
 #include "../Events/MouseMotionEvent.h"
@@ -27,6 +28,7 @@
 #include "../Systems/EnemyGeneratorSystem.h"
 #include "../Systems/ProjectileEmitterSystem.h"
 #include "../Systems/RenderScoreSystem.h"
+#include "../Systems/GameStateSystem.h"
 
 #include <iostream>
 #include <fstream>
@@ -118,6 +120,9 @@ void Game::addPlayer(std::ifstream& archivoEntrada) {
 
 	Entity scoreEntity = manager->CreateEntity();
 	scoreEntity.AddComponent<ScoreComponent>(0);
+
+	Entity gameStateEntity = manager->CreateEntity();
+	scoreEntity.AddComponent<GameStateComponent>("", 0);
 }
 
 void Game::addEnemy(std::ifstream& archivoEntrada) {
@@ -216,6 +221,7 @@ void Game::Setup() {
 	manager->AddSystem<EnemyGeneratorSystem>(windowWidth, windowHeight);
 	manager->AddSystem<ProjectileEmitterSystem>(manager);
 	manager->AddSystem<RenderScoreSystem>();
+	manager->AddSystem<GameStateSystem>();
 }
 
 
@@ -234,24 +240,24 @@ void Game::processInput() {
 			if (sdlEvent.key.keysym.sym == SDLK_p) {
 				this->pause = !this->pause;
 			}
-			if (!this->pause) {
+			if (!this->pause && manager->GetSystem<GameStateSystem>().state == 0) {
 				eventManager->EmitteEvent<KeyboardEvent>(true, sdlEvent.key.keysym.sym);
 			}
 			break;
 		case SDL_KEYUP:
-			if (!this->pause) {
+			if (!this->pause && manager->GetSystem<GameStateSystem>().state == 0) {
 				eventManager->EmitteEvent<KeyboardEvent>(false, sdlEvent.key.keysym.sym);
 			}
 			break;
 		case SDL_MOUSEMOTION:
-			if (!this->pause) {
+			if (!this->pause && manager->GetSystem<GameStateSystem>().state == 0) {
 				int x, y;
 				SDL_GetMouseState(&x, &y);
 				eventManager->EmitteEvent<MouseMotionEvent>(glm::vec2(x, y));
 			}
 			break;
 		case SDL_MOUSEBUTTONDOWN:
-			if (!this->pause) {
+			if (!this->pause && manager->GetSystem<GameStateSystem>().state == 0) {
 				eventManager->EmitteEvent<MouseClickEvent>(
 					glm::vec2(sdlEvent.button.x, sdlEvent.button.y));
 			}
@@ -291,6 +297,7 @@ void Game::update() {
 		manager->GetSystem<MovementSystem>().SubscribeToOutOfLimitEvent(
 			eventManager);
 		manager->GetSystem<RenderScoreSystem>().SubscribeToEnemyKilledEvent(eventManager);
+		manager->GetSystem<GameStateSystem>().SubscribeToOnPlayerDeathEvent(eventManager);
 
 		//Ejecutar funcion update
 		manager->GetSystem<MovementSystem>().Update(eventManager, static_cast<float>(deltaTime), windowWidth, windowHeight);
@@ -325,6 +332,8 @@ void Game::render() {
 	
 	manager->GetSystem<RenderScoreSystem>().Update(renderer, assetStore);
 
+	manager->GetSystem<GameStateSystem>().Update(renderer, assetStore);
+	
 	manager->GetSystem<RenderSystem>().Update(renderer, assetStore);
 
 	SDL_RenderPresent(this->renderer);

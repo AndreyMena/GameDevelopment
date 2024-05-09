@@ -37,7 +37,7 @@ public:
 		SDL_Rect txtDstRect = {
 			20,
 			20,
-			50,
+			110,
 			20
 		};
 
