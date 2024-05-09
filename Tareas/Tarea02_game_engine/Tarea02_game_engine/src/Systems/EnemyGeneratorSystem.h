@@ -7,6 +7,7 @@
 #include "../Components/SpriteComponent.h"
 #include "../Components/TransformComponent.h"
 #include "../Components/TagComponent.h"
+#include "../Components/PointsComponent.h"
 #include "../Util/Image.h"
 
 class EnemyGeneratorSystem : public System {
@@ -62,6 +63,6 @@ public:
 		//	enemyGenerator.image.textureId, enemyGenerator.image, enemyGenerator.score,
 		//	enemyGenerator.minSpeed, enemyGenerator.maxSpeed, enemyGenerator.spawnRate, 0.0);
 		enemy.AddComponent<TagComponent>(1);
-
+		enemy.AddComponent<PointsComponent>(enemyGenerator.score);
 	}
 };

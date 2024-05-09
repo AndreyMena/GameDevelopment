@@ -11,6 +11,8 @@
 #include "../Components/TagComponent.h"
 #include "../Components/LifesComponent.h"
 #include "../Components/RespawnComponent.h"
+#include "../Components/ScoreComponent.h"
+#include "../Components/PointsComponent.h"
 
 #include "../Events/KeyboardEvent.h"
 #include "../Events/MouseMotionEvent.h"
@@ -24,6 +26,7 @@
 #include "../Systems/RenderSystem.h"
 #include "../Systems/EnemyGeneratorSystem.h"
 #include "../Systems/ProjectileEmitterSystem.h"
+#include "../Systems/RenderScoreSystem.h"
 
 #include <iostream>
 #include <fstream>
@@ -112,6 +115,9 @@ void Game::addPlayer(std::ifstream& archivoEntrada) {
 	}
 	player.AddComponent<ProjectileEmitterComponent>(assetBullet, speedBullet);
 	player.AddComponent<RespawnComponent>(image, speed, position, scale, assetBullet, speedBullet);
+
+	Entity scoreEntity = manager->CreateEntity();
+	scoreEntity.AddComponent<ScoreComponent>(0);
 }
 
 void Game::addEnemy(std::ifstream& archivoEntrada) {
@@ -149,6 +155,7 @@ void Game::addEnemy(std::ifstream& archivoEntrada) {
 	//enemy.AddComponent<EnemyGeneratorComponent>(textureId, image, score,
 	//	minSpeed, maxSpeed, spawnRate, 0.0);
 	enemy.AddComponent<TagComponent>(1);
+	enemy.AddComponent<PointsComponent>(score);
 
 	Entity enemyGenerator = manager->CreateEntity();
 	enemyGenerator.AddComponent<EnemyGeneratorComponent>(textureId, image, score,
@@ -204,10 +211,11 @@ void Game::Setup() {
 	manager->AddSystem<RenderSystem>();
 	manager->AddSystem<MovementSystem>();
 	manager->AddSystem<CollisionSystem>();
-	manager->AddSystem<DamageSystem>();
+	manager->AddSystem<DamageSystem>(this->eventManager);
 	manager->AddSystem<MouseControllerSystem>();
 	manager->AddSystem<EnemyGeneratorSystem>(windowWidth, windowHeight);
 	manager->AddSystem<ProjectileEmitterSystem>(manager);
+	manager->AddSystem<RenderScoreSystem>();
 }
 
 
@@ -223,19 +231,30 @@ void Game::processInput() {
 			if (sdlEvent.key.keysym.sym == SDLK_ESCAPE) {
 				this->isRunning = false;
 			}
-			eventManager->EmitteEvent<KeyboardEvent>(true, sdlEvent.key.keysym.sym);
+			if (sdlEvent.key.keysym.sym == SDLK_p) {
+				this->pause = !this->pause;
+			}
+			if (!this->pause) {
+				eventManager->EmitteEvent<KeyboardEvent>(true, sdlEvent.key.keysym.sym);
+			}
 			break;
 		case SDL_KEYUP:
-			eventManager->EmitteEvent<KeyboardEvent>(false, sdlEvent.key.keysym.sym);
+			if (!this->pause) {
+				eventManager->EmitteEvent<KeyboardEvent>(false, sdlEvent.key.keysym.sym);
+			}
 			break;
 		case SDL_MOUSEMOTION:
-			int x, y;
-			SDL_GetMouseState(&x, &y);
-			eventManager->EmitteEvent<MouseMotionEvent>(glm::vec2(x, y));
+			if (!this->pause) {
+				int x, y;
+				SDL_GetMouseState(&x, &y);
+				eventManager->EmitteEvent<MouseMotionEvent>(glm::vec2(x, y));
+			}
 			break;
 		case SDL_MOUSEBUTTONDOWN:
-			eventManager->EmitteEvent<MouseClickEvent>(
-				glm::vec2(sdlEvent.button.x, sdlEvent.button.y));
+			if (!this->pause) {
+				eventManager->EmitteEvent<MouseClickEvent>(
+					glm::vec2(sdlEvent.button.x, sdlEvent.button.y));
+			}
 			break;
 		default:
 			break;
@@ -257,29 +276,29 @@ void Game::update() {
 
 	this->mPrvsFrame = SDL_GetTicks();
 	
-	//std::cout << this->a << std::endl;
+	if (!this->pause) {
+		// Limpiar los subscriptores
+		eventManager->Clear();
 
-	// Limpiar los subscriptores
-	eventManager->Clear();
+		// Subscribirnos a eventos
+		manager->GetSystem<KeyboardControllerSystem>().SubscribeToKeyboardEvent(
+			eventManager);
+		manager->GetSystem<DamageSystem>().SubscribeToCollisionEvent(eventManager);
+		manager->GetSystem<MouseControllerSystem>().SubscribeToMouseMotionEvent(
+			eventManager);
+		manager->GetSystem<ProjectileEmitterSystem>().SubscribeToMouseClickEvent(
+			eventManager);
+		manager->GetSystem<MovementSystem>().SubscribeToOutOfLimitEvent(
+			eventManager);
+		manager->GetSystem<RenderScoreSystem>().SubscribeToEnemyKilledEvent(eventManager);
 
-	// Subscribirnos a eventos
-	manager->GetSystem<KeyboardControllerSystem>().SubscribeToKeyboardEvent(
-		eventManager);
-	manager->GetSystem<DamageSystem>().SubscribeToCollisionEvent(eventManager);
-	manager->GetSystem<MouseControllerSystem>().SubscribeToMouseMotionEvent(
-		eventManager);
-	manager->GetSystem<ProjectileEmitterSystem>().SubscribeToMouseClickEvent(
-		eventManager);
-	manager->GetSystem<MovementSystem>().SubscribeToOutOfLimitEvent(
-		eventManager);
+		//Ejecutar funcion update
+		manager->GetSystem<MovementSystem>().Update(eventManager, static_cast<float>(deltaTime), windowWidth, windowHeight);
+		manager->GetSystem<CollisionSystem>().Update(eventManager);
+		manager->GetSystem<EnemyGeneratorSystem>().Update(deltaTime, this->manager);
 
-	//Ejecutar funcion update
-	manager->GetSystem<MovementSystem>().Update(eventManager, static_cast<float>(deltaTime), windowWidth, windowHeight);
-	manager->GetSystem<CollisionSystem>().Update(eventManager);
-	manager->GetSystem<EnemyGeneratorSystem>().Update(deltaTime, this->manager);
-
-
-	manager->Update();
+		manager->Update();
+	}
 }
 
 void Game::run() {
@@ -295,6 +314,16 @@ void Game::run() {
 void Game::render() {
 	SDL_SetRenderDrawColor(renderer, 35, 35, 35, 255);
 	SDL_RenderClear(this->renderer);
+
+	//Background
+	SDL_Rect destination;
+	destination.x = 0;
+	destination.y = 0;
+	destination.w = 800; 
+	destination.h = 600;
+	SDL_RenderCopy(renderer, this->assetStore->GetTexture("bg-img"), NULL, &destination);
+	
+	manager->GetSystem<RenderScoreSystem>().Update(renderer, assetStore);
 
 	manager->GetSystem<RenderSystem>().Update(renderer, assetStore);
 
@@ -316,4 +345,3 @@ void Game::destroy() {
 	*/
 	SDL_Quit();
 }
-

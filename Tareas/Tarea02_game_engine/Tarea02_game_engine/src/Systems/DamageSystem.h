@@ -7,11 +7,14 @@
 #include "../ECS/ECS.h"
 #include "../EventManager/EventManager.h"
 #include "../Events/CollisionEvent.h"
+#include "../Events/EnemyKilledEvent.h"
 #include <memory>
 
 class DamageSystem : public System {
+	std::shared_ptr<EventManager>& eventManager;
 public:
-	DamageSystem() {}
+	DamageSystem(std::shared_ptr<EventManager>& eventManager) : eventManager(eventManager) {
+	}
 
 	void SubscribeToCollisionEvent(std::shared_ptr<EventManager>& eventManager) {
 		eventManager->SubscribeToEvent<DamageSystem, CollisionEvent>(this,
@@ -29,6 +32,9 @@ public:
 			}else{
 				e.a.Kill();
 			}
+		}else if (e.a.GetComponent<TagComponent>().tag == 1) {
+			this->eventManager->EmitteEvent<EnemyKilledEvent>(e.a);
+			e.a.Kill();
 		}else{
 			e.a.Kill();
 		}
@@ -42,7 +48,8 @@ public:
 			}else{
 				e.b.Kill();
 			}
-		}else{
+		}else if (e.b.GetComponent<TagComponent>().tag == 1) {
+			this->eventManager->EmitteEvent<EnemyKilledEvent>(e.b);
 			e.b.Kill();
 		}
 	}
