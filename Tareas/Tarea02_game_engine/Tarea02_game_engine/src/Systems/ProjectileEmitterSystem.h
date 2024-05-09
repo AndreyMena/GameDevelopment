@@ -31,9 +31,10 @@ public:
 		auto entity = entities[0];  // Player
 
 		auto& transform = entity.GetComponent<TransformComponent>();
+		auto& sprite = entity.GetComponent<SpriteComponent>();
 		auto& projectile = entity.GetComponent<ProjectileEmitterComponent>();
 		auto& rigidbody = entity.GetComponent<RigidbodyComponent>();
-		auto& sprite = entity.GetComponent<SpriteComponent>();
+		auto& controller = entity.GetComponent<MouseControllerComponent>();
 
 		double distance = sqrt(pow(e.position.x - transform.position.x, 2) 
 			+ pow(e.position.y - transform.position.y, 2));
@@ -58,5 +59,21 @@ public:
 		bullet.AddComponent<TransformComponent>(pos,
 			glm::vec2(2, 2), 0);
 		bullet.AddComponent<TagComponent>(2);
+
+
+		auto& transformBullet = bullet.GetComponent<TransformComponent>();
+		auto& spriteBullet = bullet.GetComponent<SpriteComponent>();
+		glm::vec2 coordsTemp;
+		coordsTemp.x = (e.position.x - (transformBullet.position.x + ((sprite.width * transformBullet.scale.x) / 2)));
+		coordsTemp.y = (e.position.y - (transformBullet.position.y + ((sprite.height * transformBullet.scale.y) / 2)));
+
+		double angleRadians = atan2(coordsTemp.y, coordsTemp.x);
+		double angleDegree = (angleRadians * 180.0 / M_PI);
+		angleDegree += 90;  // Rotacion de la imagen
+
+		if (angleDegree < 0) {
+			angleDegree = fmod((angleDegree + 360), 360);  // Ajustar el ángulo a un rango de 0 a 360 grados
+		}
+		transformBullet.rotation = angleDegree;
 	}
 };
