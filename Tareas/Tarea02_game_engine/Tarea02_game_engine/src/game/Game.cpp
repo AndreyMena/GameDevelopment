@@ -153,7 +153,6 @@ void Game::addEnemy(std::ifstream& archivoEntrada) {
 	int maxHeight = windowHeight - (image.height * scale);
 	position.x = rand() % maxWidth;
 	position.y = rand() % maxHeight;
-	std::cout << position.x << " "<< position.y << std::endl;
 
 	Entity enemy = manager->CreateEntity();
 	enemy.AddComponent<CircleColliderComponent>(16.0f);
@@ -188,7 +187,6 @@ void Game::readInput() {
 			//std::string todo;
 			//archivoEntrada >> todo >> todo;
 		}else if (etiqueta == "enemy") {
-			std::cout << "aaa" << std::endl;
 			this->addEnemy(archivoEntrada);
 			//std::string todo;
 			//archivoEntrada >> todo >> todo >> todo >> todo >> todo;
@@ -355,15 +353,5 @@ void Game::render() {
 void Game::destroy() {
 	SDL_DestroyRenderer(this->renderer);
 	SDL_DestroyWindow(this->window);
-	/*
-	for (int index = 0; index < entitiesVector.size(); index++) {
-		SDL_DestroyTexture(this->entitiesVector[index].imgTexture);
-		SDL_DestroyTexture(this->entitiesVector[index].txtTexture);
-	}
-
-	TTF_CloseFont(ttfFont);
-
-	TTF_Quit();
-	*/
 	SDL_Quit();
 }

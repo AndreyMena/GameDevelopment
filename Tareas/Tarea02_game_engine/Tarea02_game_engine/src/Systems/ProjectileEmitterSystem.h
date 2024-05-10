@@ -44,10 +44,6 @@ public:
 		glm::vec2 direccion;
 		direccion.x = (e.position.x - transform.position.x) / time;
 		direccion.y = (e.position.y - transform.position.y) / time;
-
-		//rigidbody = direccion;
-		std::cout <<"Dir: " << direccion.x << " " << direccion.y << std::endl;
-
 		
 		Entity bullet = manager->CreateEntity();
 		bullet.AddComponent<CircleColliderComponent>(16.0f);

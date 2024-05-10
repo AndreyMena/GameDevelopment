@@ -60,7 +60,6 @@ public:
 					|| transform.position.x - (sprite.width * transform.scale.x) <= 0
 					|| transform.position.y >= windowHeight
 					|| transform.position.y - (sprite.height * transform.scale.y) <= 0) {
-					std::cout << "Muero" << std::endl;
 					eventManager->EmitteEvent<OutOfLimitEvent>(entity);
 				}else{
 					transform.position += rigidbody.velocity * deltaTyme;
