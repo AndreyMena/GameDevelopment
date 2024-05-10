@@ -120,7 +120,7 @@ void Game::addPlayer(std::ifstream& archivoEntrada) {
 	}
 	player.AddComponent<ProjectileEmitterComponent>(assetBullet, speedBullet);
 	player.AddComponent<RespawnComponent>(image, speed, position, scale, assetBullet, speedBullet);
-	player.AddComponent<MultiShotComponent>("multiShot-img", 0, 2000);
+	player.AddComponent<MultiShotComponent>("multiShot-img", 0, 5000);
 
 	Entity scoreEntity = manager->CreateEntity();
 	scoreEntity.AddComponent<ScoreComponent>(0);
