@@ -1,0 +1,14 @@
+window 800 600
+asset font press-start-20-score ./assets/fonts/press_start.ttf 20
+asset font press-start-30-game-over ./assets/fonts/press_start.ttf 30
+asset image bg-img ./assets/img/space_bg.png 800 600
+asset image bgSpace-img ./assets/img/SpaceBackground.png 800 600
+asset image ship-img ./assets/img/ship.png 16 16
+asset image bonbon-img ./assets/img/bonbon.png 16 16
+asset image lips-img ./assets/img/lips.png 16 16
+asset image bullet-img ./assets/img/beam.png 16 16
+asset image multiShot-img ./assets/img/NebulaShotLevels.png 32 32
+player ship-img 3 175
+bullet bullet-img 600
+enemy bonbon-img 100 10 100 1000
+enemy lips-img 200 50 150 1000

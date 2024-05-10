@@ -67,7 +67,7 @@ public:
 					bCollider.radius, bCenter);
 
 				if (collision) {
-					std::cout << a.GetId() << " colisiona con " << b.GetId() << std::endl;
+					//std::cout << a.GetId() << " colisiona con " << b.GetId() << std::endl;
 					eventManager->EmitteEvent<CollisionEvent>(a, b);
 				}
 			}

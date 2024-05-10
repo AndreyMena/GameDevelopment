@@ -25,7 +25,7 @@ public:
 	void OnCollisionEvent(CollisionEvent& e) {
 		if (e.a.GetComponent<TagComponent>().tag == 1 && 
 			e.b.GetComponent<TagComponent>().tag == 1) {
-			e.b.Kill();
+			e.a.Kill();
 			e.b.Kill();
 			//No emite evento de enemigo asesinado ya que fue colision enemigo vs enemigo
 			return;
@@ -61,6 +61,8 @@ public:
 			}
 		}else if (e.b.GetComponent<TagComponent>().tag == 1) {
 			this->eventManager->EmitteEvent<EnemyKilledEvent>(e.b);
+			e.b.Kill();
+		}else{
 			e.b.Kill();
 		}
 	}

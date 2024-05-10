@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\AssetStore\AssetStore.cpp" />
+    <ClCompile Include="src\Components\MultiShotComponent.h" />
     <ClCompile Include="src\ECS\ECS.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="src\Events\KeyboardEvent.h" />
     <ClInclude Include="src\Events\MouseClickEvent.h" />
     <ClInclude Include="src\Events\MouseMotionEvent.h" />
+    <ClInclude Include="src\Events\MouseRightClickEvent.h" />
     <ClInclude Include="src\Events\OutOfLimitEvent.h" />
     <ClInclude Include="src\Events\PlayerDeathEvent.h" />
     <ClInclude Include="src\game\Game.h" />
@@ -178,6 +180,7 @@
     <ClInclude Include="src\Systems\KeyboardControllerSystem.h" />
     <ClInclude Include="src\Systems\MouseControllerSystem.h" />
     <ClInclude Include="src\Systems\MovementSystem.h" />
+    <ClInclude Include="src\Systems\MultiShotSystem.h" />
     <ClInclude Include="src\Systems\ProjectileEmitterSystem.h" />
     <ClInclude Include="src\Systems\RenderScoreSystem.h" />
     <ClInclude Include="src\Systems\RenderSystem.h" />

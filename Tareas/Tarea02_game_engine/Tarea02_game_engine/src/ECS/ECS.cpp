@@ -66,7 +66,7 @@ Entity ECSManager::CreateEntity() {
 	entity.manager = this;
 	entitiesToBeAdded.insert(entity);
 
-	std::cout << "Entity id: " << entity.GetId() << std::endl;
+	//std::cout << "Entity id: " << entity.GetId() << std::endl;
 
 	return entity;
 }

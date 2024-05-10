@@ -14,10 +14,12 @@
 #include "../Components/ScoreComponent.h"
 #include "../Components/PointsComponent.h"
 #include "../Components/GameStateComponent.h"
+#include "../Components/MultiShotComponent.h"
 
 #include "../Events/KeyboardEvent.h"
 #include "../Events/MouseMotionEvent.h"
 #include "../Events/MouseClickEvent.h"
+#include "../Events/MouseRightClickEvent.h"
 
 #include "../Systems/CollisionSystem.h"
 #include "../Systems/DamageSystem.h"
@@ -29,6 +31,7 @@
 #include "../Systems/ProjectileEmitterSystem.h"
 #include "../Systems/RenderScoreSystem.h"
 #include "../Systems/GameStateSystem.h"
+#include "../Systems/MultiShotSystem.h"
 
 #include <iostream>
 #include <fstream>
@@ -117,6 +120,7 @@ void Game::addPlayer(std::ifstream& archivoEntrada) {
 	}
 	player.AddComponent<ProjectileEmitterComponent>(assetBullet, speedBullet);
 	player.AddComponent<RespawnComponent>(image, speed, position, scale, assetBullet, speedBullet);
+	player.AddComponent<MultiShotComponent>("multiShot-img", 0, 2000);
 
 	Entity scoreEntity = manager->CreateEntity();
 	scoreEntity.AddComponent<ScoreComponent>(0);
@@ -222,6 +226,7 @@ void Game::Setup() {
 	manager->AddSystem<ProjectileEmitterSystem>(manager);
 	manager->AddSystem<RenderScoreSystem>();
 	manager->AddSystem<GameStateSystem>();
+	manager->AddSystem<MultiShotSystem>(manager);
 }
 
 
@@ -258,8 +263,14 @@ void Game::processInput() {
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 			if (!this->pause && manager->GetSystem<GameStateSystem>().state == 0) {
-				eventManager->EmitteEvent<MouseClickEvent>(
-					glm::vec2(sdlEvent.button.x, sdlEvent.button.y));
+				if (sdlEvent.button.button == SDL_BUTTON_LEFT) {
+					eventManager->EmitteEvent<MouseClickEvent>(
+						glm::vec2(sdlEvent.button.x, sdlEvent.button.y));
+				}
+				if (sdlEvent.button.button == SDL_BUTTON_RIGHT) {
+					eventManager->EmitteEvent<MouseRightClickEvent>(
+						glm::vec2(sdlEvent.button.x, sdlEvent.button.y));
+				}
 			}
 			break;
 		default:
@@ -298,11 +309,13 @@ void Game::update() {
 			eventManager);
 		manager->GetSystem<RenderScoreSystem>().SubscribeToEnemyKilledEvent(eventManager);
 		manager->GetSystem<GameStateSystem>().SubscribeToOnPlayerDeathEvent(eventManager);
+		manager->GetSystem<MultiShotSystem>().SubscribeToMouseRightClickEvent(eventManager);
 
 		//Ejecutar funcion update
 		manager->GetSystem<MovementSystem>().Update(eventManager, static_cast<float>(deltaTime), windowWidth, windowHeight);
 		manager->GetSystem<CollisionSystem>().Update(eventManager);
 		manager->GetSystem<EnemyGeneratorSystem>().Update(deltaTime, this->manager);
+		manager->GetSystem<MultiShotSystem>().Update(deltaTime, this->manager);
 
 		manager->Update();
 	}
@@ -328,7 +341,7 @@ void Game::render() {
 	destination.y = 0;
 	destination.w = 800; 
 	destination.h = 600;
-	SDL_RenderCopy(renderer, this->assetStore->GetTexture("bg-img"), NULL, &destination);
+	SDL_RenderCopy(renderer, this->assetStore->GetTexture("bgSpace-img"), NULL, &destination);
 	
 	manager->GetSystem<RenderScoreSystem>().Update(renderer, assetStore);
 

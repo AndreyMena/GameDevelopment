@@ -30,7 +30,7 @@ public:
 
 			// Realiza el spawn de un nuevo enemigo si ha pasado suficiente tiempo
 			if (enemyGenerator.timeSinceLastSpawn >= (enemyGenerator.spawnRate / 1000)) {
-				std::cout << enemyGenerator.timeSinceLastSpawn << std::endl;
+				//std::cout << enemyGenerator.timeSinceLastSpawn << std::endl;
 				SpawnEnemy(enemyGenerator, manager); // Función para generar un nuevo enemigo
 				enemyGenerator.timeSinceLastSpawn = 0; // Reinicia el contador
 			}
@@ -48,7 +48,6 @@ public:
 		int maxHeight = windowHeight - (enemyGenerator.image.height * scale);
 		position.x = rand() % maxWidth;
 		position.y = rand() % maxHeight;
-		//std::cout << position.x << " " << position.y << std::endl;
 
 		Entity enemy = manager->CreateEntity();
 		enemy.AddComponent<CircleColliderComponent>(16.0f);
