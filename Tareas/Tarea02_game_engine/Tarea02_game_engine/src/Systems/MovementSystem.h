@@ -57,9 +57,9 @@ public:
 				}
 			}else if (tag.tag == 2 /*Bullet*/) {
 				if (transform.position.x >= windowWidth
-					|| transform.position.x - (sprite.width * transform.scale.x) <= 0
+					|| transform.position.x + (sprite.width * transform.scale.x) <= 0
 					|| transform.position.y >= windowHeight
-					|| transform.position.y - (sprite.height * transform.scale.y) <= 0) {
+					|| transform.position.y + (sprite.height * transform.scale.y) <= 0) {
 					eventManager->EmitteEvent<OutOfLimitEvent>(entity);
 				}else{
 					transform.position += rigidbody.velocity * deltaTyme;
