@@ -1,9 +1,12 @@
 #pragma once
-#include <SDL.h>
-#include <memory>
 #include "../AssetStore/AssetStore.h"
 #include "../ECS/ECS.h"
 #include "../EventManager/EventManager.h"
+
+#include <SDL.h>
+#include <memory>
+#include <string>
+#include <tinyxml2/tinyxml2.h>
 
 const int FPS = 60;
 const int MILLISECS_PER_FRAME = 1000 / FPS; //16.6
@@ -22,6 +25,8 @@ class Game {
 	std::shared_ptr<AssetStore> assetStore;
 	std::shared_ptr<ECSManager> manager;
 	std::shared_ptr<EventManager> eventManager;
+
+	void LoadLevelMap(const std::string& levelPath);
 
 	void Setup();
 	void processInput();

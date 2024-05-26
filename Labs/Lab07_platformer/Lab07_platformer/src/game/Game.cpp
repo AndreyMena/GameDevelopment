@@ -52,6 +52,17 @@ void Game::init() {
 	isRunning = true;
 }
 
+void Game::LoadLevelMap(const std::string& levelPath) {
+	tinyxml2::XMLDocument level;
+	level.LoadFile(levelPath.c_str());
+
+	tinyxml2::XMLElement* root = level.RootElement();
+	const char* text;
+	root->QueryStringAttribute("orientation");
+
+	std::cout << text << std::endl;
+}
+
 void Game::Setup() {
 	// Agregar Sistema
 	manager->AddSystem<KeyboardControllerSystem>();
@@ -60,6 +71,7 @@ void Game::Setup() {
 	manager->AddSystem<DamageSystem>();
 	manager->AddSystem<MouseControllerSystem>();
 
+	LoadLevelMap("./assets/levels/level_01.tmx");
 	// Cargar Texturas
 	//assetStore->AddTexture("ship-img", "./assets/img/ship.png", renderer);
 }
