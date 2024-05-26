@@ -9,6 +9,8 @@
 #include <set>
 #include <typeindex>
 #include <unordered_map>
+#include <map>
+#include <list>
 #include <vector>
 
 
@@ -56,6 +58,9 @@ public:
 	template<typename TComponent>
 	TComponent& GetComponent() const;
 
+	void AddTag(const std::string& tag) const;
+	std::string GetTag() const;
+
 	class ECSManager* manager = nullptr;
 };
 
@@ -90,6 +95,11 @@ class ECSManager {
 	std::set<Entity> entitiesToBeKilled;
 	
 	std::deque<size_t> freeIds;
+
+	// Tags
+	std::map<int, std::string> entityTag;
+	
+	std::map<std::string, std::list<int>> entityGroups;
 
 public:
 	void Update();
@@ -126,6 +136,11 @@ public:
 	//General Manage
 	void AddEntityToSystem(Entity entity);
 	void RemoveEntityToSystem(Entity entity);
+
+	// Tag management
+	void AddTagToEntity(Entity entity, const std::string& tag);
+	std::string GetTagFromEntity(Entity entity);
+	void ClearTags();
 };
 
 template<typename TComponent>

@@ -9,6 +9,14 @@ void Entity::Kill() {
 	manager->KillEntity(*this);
 }
 
+void Entity::AddTag(const std::string& tag) const {
+	manager->AddTagToEntity(*this, tag);
+}
+
+std::string Entity::GetTag() const {
+	return manager->GetTagFromEntity(*this);
+}
+
 void System::AddEntityToSystem(Entity entity) {
 	entities.push_back(entity);
 }
@@ -95,4 +103,29 @@ void ECSManager::RemoveEntityToSystem(Entity entity) {
 	for (auto system : systems) {
 		system.second->RemoveEntityFromSystem(entity);
 	}
+}
+
+void ECSManager::AddTagToEntity(Entity entity, const std::string& tag) {
+	auto it = entityTag.find(entity.GetId());
+
+	// Si la entidad ya tiene un tag entonces no hace nada
+	if (it != entityTag.end()) {
+		return;
+	}
+
+	// Agregar el tag a la entidad
+	entityTag.emplace(entity.GetId(), tag);
+	
+	// Agregar la entidad al grupo
+	entityGroups[tag].push_back(entity.GetId());
+}
+
+std::string ECSManager::GetTagFromEntity(Entity entity) {
+	auto tag = entityTag[entity.GetId()];
+	return tag;
+}
+
+void ECSManager::ClearTags() {
+	entityTag.clear();
+	entityGroups.clear();
 }
