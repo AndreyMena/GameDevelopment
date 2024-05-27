@@ -157,15 +157,18 @@ void Game::LoadLevelMap(const std::string& levelPath) {
 }
 
 void Game::Setup() {
+	// Asociar teclas y acciones
+	keyActionMap->InsertKeyAction(SDLK_UP, "jump");
+
 	// Cargar Texturas
 	assetStore->AddTexture("terrain_img", "./assets/img/terrain.png", renderer);
 	assetStore->AddTexture("frog_idle", "./assets/img/frog_idle.png", renderer);
 
 	// Agregar Sistemas
-	//manager->AddSystem<KeyboardControllerSystem>();
 	//manager->AddSystem<MouseControllerSystem>();
 	//manager->AddSystem<CollisionSystem>();
 	//manager->AddSystem<DamageSystem>();
+	manager->AddSystem<KeyboardControllerSystem>(eventManager, keyActionMap);
 	manager->AddSystem<RenderBoxColliderSystem>();
 	manager->AddSystem<RenderSystem>();
 	manager->AddSystem<OverlapSystem>();
@@ -197,10 +200,10 @@ void Game::processInput() {
 			} else if (sdlEvent.key.keysym.sym == SDLK_d) {
 				debugMode = !debugMode;
 			}
-			//eventManager->EmitteEvent<KeyboardEvent>(true, sdlEvent.key.keysym.sym);
+			eventManager->EmitteEvent<KeyboardEvent>(true, sdlEvent.key.keysym.sym);
 			break;
 		case SDL_KEYUP:
-			//eventManager->EmitteEvent<KeyboardEvent>(false, sdlEvent.key.keysym.sym);
+			eventManager->EmitteEvent<KeyboardEvent>(false, sdlEvent.key.keysym.sym);
 			break;
 		case SDL_MOUSEMOTION:
 			int x, y;
@@ -232,8 +235,8 @@ void Game::update() {
 
 	// Subscribirnos a eventos
 	manager->GetSystem<OverlapSystem>().SubscribeToCollisionEvent(eventManager);
-	//manager->GetSystem<KeyboardControllerSystem>().SubscribeToKeyboardEvent(
-	//	eventManager);
+	manager->GetSystem<KeyboardControllerSystem>().SubscribeToKeyboardEvent(
+		eventManager);
 	//manager->GetSystem<DamageSystem>().SubscribeToCollisionEvent(eventManager);
 	//manager->GetSystem<MouseControllerSystem>().SubscribeToMouseMotionEvent(
 	//	eventManager);

@@ -147,6 +147,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Events\ActionEvent.h" />
     <ClInclude Include="src\KeyActionMap\KeyActionMap.h" />
     <ClInclude Include="libs\tinyxml2\tinyxml2.h" />
     <ClInclude Include="src\AssetStore\AssetStore.h" />
