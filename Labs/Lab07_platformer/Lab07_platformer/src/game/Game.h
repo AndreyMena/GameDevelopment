@@ -26,6 +26,8 @@ class Game {
 	std::shared_ptr<ECSManager> manager;
 	std::shared_ptr<EventManager> eventManager;
 
+	void CreateLevel(tinyxml2::XMLElement* layer, int tileWidth, int tileHeight,
+		int levelWidth, int levelHeight);
 	void LoadLevelMap(const std::string& levelPath);
 
 	void Setup();

@@ -17,6 +17,8 @@
 #include "../Systems/MovementSystem.h"
 #include "../Systems/RenderSystem.h"
 
+#include <cstdio>
+#include <sstream>
 #include <iostream>
 #include <glm/glm.hpp>
 
@@ -37,8 +39,8 @@ void Game::init() {
 		return;
 	}
 
-	windowWidth = 800;
-	windowHeight = 600;
+	windowWidth = 30 * 16;  // 800
+	windowHeight = 20 * 16;  // 600
 
 	this->window = SDL_CreateWindow("Lab 05: Motor de videojuegos",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, this->windowWidth,
@@ -52,19 +54,76 @@ void Game::init() {
 	isRunning = true;
 }
 
+void Game::CreateLevel(tinyxml2::XMLElement* layer, int tileWidth, int tileHeight, 
+	int levelWidth, int levelHeight) {
+	tinyxml2::XMLElement* layerData = layer->FirstChildElement("data");
+
+	const char* data = layerData->GetText();
+
+	std::stringstream tmpNumber;
+	int pos = 0;
+	int tileNumber = 0;
+	while (true) {
+		if (data[pos] == '\0') {
+			break;
+		}
+
+		if (isdigit(data[pos])) {
+			tmpNumber << data[pos];
+		}else if (!isdigit(data[pos]) && tmpNumber.str().length() != 0) {
+			int tileId = std::stoi(tmpNumber.str());
+
+			if (tileId > 0) {
+				Entity tile = manager->CreateEntity();
+				tile.AddComponent<TransformComponent>(
+					glm::vec2(
+						(tileNumber % levelWidth) * tileWidth,
+						(tileNumber / levelWidth) * tileHeight
+					)
+				);
+				tile.AddComponent<SpriteComponent>(
+					"terrain_img",
+					tileWidth,
+					tileHeight,
+					((tileId -1) % 22) * tileWidth,
+					((tileId -1) / 22) * tileHeight
+				);
+			}
+
+			tileNumber++;
+			tmpNumber.str("");
+		}
+
+		pos++;
+	}
+}
+
 void Game::LoadLevelMap(const std::string& levelPath) {
+	// Crear un documento XML  de tinyXML
 	tinyxml2::XMLDocument level;
+	// Se carga el archivo
 	level.LoadFile(levelPath.c_str());
 
 	tinyxml2::XMLElement* root = level.RootElement();
-	const char* text;
-	root->QueryStringAttribute("orientation");
+	int tileWidth, tileHeight, levelWidth, levelHeight;
+	// Extraer atributos de la raiz
+	root->QueryIntAttribute("tilewidth", &tileWidth);
+	root->QueryIntAttribute("tileheight", &tileHeight);
+	root->QueryIntAttribute("width", &levelWidth);
+	root->QueryIntAttribute("height", &levelHeight);
 
-	std::cout << text << std::endl;
+	tinyxml2::XMLElement* layer = root->FirstChildElement("layer");
+	while (layer != nullptr) {
+		CreateLevel(layer, tileWidth, tileHeight, levelWidth, levelHeight);
+		layer = layer->NextSiblingElement("layer");
+	}
 }
 
 void Game::Setup() {
-	// Agregar Sistema
+	// Cargar Texturas
+	assetStore->AddTexture("terrain_img", "./assets/img/terrain.png", renderer);
+
+	// Agregar Sistemas
 	manager->AddSystem<KeyboardControllerSystem>();
 	manager->AddSystem<RenderSystem>();
 	manager->AddSystem<CollisionSystem>();
@@ -72,8 +131,6 @@ void Game::Setup() {
 	manager->AddSystem<MouseControllerSystem>();
 
 	LoadLevelMap("./assets/levels/level_01.tmx");
-	// Cargar Texturas
-	//assetStore->AddTexture("ship-img", "./assets/img/ship.png", renderer);
 }
 
 void Game::processInput() {
