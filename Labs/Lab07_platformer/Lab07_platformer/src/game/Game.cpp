@@ -18,6 +18,7 @@
 #include "../Systems/MovementSystem.h"
 #include "../Systems/RenderSystem.h"
 #include "../Systems/RenderBoxColliderSystem.h"
+#include "../Systems/WeightForceSystem.h"
 
 #include <cstdio>
 #include <sstream>
@@ -149,16 +150,26 @@ void Game::LoadLevelMap(const std::string& levelPath) {
 void Game::Setup() {
 	// Cargar Texturas
 	assetStore->AddTexture("terrain_img", "./assets/img/terrain.png", renderer);
+	assetStore->AddTexture("frog_idle", "./assets/img/frog_idle.png", renderer);
 
 	// Agregar Sistemas
 	//manager->AddSystem<KeyboardControllerSystem>();
-	manager->AddSystem<CollisionSystem>();
-	manager->AddSystem<DamageSystem>();
-	manager->AddSystem<MouseControllerSystem>();
+	//manager->AddSystem<MouseControllerSystem>();
+	//manager->AddSystem<CollisionSystem>();
+	//manager->AddSystem<DamageSystem>();
 	manager->AddSystem<RenderBoxColliderSystem>();
 	manager->AddSystem<RenderSystem>();
+	manager->AddSystem<MovementSystem>();
+	manager->AddSystem<WeightForceSystem>();
 
 	LoadLevelMap("./assets/levels/level_01.tmx");
+
+	Entity player = manager->CreateEntity();
+	player.AddTag("player");
+	player.AddComponent<TransformComponent>(glm::vec2(300.0f, 50.0f));
+	player.AddComponent<RigidbodyComponent>(false, 5.0f, 50.0f * 64);
+	player.AddComponent<SpriteComponent>("frog_idle", 32, 32, 0, 0);
+	player.AddComponent<BoxColliderComponent>(32, 32);
 }
 
 void Game::processInput() {
@@ -211,9 +222,11 @@ void Game::update() {
 	// Subscribirnos a eventos
 	//manager->GetSystem<KeyboardControllerSystem>().SubscribeToKeyboardEvent(
 	//	eventManager);
-	manager->GetSystem<DamageSystem>().SubscribeToCollisionEvent(eventManager);
-	manager->GetSystem<MouseControllerSystem>().SubscribeToMouseMotionEvent(
-		eventManager);
+	//manager->GetSystem<DamageSystem>().SubscribeToCollisionEvent(eventManager);
+	//manager->GetSystem<MouseControllerSystem>().SubscribeToMouseMotionEvent(
+	//	eventManager);
+	manager->GetSystem<WeightForceSystem>().Update();
+	manager->GetSystem<MovementSystem>().Update(deltaTime);
 
 	//Ejecutar funcion update
 

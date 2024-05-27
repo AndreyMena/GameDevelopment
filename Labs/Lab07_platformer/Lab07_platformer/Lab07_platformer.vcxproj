@@ -169,6 +169,7 @@
     <ClInclude Include="src\Systems\MovementSystem.h" />
     <ClInclude Include="src\Systems\RenderBoxColliderSystem.h" />
     <ClInclude Include="src\Systems\RenderSystem.h" />
+    <ClInclude Include="src\Systems\WeightForceSystem.h" />
     <ClInclude Include="src\Util\Pool.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
