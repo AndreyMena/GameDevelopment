@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="libs\tinyxml2\tinyxml2.h" />
     <ClInclude Include="src\AssetStore\AssetStore.h" />
+    <ClInclude Include="src\Components\BoxColliderComponent.h" />
     <ClInclude Include="src\Components\CircleColliderComponent.h" />
     <ClInclude Include="src\Components\KeyboardControllerComponent.h" />
     <ClInclude Include="src\Components\MouseControllerComponent.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="src\Systems\KeyboardControllerSystem.h" />
     <ClInclude Include="src\Systems\MouseControllerSystem.h" />
     <ClInclude Include="src\Systems\MovementSystem.h" />
+    <ClInclude Include="src\Systems\RenderBoxColliderSystem.h" />
     <ClInclude Include="src\Systems\RenderSystem.h" />
     <ClInclude Include="src\Util\Pool.h" />
   </ItemGroup>
