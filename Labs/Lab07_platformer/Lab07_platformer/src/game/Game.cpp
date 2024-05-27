@@ -11,7 +11,7 @@
 #include "../Events/KeyboardEvent.h"
 #include "../Events/MouseMotionEvent.h"
 
-#include "../Systems/CollisionSystem.h"
+#include "../Systems/CircularCollisionSystem.h"
 #include "../Systems/DamageSystem.h"
 #include "../Systems/KeyboardControllerSystem.h"
 #include "../Systems/MouseControllerSystem.h"
@@ -19,6 +19,7 @@
 #include "../Systems/RenderSystem.h"
 #include "../Systems/RenderBoxColliderSystem.h"
 #include "../Systems/WeightForceSystem.h"
+#include "../Systems/CollisionSystem.h"
 
 #include <cstdio>
 #include <sstream>
@@ -45,9 +46,15 @@ void Game::init() {
 	windowWidth = 30 * 16;  // 800
 	windowHeight = 20 * 16;  // 600
 
-	this->window = SDL_CreateWindow("Lab 05: Motor de videojuegos",
-		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, this->windowWidth,
-		this->windowHeight, SDL_WINDOW_SHOWN);
+	this->window = SDL_CreateWindow(
+		"Lab 05: Motor de videojuegos",
+		//SDL_WINDOWPOS_CENTERED, 
+		//SDL_WINDOWPOS_CENTERED, 
+		SDL_WINDOWPOS_UNDEFINED_DISPLAY(1),
+		SDL_WINDOWPOS_UNDEFINED_DISPLAY(1),
+		this->windowWidth,
+		this->windowHeight, 
+		SDL_WINDOW_SHOWN);
 	// TODO: Verificar que se crea la ventana
 
 	this->renderer = SDL_CreateRenderer(this->window, -1, 0);
@@ -161,6 +168,7 @@ void Game::Setup() {
 	manager->AddSystem<RenderSystem>();
 	manager->AddSystem<MovementSystem>();
 	manager->AddSystem<WeightForceSystem>();
+	manager->AddSystem<CollisionSystem>();
 
 	LoadLevelMap("./assets/levels/level_01.tmx");
 
@@ -194,7 +202,7 @@ void Game::processInput() {
 		case SDL_MOUSEMOTION:
 			int x, y;
 			SDL_GetMouseState(&x, &y);
-			eventManager->EmitteEvent<MouseMotionEvent>(glm::vec2(x, y));
+			//eventManager->EmitteEvent<MouseMotionEvent>(glm::vec2(x, y));
 			break;
 		default:
 			break;
@@ -225,10 +233,12 @@ void Game::update() {
 	//manager->GetSystem<DamageSystem>().SubscribeToCollisionEvent(eventManager);
 	//manager->GetSystem<MouseControllerSystem>().SubscribeToMouseMotionEvent(
 	//	eventManager);
-	manager->GetSystem<WeightForceSystem>().Update();
-	manager->GetSystem<MovementSystem>().Update(deltaTime);
 
 	//Ejecutar funcion update
+	manager->GetSystem<WeightForceSystem>().Update();
+	manager->GetSystem<MovementSystem>().Update(deltaTime);
+	manager->GetSystem<CollisionSystem>().Update(eventManager);
+
 
 	manager->Update();
 }

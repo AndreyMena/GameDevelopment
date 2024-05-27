@@ -1,64 +1,66 @@
 #pragma once
 
-#include "../Components/CircleColliderComponent.h"
 #include "../Components/TransformComponent.h"
-#include "../EventManager/EventManager.h"
+#include "../Components/BoxColliderComponent.h"
 #include "../ECS/ECS.h"
+#include "../EventManager/EventManager.h"
 #include "../Events/CollisionEvent.h"
+
 #include <glm/glm.hpp>
 #include <memory>
 #include <iostream>
 
 class CollisionSystem : public System {
-	bool CheckCircleCollision(float aRadius, glm::vec2 aCenter, float bRadius, 
-		glm::vec2 bCenter) {
+	bool CheckAABBCollision(float aX, float aY, float aW, float aH, float bX,
+		float bY, float bW, float bH) {
 		
-		glm::vec2 diff = aCenter - bCenter;
-		float length = glm::length(diff);
-
-		return (aRadius + bRadius) >= length;
+		bool collision = (
+			aX < bX + bW &&
+			aX + aW > bX &&
+			aY < bY + bW &&
+			aY + aH > bY
+			);
+		return collision;
 	}
-
 public:
 	CollisionSystem() {
-		RequireComponent<CircleColliderComponent>();
+		RequireComponent<BoxColliderComponent>();
 		RequireComponent<TransformComponent>();
 	}
 
-	void Update(std::shared_ptr<EventManager>& eventManager) {
+	void Update(const std::shared_ptr<EventManager>& eventManager) {
 		auto entities = GetSystemEntities();
-		for (auto i = entities.begin(); i != entities.end(); i++) {
-			auto a = *i;
-			auto& aCollider = a.GetComponent<CircleColliderComponent>();
+
+		for (auto it = entities.begin(); it != entities.end(); it++) {
+			auto a = *it;
+			auto& aCollider = a.GetComponent<BoxColliderComponent>();
 			auto& aTransform = a.GetComponent<TransformComponent>();
-			for (auto j = i; j != entities.end(); j++) {
-				auto b = *j;
 
-				if (a == b) {
-					continue;
-				}
+			for (auto jt = it; jt != entities.end(); jt++) {
+				auto b = *jt;
 
-				auto& bCollider = b.GetComponent<CircleColliderComponent>();
+				if (a == b) { continue; }
+
+				auto& bCollider = b.GetComponent<BoxColliderComponent>();
 				auto& bTransform = b.GetComponent<TransformComponent>();
-				
-				glm::vec2 aCenter = glm::vec2(
-					aTransform.position.x + 16,
-					aTransform.position.y + 16
-				);
 
-				glm::vec2 bCenter = glm::vec2(
-					bTransform.position.x + 16,
-					bTransform.position.y + 16
+				bool collision = CheckAABBCollision(
+					aTransform.position.x,
+					aTransform.position.y,
+					static_cast<float>(aCollider.width),
+					static_cast<float>(aCollider.height),
+					bTransform.position.x,
+					bTransform.position.y,
+					static_cast<float>(bCollider.width),
+					static_cast<float>(bCollider.height)
 				);
-
-				bool collision = CheckCircleCollision(aCollider.radius, aCenter, 
-					bCollider.radius, bCenter);
 
 				if (collision) {
-					std::cout << a.GetId() << " colisiona con " << b.GetId() << std::endl;
-					eventManager->EmitteEvent<CollisionEvent>(a, b);
+					std::cout << a.GetTag() << " colisiona con " << b.GetTag()
+						<< std::endl;
 				}
 			}
 		}
+	
 	}
 };
