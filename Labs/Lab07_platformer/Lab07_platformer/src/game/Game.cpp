@@ -1,6 +1,7 @@
 #include "Game.h"
 
 #include "../Components/CircleColliderComponent.h"
+#include "../Components/BoxColliderComponent.h"
 #include "../Components/MouseControllerComponent.h"
 #include "../Components/KeyboardControllerComponent.h"
 #include "../Components/RigidbodyComponent.h"
@@ -16,6 +17,7 @@
 #include "../Systems/MouseControllerSystem.h"
 #include "../Systems/MovementSystem.h"
 #include "../Systems/RenderSystem.h"
+#include "../Systems/RenderBoxColliderSystem.h"
 
 #include <cstdio>
 #include <sstream>
@@ -117,6 +119,31 @@ void Game::LoadLevelMap(const std::string& levelPath) {
 		CreateLevel(layer, tileWidth, tileHeight, levelWidth, levelHeight);
 		layer = layer->NextSiblingElement("layer");
 	}
+
+	// TODO Modularizar mas adelante
+	// Creacion de BoxColliders
+	tinyxml2::XMLElement* objectGroup = root->FirstChildElement("objectgroup");
+	tinyxml2::XMLElement* object = objectGroup->FirstChildElement("object");
+
+	while (object != nullptr) {
+		const char* type;
+		std::string tag;
+		int x, y, w, h;
+		object->QueryStringAttribute("type", &type);
+		tag = type;
+		object->QueryIntAttribute("x", &x);
+		object->QueryIntAttribute("y", &y);
+		object->QueryIntAttribute("width", &w);
+		object->QueryIntAttribute("height", &h);
+
+		// Se crean las entidades
+		Entity collider = manager->CreateEntity();
+		collider.AddTag(tag);
+		collider.AddComponent<TransformComponent>(glm::vec2(x, y));
+		collider.AddComponent<BoxColliderComponent>(w, h);
+
+		object = object->NextSiblingElement();
+	}
 }
 
 void Game::Setup() {
@@ -124,11 +151,12 @@ void Game::Setup() {
 	assetStore->AddTexture("terrain_img", "./assets/img/terrain.png", renderer);
 
 	// Agregar Sistemas
-	manager->AddSystem<KeyboardControllerSystem>();
-	manager->AddSystem<RenderSystem>();
+	//manager->AddSystem<KeyboardControllerSystem>();
 	manager->AddSystem<CollisionSystem>();
 	manager->AddSystem<DamageSystem>();
 	manager->AddSystem<MouseControllerSystem>();
+	manager->AddSystem<RenderBoxColliderSystem>();
+	manager->AddSystem<RenderSystem>();
 
 	LoadLevelMap("./assets/levels/level_01.tmx");
 }
@@ -144,11 +172,13 @@ void Game::processInput() {
 		case SDL_KEYDOWN:
 			if (sdlEvent.key.keysym.sym == SDLK_ESCAPE) {
 				this->isRunning = false;
+			} else if (sdlEvent.key.keysym.sym == SDLK_d) {
+				debugMode = !debugMode;
 			}
-			eventManager->EmitteEvent<KeyboardEvent>(true, sdlEvent.key.keysym.sym);
+			//eventManager->EmitteEvent<KeyboardEvent>(true, sdlEvent.key.keysym.sym);
 			break;
 		case SDL_KEYUP:
-			eventManager->EmitteEvent<KeyboardEvent>(false, sdlEvent.key.keysym.sym);
+			//eventManager->EmitteEvent<KeyboardEvent>(false, sdlEvent.key.keysym.sym);
 			break;
 		case SDL_MOUSEMOTION:
 			int x, y;
@@ -179,8 +209,8 @@ void Game::update() {
 	eventManager->Clear();
 
 	// Subscribirnos a eventos
-	manager->GetSystem<KeyboardControllerSystem>().SubscribeToKeyboardEvent(
-		eventManager);
+	//manager->GetSystem<KeyboardControllerSystem>().SubscribeToKeyboardEvent(
+	//	eventManager);
 	manager->GetSystem<DamageSystem>().SubscribeToCollisionEvent(eventManager);
 	manager->GetSystem<MouseControllerSystem>().SubscribeToMouseMotionEvent(
 		eventManager);
@@ -205,6 +235,10 @@ void Game::render() {
 	SDL_RenderClear(this->renderer);
 
 	manager->GetSystem<RenderSystem>().Update(renderer, assetStore);
+	if (debugMode) {
+		manager->GetSystem<RenderBoxColliderSystem>().Update(renderer);
+	}
+
 
 	SDL_RenderPresent(this->renderer);
 }

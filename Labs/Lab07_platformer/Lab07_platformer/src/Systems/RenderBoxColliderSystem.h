@@ -5,12 +5,12 @@
 #include "../Components/TransformComponent.h"
 #include <SDL.h>
 
-class RenderBoxColliderSystem : System {
+class RenderBoxColliderSystem : public System {
+public:
 	RenderBoxColliderSystem() {
 		RequireComponent<BoxColliderComponent>();
 		RequireComponent<TransformComponent>();
 	}
-	~RenderBoxColliderSystem();
 
 	void Update(SDL_Renderer* renderer) {
 		for (auto entity : GetSystemEntities()) {

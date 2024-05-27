@@ -19,6 +19,7 @@ class Game {
 	size_t windowHeight = 0;
 
 	bool isRunning = false;
+	bool debugMode = false;
 
 	int mPrvsFrame = 0; //miliseconds previous frame
 
