@@ -2,6 +2,7 @@
 #include "../AssetStore/AssetStore.h"
 #include "../ECS/ECS.h"
 #include "../EventManager/EventManager.h"
+#include "../KeyActionMap/KeyActionMap.h"
 
 #include <SDL.h>
 #include <memory>
@@ -26,6 +27,7 @@ class Game {
 	std::shared_ptr<AssetStore> assetStore;
 	std::shared_ptr<ECSManager> manager;
 	std::shared_ptr<EventManager> eventManager;
+	std::shared_ptr<KeyActionMap> keyActionMap;
 
 	void CreateLevel(tinyxml2::XMLElement* layer, int tileWidth, int tileHeight,
 		int levelWidth, int levelHeight);

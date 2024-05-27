@@ -31,6 +31,7 @@ Game::Game() {
 	assetStore = std::make_shared<AssetStore>();
 	manager = std::make_shared<ECSManager>();
 	eventManager = std::make_shared<EventManager>();
+	keyActionMap = std::make_shared<KeyActionMap>();
 	std::cout << "Se ejecuta el constructor de GAME" << std::endl;
 }
 

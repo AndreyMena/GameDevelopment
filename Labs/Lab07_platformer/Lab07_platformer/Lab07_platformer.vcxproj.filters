@@ -30,6 +30,9 @@
     <ClCompile Include="libs\tinyxml2\tinyxml2.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="src\KeyActionMap\KeyActionMap.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\AssetStore\AssetStore.h">
@@ -111,6 +114,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="src\Systems\OverlapSystem.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\KeyActionMap\KeyActionMap.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
