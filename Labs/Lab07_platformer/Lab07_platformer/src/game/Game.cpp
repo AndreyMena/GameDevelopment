@@ -20,6 +20,7 @@
 #include "../Systems/RenderBoxColliderSystem.h"
 #include "../Systems/WeightForceSystem.h"
 #include "../Systems/CollisionSystem.h"
+#include "../Systems/OverlapSystem.h"
 
 #include <cstdio>
 #include <sstream>
@@ -166,6 +167,7 @@ void Game::Setup() {
 	//manager->AddSystem<DamageSystem>();
 	manager->AddSystem<RenderBoxColliderSystem>();
 	manager->AddSystem<RenderSystem>();
+	manager->AddSystem<OverlapSystem>();
 	manager->AddSystem<MovementSystem>();
 	manager->AddSystem<WeightForceSystem>();
 	manager->AddSystem<CollisionSystem>();
@@ -228,6 +230,7 @@ void Game::update() {
 	eventManager->Clear();
 
 	// Subscribirnos a eventos
+	manager->GetSystem<OverlapSystem>().SubscribeToCollisionEvent(eventManager);
 	//manager->GetSystem<KeyboardControllerSystem>().SubscribeToKeyboardEvent(
 	//	eventManager);
 	//manager->GetSystem<DamageSystem>().SubscribeToCollisionEvent(eventManager);

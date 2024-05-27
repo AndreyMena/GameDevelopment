@@ -168,6 +168,7 @@
     <ClInclude Include="src\Systems\KeyboardControllerSystem.h" />
     <ClInclude Include="src\Systems\MouseControllerSystem.h" />
     <ClInclude Include="src\Systems\MovementSystem.h" />
+    <ClInclude Include="src\Systems\OverlapSystem.h" />
     <ClInclude Include="src\Systems\RenderBoxColliderSystem.h" />
     <ClInclude Include="src\Systems\RenderSystem.h" />
     <ClInclude Include="src\Systems\WeightForceSystem.h" />

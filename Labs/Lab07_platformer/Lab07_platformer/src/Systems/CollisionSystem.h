@@ -56,8 +56,9 @@ public:
 				);
 
 				if (collision) {
-					std::cout << a.GetTag() << " colisiona con " << b.GetTag()
-						<< std::endl;
+					/*std::cout << a.GetTag() << " colisiona con " << b.GetTag()
+						<< std::endl;*/
+					eventManager->EmitteEvent<CollisionEvent>(a, b);
 				}
 			}
 		}

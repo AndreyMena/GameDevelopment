@@ -110,5 +110,8 @@
     <ClInclude Include="src\Systems\CollisionSystem.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="src\Systems\OverlapSystem.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

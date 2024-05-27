@@ -22,6 +22,7 @@ public:
 			rigidbody.acceleration = rigidbody.sumForces * rigidbody.invMass;
 			rigidbody.velocity += rigidbody.acceleration * static_cast<float>(deltaTyme);
 
+			transform.previousPosition = transform.position;
 			transform.position += rigidbody.velocity * static_cast<float>(deltaTyme);
 
 			rigidbody.sumForces = glm::vec2(0);
