@@ -32,6 +32,7 @@
 #include <glm/glm.hpp>
 
 Game::Game() {
+	animationManager = std::make_shared<AnimationManager>();
 	assetStore = std::make_shared<AssetStore>();
 	manager = std::make_shared<ECSManager>();
 	eventManager = std::make_shared<EventManager>();
@@ -169,6 +170,9 @@ void Game::Setup() {
 	// Cargar Texturas
 	assetStore->AddTexture("terrain_img", "./assets/img/terrain.png", renderer);
 	assetStore->AddTexture("frog_idle", "./assets/img/frog_idle.png", renderer);
+
+	// Add animation info5rmation
+	animationManager->AddAnimation("player", "idle", "frog_idle", 32, 32, 11, 1, 15, true);
 
 	// Agregar Sistemas
 	//manager->AddSystem<MouseControllerSystem>();

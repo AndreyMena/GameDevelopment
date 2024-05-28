@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\AnimationManager\AnimationManager.cpp" />
     <ClCompile Include="src\KeyActionMap\KeyActionMap.cpp" />
     <ClCompile Include="libs\tinyxml2\tinyxml2.cpp" />
     <ClCompile Include="src\AssetStore\AssetStore.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="src\Systems\AnimationSystem.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\AnimationManager\AnimationManager.h" />
     <ClInclude Include="src\Components\AnimationComponent.h" />
     <ClInclude Include="src\Components\PlayerDataComponent.h" />
     <ClInclude Include="src\Events\ActionEvent.h" />
