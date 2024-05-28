@@ -7,6 +7,7 @@
 #include "../Components/RigidbodyComponent.h"
 #include "../Components/SpriteComponent.h"
 #include "../Components/TransformComponent.h"
+#include "../Components/PlayerDataComponent.h"
 
 #include "../Events/KeyboardEvent.h"
 #include "../Events/MouseMotionEvent.h"
@@ -21,6 +22,7 @@
 #include "../Systems/WeightForceSystem.h"
 #include "../Systems/CollisionSystem.h"
 #include "../Systems/OverlapSystem.h"
+#include "../Systems/PlayerActionSystem.h"
 
 #include <cstdio>
 #include <sstream>
@@ -175,6 +177,7 @@ void Game::Setup() {
 	manager->AddSystem<MovementSystem>();
 	manager->AddSystem<WeightForceSystem>();
 	manager->AddSystem<CollisionSystem>();
+	manager->AddSystem<PlayerActionSystem>();
 
 	LoadLevelMap("./assets/levels/level_01.tmx");
 
@@ -184,6 +187,7 @@ void Game::Setup() {
 	player.AddComponent<RigidbodyComponent>(false, 5.0f, 50.0f * 64);
 	player.AddComponent<SpriteComponent>("frog_idle", 32, 32, 0, 0);
 	player.AddComponent<BoxColliderComponent>(32, 32);
+	player.AddComponent<PlayerDataComponent>(glm::vec2(0, -1200.0f * 64));
 }
 
 void Game::processInput() {
@@ -237,6 +241,7 @@ void Game::update() {
 	manager->GetSystem<OverlapSystem>().SubscribeToCollisionEvent(eventManager);
 	manager->GetSystem<KeyboardControllerSystem>().SubscribeToKeyboardEvent(
 		eventManager);
+	manager->GetSystem<PlayerActionSystem>().SubscribeToActionEvent(eventManager);
 	//manager->GetSystem<DamageSystem>().SubscribeToCollisionEvent(eventManager);
 	//manager->GetSystem<MouseControllerSystem>().SubscribeToMouseMotionEvent(
 	//	eventManager);

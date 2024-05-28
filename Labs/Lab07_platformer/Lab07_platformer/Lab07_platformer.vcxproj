@@ -147,6 +147,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Components\PlayerDataComponent.h" />
     <ClInclude Include="src\Events\ActionEvent.h" />
     <ClInclude Include="src\KeyActionMap\KeyActionMap.h" />
     <ClInclude Include="libs\tinyxml2\tinyxml2.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="src\Systems\MouseControllerSystem.h" />
     <ClInclude Include="src\Systems\MovementSystem.h" />
     <ClInclude Include="src\Systems\OverlapSystem.h" />
+    <ClInclude Include="src\Systems\PlayerActionSystem.h" />
     <ClInclude Include="src\Systems\RenderBoxColliderSystem.h" />
     <ClInclude Include="src\Systems\RenderSystem.h" />
     <ClInclude Include="src\Systems\WeightForceSystem.h" />
