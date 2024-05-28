@@ -9,11 +9,11 @@
     ],
     "fileStates": {
         "level_01.tmx": {
-            "scale": 1,
+            "scale": 1.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 239.5,
-                "y": 216.5
+                "x": 407,
+                "y": 231.66666666666663
             }
         },
         "terrain.tsx": {

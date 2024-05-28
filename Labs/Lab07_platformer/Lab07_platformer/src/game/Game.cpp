@@ -1,5 +1,6 @@
 #include "Game.h"
 
+#include "../Components/AnimationComponent.h"
 #include "../Components/CircleColliderComponent.h"
 #include "../Components/BoxColliderComponent.h"
 #include "../Components/MouseControllerComponent.h"
@@ -23,6 +24,7 @@
 #include "../Systems/CollisionSystem.h"
 #include "../Systems/OverlapSystem.h"
 #include "../Systems/PlayerActionSystem.h"
+#include "../Systems/AnimationSystem.h"
 
 #include <cstdio>
 #include <sstream>
@@ -180,11 +182,13 @@ void Game::Setup() {
 	manager->AddSystem<WeightForceSystem>();
 	manager->AddSystem<CollisionSystem>();
 	manager->AddSystem<PlayerActionSystem>();
+	manager->AddSystem<AnimationSystem>();
 
 	LoadLevelMap("./assets/levels/level_01.tmx");
 
 	Entity player = manager->CreateEntity();
 	player.AddTag("player");
+	player.AddComponent<AnimationComponent>(11, 1, 15, true);
 	player.AddComponent<TransformComponent>(glm::vec2(300.0f, 50.0f));
 	player.AddComponent<RigidbodyComponent>(false, 5.0f, 50.0f * 64);
 	player.AddComponent<SpriteComponent>("frog_idle", 32, 32, 0, 0);
@@ -253,6 +257,7 @@ void Game::update() {
 	manager->GetSystem<WeightForceSystem>().Update();
 	manager->GetSystem<MovementSystem>().Update(deltaTime);
 	manager->GetSystem<CollisionSystem>().Update(eventManager);
+	manager->GetSystem<AnimationSystem>().Update();
 
 
 	manager->Update();

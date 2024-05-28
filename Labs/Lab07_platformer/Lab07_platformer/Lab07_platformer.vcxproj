@@ -145,8 +145,10 @@
     <ClCompile Include="src\ECS\ECS.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Systems\AnimationSystem.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Components\AnimationComponent.h" />
     <ClInclude Include="src\Components\PlayerDataComponent.h" />
     <ClInclude Include="src\Events\ActionEvent.h" />
     <ClInclude Include="src\KeyActionMap\KeyActionMap.h" />
