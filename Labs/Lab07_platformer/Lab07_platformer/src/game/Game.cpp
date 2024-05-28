@@ -161,6 +161,8 @@ void Game::LoadLevelMap(const std::string& levelPath) {
 void Game::Setup() {
 	// Asociar teclas y acciones
 	keyActionMap->InsertKeyAction(SDLK_UP, "jump");
+	keyActionMap->InsertKeyAction(SDLK_RIGHT, "move_right");
+	keyActionMap->InsertKeyAction(SDLK_LEFT, "move_left");
 
 	// Cargar Texturas
 	assetStore->AddTexture("terrain_img", "./assets/img/terrain.png", renderer);
@@ -187,7 +189,8 @@ void Game::Setup() {
 	player.AddComponent<RigidbodyComponent>(false, 5.0f, 50.0f * 64);
 	player.AddComponent<SpriteComponent>("frog_idle", 32, 32, 0, 0);
 	player.AddComponent<BoxColliderComponent>(32, 32);
-	player.AddComponent<PlayerDataComponent>(glm::vec2(0, -1200.0f * 64));
+	player.AddComponent<PlayerDataComponent>(glm::vec2(0, -1200.0f * 64), 
+		3.0f * 64);
 }
 
 void Game::processInput() {

@@ -34,6 +34,22 @@ public:
 				data.canJump = true;
 			}
 		}
+		if (e.action.compare("move_right") == 0) {
+			if (e.isActive) {
+				data.right = true;
+			}
+			else {
+				data.right = false;
+			}
+		}
+		if (e.action.compare("move_left") == 0) {
+			if (e.isActive) {
+				data.left = true;
+			}
+			else {
+				data.left = false;
+			}
+		}
 
 		// Resolver accion
 		if (data.jump) {
@@ -42,6 +58,13 @@ public:
 				rigidbody.onGround = false;
 				data.canJump = false;
 			}
+		}
+		rigidbody.velocity.x = 0;
+		if (data.right) {
+			rigidbody.velocity.x += data.runningSpeed;
+		}
+		if (data.left) {
+			rigidbody.velocity.x += -data.runningSpeed;
 		}
 	}
 };
