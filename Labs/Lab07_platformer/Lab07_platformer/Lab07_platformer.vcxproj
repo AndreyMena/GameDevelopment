@@ -178,6 +178,7 @@
     <ClInclude Include="src\Systems\MovementSystem.h" />
     <ClInclude Include="src\Systems\OverlapSystem.h" />
     <ClInclude Include="src\Systems\PlayerActionSystem.h" />
+    <ClInclude Include="src\Systems\PlayerStateSystem.h" />
     <ClInclude Include="src\Systems\RenderBoxColliderSystem.h" />
     <ClInclude Include="src\Systems\RenderSystem.h" />
     <ClInclude Include="src\Systems\WeightForceSystem.h" />

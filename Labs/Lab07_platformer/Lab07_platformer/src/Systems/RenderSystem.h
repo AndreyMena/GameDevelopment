@@ -32,7 +32,7 @@ public:
 				&dstRect,
 				transform.rotation,
 				NULL,
-				SDL_FLIP_NONE
+				(sprite.flip) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE
 			);
 		}
 	}

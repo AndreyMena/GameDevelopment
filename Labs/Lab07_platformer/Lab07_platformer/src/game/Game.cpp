@@ -25,6 +25,7 @@
 #include "../Systems/OverlapSystem.h"
 #include "../Systems/PlayerActionSystem.h"
 #include "../Systems/AnimationSystem.h"
+#include "../Systems/PlayerStateSystem.h"
 
 #include <cstdio>
 #include <sstream>
@@ -170,9 +171,15 @@ void Game::Setup() {
 	// Cargar Texturas
 	assetStore->AddTexture("terrain_img", "./assets/img/terrain.png", renderer);
 	assetStore->AddTexture("frog_idle", "./assets/img/frog_idle.png", renderer);
+	assetStore->AddTexture("frog_run", "./assets/img/frog_run.png", renderer);
+	assetStore->AddTexture("frog_fall", "./assets/img/frog_fall.png", renderer);
+	assetStore->AddTexture("frog_jump", "./assets/img/frog_jump.png", renderer);
 
 	// Add animation info5rmation
 	animationManager->AddAnimation("player", "idle", "frog_idle", 32, 32, 11, 1, 15, true);
+	animationManager->AddAnimation("player", "run", "frog_run", 32, 32, 12, 1, 15, true);
+	animationManager->AddAnimation("player", "fall", "frog_fall", 32, 32, 1, 1, 1, true);
+	animationManager->AddAnimation("player", "jump", "frog_jump", 32, 32, 1, 1, 1, true);
 
 	// Agregar Sistemas
 	//manager->AddSystem<MouseControllerSystem>();
@@ -187,6 +194,7 @@ void Game::Setup() {
 	manager->AddSystem<CollisionSystem>();
 	manager->AddSystem<PlayerActionSystem>();
 	manager->AddSystem<AnimationSystem>();
+	manager->AddSystem<PlayerStateSystem>();
 
 	LoadLevelMap("./assets/levels/level_01.tmx");
 
@@ -249,10 +257,10 @@ void Game::update() {
 	eventManager->Clear();
 
 	// Subscribirnos a eventos
-	manager->GetSystem<OverlapSystem>().SubscribeToCollisionEvent(eventManager);
 	manager->GetSystem<KeyboardControllerSystem>().SubscribeToKeyboardEvent(
 		eventManager);
 	manager->GetSystem<PlayerActionSystem>().SubscribeToActionEvent(eventManager);
+	manager->GetSystem<OverlapSystem>().SubscribeToCollisionEvent(eventManager);
 	//manager->GetSystem<DamageSystem>().SubscribeToCollisionEvent(eventManager);
 	//manager->GetSystem<MouseControllerSystem>().SubscribeToMouseMotionEvent(
 	//	eventManager);
@@ -261,6 +269,7 @@ void Game::update() {
 	manager->GetSystem<WeightForceSystem>().Update();
 	manager->GetSystem<MovementSystem>().Update(deltaTime);
 	manager->GetSystem<CollisionSystem>().Update(eventManager);
+	manager->GetSystem<PlayerStateSystem>().Update(animationManager);
 	manager->GetSystem<AnimationSystem>().Update();
 
 

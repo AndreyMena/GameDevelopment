@@ -1,16 +1,9 @@
 #pragma once
 
-
 #include "../Components/AnimationComponent.h"
 #include "../Components/SpriteComponent.h"
 #include "../EventManager/EventManager.h"
 #include "../ECS/ECS.h"
-
-#include "../Events/CollisionEvent.h"
-#include <glm/glm.hpp>
-#include <memory>
-#include <iostream>
-
 
 class AnimationSystem : public System {
 public:

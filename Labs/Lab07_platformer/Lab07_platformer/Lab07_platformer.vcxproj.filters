@@ -140,5 +140,8 @@
     <ClInclude Include="src\AnimationManager\AnimationManager.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="src\Systems\PlayerStateSystem.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
