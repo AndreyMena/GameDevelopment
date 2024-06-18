@@ -1,4 +1,7 @@
 #pragma once
+
+#include "./LevelLoader.h"
+
 #include "../AnimationManager/AnimationManager.h"
 #include "../AssetStore/AssetStore.h"
 #include "../ECS/ECS.h"
@@ -28,6 +31,8 @@ class Game {
 	std::shared_ptr<ECSManager> manager;
 	std::shared_ptr<EventManager> eventManager;
 	std::shared_ptr<KeyActionMap> keyActionMap;
+
+	std::shared_ptr<LevelLoader> levelLoader;
 
 	void CreateLevel(tinyxml2::XMLElement* layer, int tileWidth, int tileHeight,
 		int levelWidth, int levelHeight);

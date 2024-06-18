@@ -13,6 +13,18 @@ config = {
 }
 
 
+
+function factorial(n)
+	if n == 2 then
+		return 2
+	end
+	return n * factorial(n - 1)
+end
+
 print("LUA -> HOLA "..var_txt)
 print("LUA -> Edad "..var_num)
+print("")
 
+print("LUA -> Cubo de 3 "..pow(3, 3))
+print("LUA -> Cuadrado de 4 "..pow(4, 2))
+print("")

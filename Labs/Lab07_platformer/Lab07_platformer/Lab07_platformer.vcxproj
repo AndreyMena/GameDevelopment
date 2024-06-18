@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\LevelLoader.cpp" />
     <ClCompile Include="src\AnimationManager\AnimationManager.cpp" />
     <ClCompile Include="src\KeyActionMap\KeyActionMap.cpp" />
     <ClCompile Include="libs\tinyxml2\tinyxml2.cpp" />
@@ -149,6 +150,7 @@
     <ClCompile Include="src\Systems\AnimationSystem.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\game\LevelLoader.h" />
     <ClInclude Include="src\AnimationManager\AnimationManager.h" />
     <ClInclude Include="src\Components\AnimationComponent.h" />
     <ClInclude Include="src\Components\CameraFollowComponent.h" />

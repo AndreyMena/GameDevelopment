@@ -45,6 +45,8 @@ Game::Game() {
 	manager = std::make_shared<ECSManager>();
 	eventManager = std::make_shared<EventManager>();
 	keyActionMap = std::make_shared<KeyActionMap>();
+	levelLoader = std::make_shared<LevelLoader>();
+
 	std::cout << "Se ejecuta el constructor de GAME" << std::endl;
 }
 
@@ -83,100 +85,6 @@ void Game::init() {
 	isRunning = true;
 }
 
-void Game::CreateLevel(tinyxml2::XMLElement* layer, int tileWidth, int tileHeight, 
-	int levelWidth, int levelHeight) {
-	tinyxml2::XMLElement* layerData = layer->FirstChildElement("data");
-
-	const char* data = layerData->GetText();
-
-	std::stringstream tmpNumber;
-	int pos = 0;
-	int tileNumber = 0;
-	while (true) {
-		if (data[pos] == '\0') {
-			break;
-		}
-
-		if (isdigit(data[pos])) {
-			tmpNumber << data[pos];
-		}else if (!isdigit(data[pos]) && tmpNumber.str().length() != 0) {
-			int tileId = std::stoi(tmpNumber.str());
-
-			if (tileId > 0) {
-				Entity tile = manager->CreateEntity();
-				tile.AddComponent<TransformComponent>(
-					glm::vec2(
-						(tileNumber % levelWidth) * tileWidth,
-						(tileNumber / levelWidth) * tileHeight
-					)
-				);
-				tile.AddComponent<SpriteComponent>(
-					"terrain_img",
-					tileWidth,
-					tileHeight,
-					((tileId -1) % 22) * tileWidth,
-					((tileId -1) / 22) * tileHeight
-				);
-			}
-
-			tileNumber++;
-			tmpNumber.str("");
-		}
-
-		pos++;
-	}
-}
-
-void Game::LoadLevelMap(const std::string& levelPath) {
-	// Crear un documento XML  de tinyXML
-	tinyxml2::XMLDocument level;
-	// Se carga el archivo
-	level.LoadFile(levelPath.c_str());
-
-	tinyxml2::XMLElement* root = level.RootElement();
-	int tileWidth, tileHeight, levelWidth, levelHeight;
-	// Extraer atributos de la raiz
-	root->QueryIntAttribute("tilewidth", &tileWidth);
-	root->QueryIntAttribute("tileheight", &tileHeight);
-	root->QueryIntAttribute("width", &levelWidth);
-	root->QueryIntAttribute("height", &levelHeight);
-
-	// Inicializar vairables estaticas
-	mapWidth = tileWidth * levelWidth;
-	mapHeight = tileHeight * levelHeight;
-
-	tinyxml2::XMLElement* layer = root->FirstChildElement("layer");
-	while (layer != nullptr) {
-		CreateLevel(layer, tileWidth, tileHeight, levelWidth, levelHeight);
-		layer = layer->NextSiblingElement("layer");
-	}
-
-	// TODO Modularizar mas adelante
-	// Creacion de BoxColliders
-	tinyxml2::XMLElement* objectGroup = root->FirstChildElement("objectgroup");
-	tinyxml2::XMLElement* object = objectGroup->FirstChildElement("object");
-
-	while (object != nullptr) {
-		const char* type;
-		std::string tag;
-		int x, y, w, h;
-		object->QueryStringAttribute("type", &type);
-		tag = type;
-		object->QueryIntAttribute("x", &x);
-		object->QueryIntAttribute("y", &y);
-		object->QueryIntAttribute("width", &w);
-		object->QueryIntAttribute("height", &h);
-
-		// Se crean las entidades
-		Entity collider = manager->CreateEntity();
-		collider.AddTag(tag);
-		collider.AddComponent<TransformComponent>(glm::vec2(x, y));
-		collider.AddComponent<BoxColliderComponent>(w, h);
-
-		object = object->NextSiblingElement();
-	}
-}
-
 void Game::Setup() {
 	// Asociar teclas y acciones
 	keyActionMap->InsertKeyAction(SDLK_UP, "jump");
@@ -191,10 +99,14 @@ void Game::Setup() {
 	assetStore->AddTexture("frog_jump", "./assets/img/frog_jump.png", renderer);
 
 	// Add animation info5rmation
-	animationManager->AddAnimation("player", "idle", "frog_idle", 32, 32, 11, 1, 15, true);
-	animationManager->AddAnimation("player", "run", "frog_run", 32, 32, 12, 1, 15, true);
-	animationManager->AddAnimation("player", "fall", "frog_fall", 32, 32, 1, 1, 1, true);
-	animationManager->AddAnimation("player", "jump", "frog_jump", 32, 32, 1, 1, 1, true);
+	animationManager->AddAnimation("player", "idle", "frog_idle", 32, 32, 11
+		, 1, 15, true);
+	animationManager->AddAnimation("player", "run", "frog_run", 32, 32, 12
+		, 1, 15, true);
+	animationManager->AddAnimation("player", "fall", "frog_fall", 32, 32, 1
+		, 1, 1, true);
+	animationManager->AddAnimation("player", "jump", "frog_jump", 32, 32, 1
+		, 1, 1, true);
 
 	// Agregar Sistemas
 	//manager->AddSystem<MouseControllerSystem>();
@@ -212,7 +124,7 @@ void Game::Setup() {
 	manager->AddSystem<WeightForceSystem>();
 	manager->AddSystem<CameraMovementSystem>();
 
-	LoadLevelMap("./assets/levels/level_02.tmx");
+	levelLoader->LoadMap(manager, "./assets/levels/level_02.tmx");
 
 	Entity player = manager->CreateEntity();
 	player.AddTag("player");
