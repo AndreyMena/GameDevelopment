@@ -23,7 +23,6 @@ struct AnimationData{
 	) {
 		this->spriteLabel = spriteLabel;
 		this->widht = widht;
-		this->spriteLabel = spriteLabel;
 		this->height = height;
 		this->numberFrames = numberFrames;
 		this->currentFrame = currentFrame;

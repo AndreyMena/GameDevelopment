@@ -9,6 +9,7 @@
 #include "../Components/SpriteComponent.h"
 #include "../Components/TransformComponent.h"
 #include "../Components/PlayerDataComponent.h"
+#include "../Components/CameraFollowComponent.h"
 
 #include "../Events/KeyboardEvent.h"
 #include "../Events/MouseMotionEvent.h"
@@ -16,21 +17,27 @@
 #include "../Systems/CircularCollisionSystem.h"
 #include "../Systems/DamageSystem.h"
 #include "../Systems/KeyboardControllerSystem.h"
-#include "../Systems/MouseControllerSystem.h"
 #include "../Systems/MovementSystem.h"
-#include "../Systems/RenderSystem.h"
-#include "../Systems/RenderBoxColliderSystem.h"
-#include "../Systems/WeightForceSystem.h"
 #include "../Systems/CollisionSystem.h"
-#include "../Systems/OverlapSystem.h"
 #include "../Systems/PlayerActionSystem.h"
+#include "../Systems/CameraMovementSystem.h"
+#include "../Systems/MouseControllerSystem.h"
 #include "../Systems/AnimationSystem.h"
+#include "../Systems/OverlapSystem.h"
 #include "../Systems/PlayerStateSystem.h"
+#include "../Systems/RenderBoxColliderSystem.h"
+#include "../Systems/RenderSystem.h"
+#include "../Systems/WeightForceSystem.h"
 
 #include <cstdio>
 #include <sstream>
 #include <iostream>
 #include <glm/glm.hpp>
+
+size_t Game::windowWidth;
+size_t Game::windowHeight;
+size_t Game::mapWidth;
+size_t Game::mapHeight;
 
 Game::Game() {
 	animationManager = std::make_shared<AnimationManager>();
@@ -51,8 +58,8 @@ void Game::init() {
 		return;
 	}
 
-	windowWidth = 30 * 16;  // 800
-	windowHeight = 20 * 16;  // 600
+	windowWidth = 480;  // 800
+	windowHeight = 320;  // 600
 
 	this->window = SDL_CreateWindow(
 		"Lab 05: Motor de videojuegos",
@@ -68,7 +75,11 @@ void Game::init() {
 	this->renderer = SDL_CreateRenderer(this->window, -1, 0);
 
 	// TODO: Verificar que se crea el renderer
-	
+	camera.x = 0;
+	camera.y = 0;
+	camera.w = windowWidth;
+	camera.h = windowHeight;
+
 	isRunning = true;
 }
 
@@ -130,6 +141,10 @@ void Game::LoadLevelMap(const std::string& levelPath) {
 	root->QueryIntAttribute("width", &levelWidth);
 	root->QueryIntAttribute("height", &levelHeight);
 
+	// Inicializar vairables estaticas
+	mapWidth = tileWidth * levelWidth;
+	mapHeight = tileHeight * levelHeight;
+
 	tinyxml2::XMLElement* layer = root->FirstChildElement("layer");
 	while (layer != nullptr) {
 		CreateLevel(layer, tileWidth, tileHeight, levelWidth, levelHeight);
@@ -185,18 +200,19 @@ void Game::Setup() {
 	//manager->AddSystem<MouseControllerSystem>();
 	//manager->AddSystem<CollisionSystem>();
 	//manager->AddSystem<DamageSystem>();
+	manager->AddSystem<AnimationSystem>();
+	manager->AddSystem<CollisionSystem>();
 	manager->AddSystem<KeyboardControllerSystem>(eventManager, keyActionMap);
+	manager->AddSystem<MovementSystem>();
+	manager->AddSystem<OverlapSystem>();
+	manager->AddSystem<PlayerActionSystem>();
+	manager->AddSystem<PlayerStateSystem>();
 	manager->AddSystem<RenderBoxColliderSystem>();
 	manager->AddSystem<RenderSystem>();
-	manager->AddSystem<OverlapSystem>();
-	manager->AddSystem<MovementSystem>();
 	manager->AddSystem<WeightForceSystem>();
-	manager->AddSystem<CollisionSystem>();
-	manager->AddSystem<PlayerActionSystem>();
-	manager->AddSystem<AnimationSystem>();
-	manager->AddSystem<PlayerStateSystem>();
+	manager->AddSystem<CameraMovementSystem>();
 
-	LoadLevelMap("./assets/levels/level_01.tmx");
+	LoadLevelMap("./assets/levels/level_02.tmx");
 
 	Entity player = manager->CreateEntity();
 	player.AddTag("player");
@@ -207,6 +223,7 @@ void Game::Setup() {
 	player.AddComponent<BoxColliderComponent>(32, 32);
 	player.AddComponent<PlayerDataComponent>(glm::vec2(0, -1200.0f * 64), 
 		3.0f * 64);
+	player.AddComponent<CameraFollowComponent>();
 }
 
 void Game::processInput() {
@@ -261,9 +278,6 @@ void Game::update() {
 		eventManager);
 	manager->GetSystem<PlayerActionSystem>().SubscribeToActionEvent(eventManager);
 	manager->GetSystem<OverlapSystem>().SubscribeToCollisionEvent(eventManager);
-	//manager->GetSystem<DamageSystem>().SubscribeToCollisionEvent(eventManager);
-	//manager->GetSystem<MouseControllerSystem>().SubscribeToMouseMotionEvent(
-	//	eventManager);
 
 	//Ejecutar funcion update
 	manager->GetSystem<WeightForceSystem>().Update();
@@ -271,6 +285,7 @@ void Game::update() {
 	manager->GetSystem<CollisionSystem>().Update(eventManager);
 	manager->GetSystem<PlayerStateSystem>().Update(animationManager);
 	manager->GetSystem<AnimationSystem>().Update();
+	manager->GetSystem<CameraMovementSystem>().Update(camera);
 
 
 	manager->Update();
@@ -290,7 +305,7 @@ void Game::render() {
 	SDL_SetRenderDrawColor(renderer, 35, 35, 35, 255);
 	SDL_RenderClear(this->renderer);
 
-	manager->GetSystem<RenderSystem>().Update(renderer, assetStore);
+	manager->GetSystem<RenderSystem>().Update(renderer, assetStore, camera);
 	if (debugMode) {
 		manager->GetSystem<RenderBoxColliderSystem>().Update(renderer);
 	}

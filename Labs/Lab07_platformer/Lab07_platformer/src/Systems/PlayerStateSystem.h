@@ -42,7 +42,6 @@ public:
 				data.state = PlayerState::run;
 			}
 		}
-
 		if (rigidbody.velocity.x <= -0.01f) {
 			sprite.flip = true;
 			if (data.state != PlayerState::run) {
@@ -51,22 +50,26 @@ public:
 				data.state = PlayerState::run;
 			}
 		}
-		if (rigidbody.velocity.x <= -0.01f) {
+
+		//Deberia ser Y
+		if (rigidbody.velocity.y <= -0.01f) {
 			if (data.state != PlayerState::jump) {
 				animationData = animationManager->GetAnimationData("player", "jump");
 				animationStateHasChanged = true;
 				data.state = PlayerState::jump;
 			}
 		}
-		if (rigidbody.velocity.x >= 0.01f) {
+		std::cout << rigidbody.velocity.x<<" "<< rigidbody.velocity.y <<  std::endl;
+		if (rigidbody.velocity.y >= 0.01f) {
+			std::cout << "hola" <<  std::endl;
 			if (data.state != PlayerState::fall) {
 				animationData = animationManager->GetAnimationData("player", "fall");
 				animationStateHasChanged = true;
 				data.state = PlayerState::fall;
 			}
 		}
-		if (rigidbody.velocity.x < 0.01f && -0.01f < rigidbody.velocity.x
-			&& rigidbody.velocity.y < 0.01f && -0.01f < rigidbody.velocity.y) {
+		if (rigidbody.velocity.x < 0.01f && -0.01 < rigidbody.velocity.x
+			&& rigidbody.velocity.y < 0.01f && -0.01 < rigidbody.velocity.y) {
 			if (data.state != PlayerState::idle) {
 				animationData = animationManager->GetAnimationData("player", "idle");
 				animationStateHasChanged = true;
@@ -74,6 +77,7 @@ public:
 			}
 		}
 
+		//std::cout << data.state <<  std::endl;
 		if (animationStateHasChanged) {
 			sprite.assetId = animationData.spriteLabel;
 			sprite.width = animationData.widht;

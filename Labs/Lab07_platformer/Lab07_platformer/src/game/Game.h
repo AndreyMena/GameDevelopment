@@ -16,9 +16,7 @@ const int MILLISECS_PER_FRAME = 1000 / FPS; //16.6
 class Game {
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
-
-	size_t windowWidth = 0;
-	size_t windowHeight = 0;
+	SDL_Rect camera = {0, 0, 0, 0};
 
 	bool isRunning = false;
 	bool debugMode = false;
@@ -41,11 +39,15 @@ class Game {
 	void render();
 
 public:
+	static size_t windowWidth;
+	static size_t windowHeight;
+	static size_t mapWidth;
+	static size_t mapHeight;
+
 	Game();
 	~Game();
 	void init();
 	void run();
 	void destroy();
-
 };
 
