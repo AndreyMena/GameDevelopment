@@ -16,6 +16,24 @@ void TestLua() {
 	std::string nombre = lua["var_txt"];
 	std::cout << "C++ -> Hola " << nombre << std::endl;
 
+	int edad = lua["var_num"];
+	std::cout << "C++ -> Hola " << edad << std::endl;
+
+	//Obtener datos de una tabla de LUA
+	std::string titulo = lua["config"]["title"];
+	std::cout << "C++ -> Datos de condiguracion " << std::endl;
+	std::cout << "C++ -> Titulo " << titulo<< std::endl;
+	
+	//Guardar tabla de LUA en una variable
+	sol::table config = lua["config"];
+	bool pantallaCompleta = config["fullscreen"];
+	int ancho = config["resolution"]["width"];
+	int alto = config["resolution"]["height"];
+	std::cout << "C++ -> Pantalla completa " << pantallaCompleta << std::endl;
+	std::cout << "C++ -> Ancho " << ancho << std::endl;
+	std::cout << "C++ -> Alto " << alto << std::endl;
+	
+
 
 }
 
