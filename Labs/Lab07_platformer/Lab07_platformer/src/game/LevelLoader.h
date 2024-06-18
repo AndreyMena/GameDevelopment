@@ -1,8 +1,13 @@
 #pragma once
 
-#include <tinyxml2/tinyxml2.h>
-#include <memory>
+#include "../AnimationManager/AnimationManager.h"
+#include "../KeyActionMap/KeyActionMap.h"
 #include "../ECS/ECS.h"
+#include "../AssetStore/AssetStore.h"
+
+#include <memory>
+#include <SDL.h>
+#include <tinyxml2/tinyxml2.h>
 
 class LevelLoader {
 	void LoadMapSprites(const std::shared_ptr<ECSManager>& manager,
@@ -12,10 +17,22 @@ class LevelLoader {
 	void LoadMapColliders(const std::shared_ptr<ECSManager>& manager,
 		tinyxml2::XMLElement* object);
 	
+	void LoadKeyAction(const std::shared_ptr<KeyActionMap>& keyActionMap);
+	void LoadAssets(const std::shared_ptr<AssetStore>& assetStore, 
+		SDL_Renderer* renderer);
+
+	void LoadAnimation(const std::shared_ptr<AnimationManager>& animationManager);
+
+	void LoadMap(const std::shared_ptr<ECSManager>& manager,
+		const std::string& levelPath);
+
 public:
 	LevelLoader();
 	~LevelLoader();
 
-	void LoadMap(const std::shared_ptr<ECSManager>& manager,
-		const std::string& levelPath);
+	void LoadLevel(const std::shared_ptr<KeyActionMap>& keyActionMap, 
+		const std::shared_ptr<AssetStore>& assetStore, SDL_Renderer* renderer, 
+		const std::shared_ptr<AnimationManager>& animationManager,
+		const std::shared_ptr<ECSManager>& manager, const std::string& levelName);
+
 };

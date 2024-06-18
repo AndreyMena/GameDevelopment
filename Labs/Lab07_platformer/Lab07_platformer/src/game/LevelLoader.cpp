@@ -21,6 +21,23 @@ LevelLoader::LevelLoader() {
 LevelLoader::~LevelLoader() {
 }
 
+void LevelLoader::LoadLevel(const std::shared_ptr<KeyActionMap>& keyActionMap,
+	const std::shared_ptr<AssetStore>& assetStore, SDL_Renderer* renderer,
+	const std::shared_ptr<AnimationManager>& animationManager,
+	const std::shared_ptr<ECSManager>& manager, const std::string& levelName) {
+	// Asociar teclas y acciones
+	LoadKeyAction(keyActionMap);
+
+	// Cargar Texturas
+	LoadAssets(assetStore, renderer);
+
+	// Add animation info5rmation
+	LoadAnimation(animationManager);
+
+	// Load Map
+	LoadMap(manager, "./assets/levels/level_02.tmx");
+}
+
 void LevelLoader::LoadMapColliders(const std::shared_ptr<ECSManager>& manager, 
 	tinyxml2::XMLElement* object) {
 	const char* type;
@@ -87,6 +104,35 @@ void LevelLoader::LoadMapSprites(const std::shared_ptr<ECSManager>& manager,
 	}
 }
 
+void LevelLoader::LoadKeyAction(const std::shared_ptr<KeyActionMap>& keyActionMap) {
+	// Asociar teclas y acciones
+	keyActionMap->InsertKeyAction(SDLK_UP, "jump");
+	keyActionMap->InsertKeyAction(SDLK_RIGHT, "move_right");
+	keyActionMap->InsertKeyAction(SDLK_LEFT, "move_left");
+}
+
+void LevelLoader::LoadAssets(const std::shared_ptr<AssetStore>& assetStore,
+	SDL_Renderer* renderer) {
+	// Cargar Texturas
+	assetStore->AddTexture("terrain_img", "./assets/img/terrain.png", renderer);
+	assetStore->AddTexture("frog_idle", "./assets/img/frog_idle.png", renderer);
+	assetStore->AddTexture("frog_run", "./assets/img/frog_run.png", renderer);
+	assetStore->AddTexture("frog_fall", "./assets/img/frog_fall.png", renderer);
+	assetStore->AddTexture("frog_jump", "./assets/img/frog_jump.png", renderer);
+}
+
+void LevelLoader::LoadAnimation(const std::shared_ptr<AnimationManager>& animationManager) {
+	// Add animation info5rmation
+	animationManager->AddAnimation("player", "idle", "frog_idle", 32, 32, 11
+		, 1, 15, true);
+	animationManager->AddAnimation("player", "run", "frog_run", 32, 32, 12
+		, 1, 15, true);
+	animationManager->AddAnimation("player", "fall", "frog_fall", 32, 32, 1
+		, 1, 1, true);
+	animationManager->AddAnimation("player", "jump", "frog_jump", 32, 32, 1
+		, 1, 1, true);
+}
+
 void LevelLoader::LoadMap(const std::shared_ptr<ECSManager>& manager, 
 	const std::string& levelPath) {
 	// Crear un documento XML  de tinyXML
@@ -121,3 +167,4 @@ void LevelLoader::LoadMap(const std::shared_ptr<ECSManager>& manager,
 		object = object->NextSiblingElement();
 	}
 }
+

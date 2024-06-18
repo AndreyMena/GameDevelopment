@@ -86,33 +86,9 @@ void Game::init() {
 }
 
 void Game::Setup() {
-	// Asociar teclas y acciones
-	keyActionMap->InsertKeyAction(SDLK_UP, "jump");
-	keyActionMap->InsertKeyAction(SDLK_RIGHT, "move_right");
-	keyActionMap->InsertKeyAction(SDLK_LEFT, "move_left");
-
-	// Cargar Texturas
-	assetStore->AddTexture("terrain_img", "./assets/img/terrain.png", renderer);
-	assetStore->AddTexture("frog_idle", "./assets/img/frog_idle.png", renderer);
-	assetStore->AddTexture("frog_run", "./assets/img/frog_run.png", renderer);
-	assetStore->AddTexture("frog_fall", "./assets/img/frog_fall.png", renderer);
-	assetStore->AddTexture("frog_jump", "./assets/img/frog_jump.png", renderer);
-
-	// Add animation info5rmation
-	animationManager->AddAnimation("player", "idle", "frog_idle", 32, 32, 11
-		, 1, 15, true);
-	animationManager->AddAnimation("player", "run", "frog_run", 32, 32, 12
-		, 1, 15, true);
-	animationManager->AddAnimation("player", "fall", "frog_fall", 32, 32, 1
-		, 1, 1, true);
-	animationManager->AddAnimation("player", "jump", "frog_jump", 32, 32, 1
-		, 1, 1, true);
-
 	// Agregar Sistemas
-	//manager->AddSystem<MouseControllerSystem>();
-	//manager->AddSystem<CollisionSystem>();
-	//manager->AddSystem<DamageSystem>();
 	manager->AddSystem<AnimationSystem>();
+	manager->AddSystem<CameraMovementSystem>();
 	manager->AddSystem<CollisionSystem>();
 	manager->AddSystem<KeyboardControllerSystem>(eventManager, keyActionMap);
 	manager->AddSystem<MovementSystem>();
@@ -122,9 +98,9 @@ void Game::Setup() {
 	manager->AddSystem<RenderBoxColliderSystem>();
 	manager->AddSystem<RenderSystem>();
 	manager->AddSystem<WeightForceSystem>();
-	manager->AddSystem<CameraMovementSystem>();
 
-	levelLoader->LoadMap(manager, "./assets/levels/level_02.tmx");
+	levelLoader->LoadLevel(keyActionMap, assetStore, renderer,
+		animationManager, manager, "./assets/levels/level_02.tmx");
 
 	Entity player = manager->CreateEntity();
 	player.AddTag("player");
