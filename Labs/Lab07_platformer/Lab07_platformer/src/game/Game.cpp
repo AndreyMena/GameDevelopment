@@ -102,7 +102,7 @@ void Game::Setup() {
 	lua.open_libraries(sol::lib::base);
 
 	levelLoader->LoadLevel("level_01.lua", lua, keyActionMap, assetStore, renderer,
-		animationManager, manager, "./assets/levels/level_02.tmx");
+		animationManager, manager);
 
 	Entity player = manager->CreateEntity();
 	player.AddTag("player");

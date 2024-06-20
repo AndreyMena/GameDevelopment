@@ -25,7 +25,7 @@ void LevelLoader::LoadLevel(const std::string& levelName, sol::state& lua,
 	const std::shared_ptr<KeyActionMap>& keyActionMap,
 	const std::shared_ptr<AssetStore>& assetStore, SDL_Renderer* renderer,
 	const std::shared_ptr<AnimationManager>& animationManager,
-	const std::shared_ptr<ECSManager>& manager, const std::string& mapPath) {
+	const std::shared_ptr<ECSManager>& manager) {
 
 	// Verificar que el codigo del script sea correcto
 	sol::load_result script = lua.load_file("./assets/scripts/"+ levelName);
@@ -41,18 +41,21 @@ void LevelLoader::LoadLevel(const std::string& levelName, sol::state& lua,
 	//Lectura de la tabla level
 	sol::table level = lua["level"];
 
-	// Asociar teclas y acciones
-	LoadKeyAction(keyActionMap);
+	// Lectura de la subtabla de key-action
+	sol::table keyActions = level["keyActions"];
+	LoadKeyAction(keyActions, keyActionMap);
 
 	// Lectura de la subtabla assets
 	sol::table assets = level["assets"];
 	LoadAssets(assets, assetStore, renderer);
 
-	// Add animation info5rmation
-	LoadAnimation(animationManager);
+	// Lectura de la subtabla de animaciones
+	sol::table animations = level["animations"];
+	LoadAnimation(animations, animationManager);
 
-	// Load Map
-	LoadMap(manager, "./assets/levels/level_02.tmx");
+	// Lectura de la subtabla de mapa
+	sol::table map = level["map"];
+	LoadMap(map, manager);
 }
 
 void LevelLoader::LoadMapColliders(const std::shared_ptr<ECSManager>& manager, 
@@ -121,11 +124,34 @@ void LevelLoader::LoadMapSprites(const std::shared_ptr<ECSManager>& manager,
 	}
 }
 
-void LevelLoader::LoadKeyAction(const std::shared_ptr<KeyActionMap>& keyActionMap) {
-	// Asociar teclas y acciones
-	keyActionMap->InsertKeyAction(SDLK_UP, "jump");
-	keyActionMap->InsertKeyAction(SDLK_RIGHT, "move_right");
-	keyActionMap->InsertKeyAction(SDLK_LEFT, "move_left");
+void LevelLoader::LoadKeyAction(const sol::table& keyActions, 
+	const std::shared_ptr<KeyActionMap>& keyActionMap) {
+	int index = 0;
+	while (true) {
+		// Verificacion de que exista un asset
+		sol::optional<sol::table> hasKeyAction= keyActions[index];
+		if (hasKeyAction == sol::nullopt) {
+			break;
+		}
+
+		// Obtener el asset
+		sol::table keyAction = keyActions[index];
+
+		//Obtener valores del asset
+		std::string key = keyAction["key"];
+		std::string action = keyAction["action"];
+
+		// Asociar teclas y acciones
+		if (key == "SDLK_UP") {
+			keyActionMap->InsertKeyAction(SDLK_UP, action);
+		}else if (key == "SDLK_RIGHT") {
+			keyActionMap->InsertKeyAction(SDLK_RIGHT, action);
+		}else if (key == "SDLK_LEFT") {
+			keyActionMap->InsertKeyAction(SDLK_LEFT, action);
+		}
+
+		index++;
+	}
 }
 
 void LevelLoader::LoadAssets(const sol::table& assets, 
@@ -157,24 +183,47 @@ void LevelLoader::LoadAssets(const sol::table& assets,
 	// assetStore->AddTexture("terrain_img", "./assets/img/terrain.png", renderer);
 }
 
-void LevelLoader::LoadAnimation(const std::shared_ptr<AnimationManager>& animationManager) {
-	// Add animation info5rmation
-	animationManager->AddAnimation("player", "idle", "frog_idle", 32, 32, 11
-		, 1, 15, true);
-	animationManager->AddAnimation("player", "run", "frog_run", 32, 32, 12
-		, 1, 15, true);
-	animationManager->AddAnimation("player", "fall", "frog_fall", 32, 32, 1
-		, 1, 1, true);
-	animationManager->AddAnimation("player", "jump", "frog_jump", 32, 32, 1
-		, 1, 1, true);
+void LevelLoader::LoadAnimation(const sol::table& animations, 
+	const std::shared_ptr<AnimationManager>& animationManager) {
+	int index = 0;
+	while (true) {
+		// Verificacion de que exista un asset
+		sol::optional<sol::table> hasAnimations= animations[index];
+		if (hasAnimations == sol::nullopt) {
+			break;
+		}
+
+		// Obtener el asset
+		sol::table animation = animations[index];
+
+		//Obtener valores del asset
+		std::string entityType = animation["entityType"];
+		std::string id = animation["id"];
+		std::string spriteId = animation["spriteId"];
+		int width = animation["w"];
+		int height = animation["h"];
+		int numFrames = animation["numFrames"];
+		int currentFrame = animation["currentFrame"];
+		int speedRate = animation["speedRate"];
+		bool isLoop = animation["isLoop"];
+
+		// Add animation information
+		animationManager->AddAnimation(entityType, id, spriteId, width, height, 
+			numFrames, currentFrame, speedRate, isLoop);
+
+		index++;
+	}
 }
 
-void LevelLoader::LoadMap(const std::shared_ptr<ECSManager>& manager, 
-	const std::string& levelPath) {
+void LevelLoader::LoadMap(const sol::table& map, 
+	const std::shared_ptr<ECSManager>& manager) {
+
+	std::string mapPath = map["path"];
+
 	// Crear un documento XML  de tinyXML
 	tinyxml2::XMLDocument level;
 	// Se carga el archivo
-	level.LoadFile(levelPath.c_str());
+	level.LoadFile(mapPath.c_str());
 
 	tinyxml2::XMLElement* root = level.RootElement();
 	int tileWidth, tileHeight, levelWidth, levelHeight;

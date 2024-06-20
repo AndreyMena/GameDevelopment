@@ -18,14 +18,15 @@ class LevelLoader {
 	void LoadMapColliders(const std::shared_ptr<ECSManager>& manager,
 		tinyxml2::XMLElement* object);
 	
-	void LoadKeyAction(const std::shared_ptr<KeyActionMap>& keyActionMap);
+	void LoadKeyAction(const sol::table& keyActions, const std::shared_ptr<KeyActionMap>& keyActionMap);
 	void LoadAssets(const sol::table& assets, 
 		const std::shared_ptr<AssetStore>& assetStore, SDL_Renderer* renderer);
 
-	void LoadAnimation(const std::shared_ptr<AnimationManager>& animationManager);
+	void LoadAnimation(const sol::table& animations,
+		const std::shared_ptr<AnimationManager>& animationManager);
 
-	void LoadMap(const std::shared_ptr<ECSManager>& manager,
-		const std::string& mapPath);
+	void LoadMap(const sol::table& map, 
+		const std::shared_ptr<ECSManager>& manager);
 
 public:
 	LevelLoader();
@@ -35,6 +36,6 @@ public:
 		const std::shared_ptr<KeyActionMap>& keyActionMap, 
 		const std::shared_ptr<AssetStore>& assetStore, SDL_Renderer* renderer, 
 		const std::shared_ptr<AnimationManager>& animationManager,
-		const std::shared_ptr<ECSManager>& manager, const std::string& mapPath);
+		const std::shared_ptr<ECSManager>& manager);
 
 };
