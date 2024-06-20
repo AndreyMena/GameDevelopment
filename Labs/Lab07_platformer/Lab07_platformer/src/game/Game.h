@@ -11,6 +11,7 @@
 #include <SDL.h>
 #include <memory>
 #include <string>
+#include <sol/sol.hpp>
 #include <tinyxml2/tinyxml2.h>
 
 const int FPS = 60;
@@ -33,6 +34,8 @@ class Game {
 	std::shared_ptr<KeyActionMap> keyActionMap;
 
 	std::shared_ptr<LevelLoader> levelLoader;
+
+	sol::state lua;
 
 	void CreateLevel(tinyxml2::XMLElement* layer, int tileWidth, int tileHeight,
 		int levelWidth, int levelHeight);

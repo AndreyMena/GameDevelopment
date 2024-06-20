@@ -99,7 +99,9 @@ void Game::Setup() {
 	manager->AddSystem<RenderSystem>();
 	manager->AddSystem<WeightForceSystem>();
 
-	levelLoader->LoadLevel(keyActionMap, assetStore, renderer,
+	lua.open_libraries(sol::lib::base);
+
+	levelLoader->LoadLevel("level_01.lua", lua, keyActionMap, assetStore, renderer,
 		animationManager, manager, "./assets/levels/level_02.tmx");
 
 	Entity player = manager->CreateEntity();

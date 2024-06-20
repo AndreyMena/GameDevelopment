@@ -21,15 +21,32 @@ LevelLoader::LevelLoader() {
 LevelLoader::~LevelLoader() {
 }
 
-void LevelLoader::LoadLevel(const std::shared_ptr<KeyActionMap>& keyActionMap,
+void LevelLoader::LoadLevel(const std::string& levelName, sol::state& lua,
+	const std::shared_ptr<KeyActionMap>& keyActionMap,
 	const std::shared_ptr<AssetStore>& assetStore, SDL_Renderer* renderer,
 	const std::shared_ptr<AnimationManager>& animationManager,
-	const std::shared_ptr<ECSManager>& manager, const std::string& levelName) {
+	const std::shared_ptr<ECSManager>& manager, const std::string& mapPath) {
+
+	// Verificar que el codigo del script sea correcto
+	sol::load_result script = lua.load_file("./assets/scripts/"+ levelName);
+	if (!script.valid()) {
+		sol::error err = script;
+		std::string errMessage = err.what();
+		std::cout << errMessage << std::endl;
+	}
+	
+	// Ejecutar el script; lectura de la tabla level
+	lua.script_file("./assets/scripts/" + levelName);
+
+	//Lectura de la tabla level
+	sol::table level = lua["level"];
+
 	// Asociar teclas y acciones
 	LoadKeyAction(keyActionMap);
 
-	// Cargar Texturas
-	LoadAssets(assetStore, renderer);
+	// Lectura de la subtabla assets
+	sol::table assets = level["assets"];
+	LoadAssets(assets, assetStore, renderer);
 
 	// Add animation info5rmation
 	LoadAnimation(animationManager);
@@ -111,14 +128,33 @@ void LevelLoader::LoadKeyAction(const std::shared_ptr<KeyActionMap>& keyActionMa
 	keyActionMap->InsertKeyAction(SDLK_LEFT, "move_left");
 }
 
-void LevelLoader::LoadAssets(const std::shared_ptr<AssetStore>& assetStore,
-	SDL_Renderer* renderer) {
+void LevelLoader::LoadAssets(const sol::table& assets, 
+	const std::shared_ptr<AssetStore>& assetStore, SDL_Renderer* renderer) {
 	// Cargar Texturas
-	assetStore->AddTexture("terrain_img", "./assets/img/terrain.png", renderer);
-	assetStore->AddTexture("frog_idle", "./assets/img/frog_idle.png", renderer);
-	assetStore->AddTexture("frog_run", "./assets/img/frog_run.png", renderer);
-	assetStore->AddTexture("frog_fall", "./assets/img/frog_fall.png", renderer);
-	assetStore->AddTexture("frog_jump", "./assets/img/frog_jump.png", renderer);
+
+	int index = 0;
+	while (true) {
+		// Verificacion de que exista un asset
+		sol::optional<sol::table> hasAsset = assets[index];
+		if (hasAsset == sol::nullopt) {
+			break;
+		}
+
+		// Obtener el asset
+		sol::table asset = assets[index];
+
+		//Obtener valores del asset
+		std::string type = asset["type"];
+		std::string id = asset["id"];
+		std::string path = asset["path"];
+
+		if (type == "texture") {
+			assetStore->AddTexture(id, path, renderer);
+		}
+
+		index++;
+	}
+	// assetStore->AddTexture("terrain_img", "./assets/img/terrain.png", renderer);
 }
 
 void LevelLoader::LoadAnimation(const std::shared_ptr<AnimationManager>& animationManager) {

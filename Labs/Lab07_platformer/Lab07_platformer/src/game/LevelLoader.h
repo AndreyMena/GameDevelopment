@@ -7,6 +7,7 @@
 
 #include <memory>
 #include <SDL.h>
+#include <sol/sol.hpp>
 #include <tinyxml2/tinyxml2.h>
 
 class LevelLoader {
@@ -18,21 +19,22 @@ class LevelLoader {
 		tinyxml2::XMLElement* object);
 	
 	void LoadKeyAction(const std::shared_ptr<KeyActionMap>& keyActionMap);
-	void LoadAssets(const std::shared_ptr<AssetStore>& assetStore, 
-		SDL_Renderer* renderer);
+	void LoadAssets(const sol::table& assets, 
+		const std::shared_ptr<AssetStore>& assetStore, SDL_Renderer* renderer);
 
 	void LoadAnimation(const std::shared_ptr<AnimationManager>& animationManager);
 
 	void LoadMap(const std::shared_ptr<ECSManager>& manager,
-		const std::string& levelPath);
+		const std::string& mapPath);
 
 public:
 	LevelLoader();
 	~LevelLoader();
 
-	void LoadLevel(const std::shared_ptr<KeyActionMap>& keyActionMap, 
+	void LoadLevel(const std::string& levelName, sol::state& lua,
+		const std::shared_ptr<KeyActionMap>& keyActionMap, 
 		const std::shared_ptr<AssetStore>& assetStore, SDL_Renderer* renderer, 
 		const std::shared_ptr<AnimationManager>& animationManager,
-		const std::shared_ptr<ECSManager>& manager, const std::string& levelName);
+		const std::shared_ptr<ECSManager>& manager, const std::string& mapPath);
 
 };
