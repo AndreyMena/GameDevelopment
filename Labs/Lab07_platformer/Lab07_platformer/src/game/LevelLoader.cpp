@@ -2,15 +2,15 @@
 #include "Game.h"
 
 #include "../Components/AnimationComponent.h"
-#include "../Components/CircleColliderComponent.h"
 #include "../Components/BoxColliderComponent.h"
-#include "../Components/MouseControllerComponent.h"
+#include "../Components/CameraFollowComponent.h"
+#include "../Components/CircleColliderComponent.h"
 #include "../Components/KeyboardControllerComponent.h"
+#include "../Components/MouseControllerComponent.h"
+#include "../Components/PlayerDataComponent.h"
 #include "../Components/RigidbodyComponent.h"
 #include "../Components/SpriteComponent.h"
 #include "../Components/TransformComponent.h"
-#include "../Components/PlayerDataComponent.h"
-#include "../Components/CameraFollowComponent.h"
 
 #include <sstream>
 #include <../glm/glm.hpp>
@@ -56,6 +56,10 @@ void LevelLoader::LoadLevel(const std::string& levelName, sol::state& lua,
 	// Lectura de la subtabla de mapa
 	sol::table map = level["map"];
 	LoadMap(map, manager);
+
+	// Lectura de la subtabla de entidades
+	sol::table entities = level["entities"];
+	LoadEntities(entities, manager);
 }
 
 void LevelLoader::LoadMapColliders(const std::shared_ptr<ECSManager>& manager, 
@@ -251,5 +255,18 @@ void LevelLoader::LoadMap(const sol::table& map,
 		LoadMapColliders(manager, object);
 		object = object->NextSiblingElement();
 	}
+}
+
+void LevelLoader::LoadEntities(const sol::table& entities, const std::shared_ptr<ECSManager>& manager) {
+	Entity player = manager->CreateEntity();
+	player.AddTag("player");
+	player.AddComponent<AnimationComponent>(11, 1, 15, true);
+	player.AddComponent<BoxColliderComponent>(32, 32);
+	player.AddComponent<CameraFollowComponent>();
+	player.AddComponent<PlayerDataComponent>();
+	player.AddComponent<RigidbodyComponent>(false, 5.0f, 3.0f * 64, 
+		glm::vec2(0, -1200.0f * 64));
+	player.AddComponent<SpriteComponent>("frog_idle", 32, 32, 0, 0);
+	player.AddComponent<TransformComponent>(glm::vec2(300.0f, 50.0f));
 }
 

@@ -103,17 +103,6 @@ void Game::Setup() {
 
 	levelLoader->LoadLevel("level_01.lua", lua, keyActionMap, assetStore, renderer,
 		animationManager, manager);
-
-	Entity player = manager->CreateEntity();
-	player.AddTag("player");
-	player.AddComponent<AnimationComponent>(11, 1, 15, true);
-	player.AddComponent<TransformComponent>(glm::vec2(300.0f, 50.0f));
-	player.AddComponent<RigidbodyComponent>(false, 5.0f, 50.0f * 64);
-	player.AddComponent<SpriteComponent>("frog_idle", 32, 32, 0, 0);
-	player.AddComponent<BoxColliderComponent>(32, 32);
-	player.AddComponent<PlayerDataComponent>(glm::vec2(0, -1200.0f * 64), 
-		3.0f * 64);
-	player.AddComponent<CameraFollowComponent>();
 }
 
 void Game::processInput() {

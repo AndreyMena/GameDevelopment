@@ -15,7 +15,8 @@ public:
 		RequireComponent<PlayerDataComponent>();
 	}
 
-	void SubscribeToActionEvent(std::shared_ptr<EventManager>& eventManager) {
+	void SubscribeToActionEvent(
+		const std::shared_ptr<EventManager>& eventManager) {
 		eventManager->SubscribeToEvent<PlayerActionSystem, ActionEvent>(
 			this, &PlayerActionSystem::OnActionEvent);
 	}
@@ -37,16 +38,14 @@ public:
 		if (e.action.compare("move_right") == 0) {
 			if (e.isActive) {
 				data.right = true;
-			}
-			else {
+			} else {
 				data.right = false;
 			}
 		}
 		if (e.action.compare("move_left") == 0) {
 			if (e.isActive) {
 				data.left = true;
-			}
-			else {
+			} else {
 				data.left = false;
 			}
 		}
@@ -54,17 +53,17 @@ public:
 		// Resolver accion
 		if (data.jump) {
 			if (rigidbody.onGround && data.canJump) {
-				rigidbody.sumForces += data.jumpForce;
+				rigidbody.sumForces += rigidbody.jumpForce;
 				rigidbody.onGround = false;
 				data.canJump = false;
 			}
 		}
 		rigidbody.velocity.x = 0;
 		if (data.right) {
-			rigidbody.velocity.x += data.runningSpeed;
+			rigidbody.velocity.x += rigidbody.speed;
 		}
 		if (data.left) {
-			rigidbody.velocity.x += -data.runningSpeed;
+			rigidbody.velocity.x += -rigidbody.speed;
 		}
 	}
 };
