@@ -30,13 +30,16 @@
     <ClCompile Include="libs\tinyxml2\tinyxml2.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="src\KeyActionMap\KeyActionMap.cpp">
+    <ClCompile Include="src\ControllerManager\ControllerManager.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="src\Systems\AnimationSystem.h">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="src\AnimationManager\AnimationManager.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\LevelLoader.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -122,7 +125,7 @@
     <ClInclude Include="src\Systems\OverlapSystem.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\KeyActionMap\KeyActionMap.h">
+    <ClInclude Include="src\ControllerManager\ControllerManager.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="src\Events\ActionEvent.h">
@@ -147,6 +150,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="src\Systems\CameraMovementSystem.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\LevelLoader.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

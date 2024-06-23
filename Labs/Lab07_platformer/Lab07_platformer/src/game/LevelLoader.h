@@ -1,9 +1,9 @@
 #pragma once
 
 #include "../AnimationManager/AnimationManager.h"
-#include "../KeyActionMap/KeyActionMap.h"
-#include "../ECS/ECS.h"
 #include "../AssetStore/AssetStore.h"
+#include "../ECS/ECS.h"
+#include "../ControllerManager/ControllerManager.h"
 
 #include <memory>
 #include <SDL.h>
@@ -18,7 +18,8 @@ class LevelLoader {
 	void LoadMapColliders(const std::shared_ptr<ECSManager>& manager,
 		tinyxml2::XMLElement* object);
 	
-	void LoadKeyAction(const sol::table& keyActions, const std::shared_ptr<KeyActionMap>& keyActionMap);
+	void LoadKeyAction(const sol::table& keyActions, 
+		const std::shared_ptr<ControllerManager>& controllerManager);
 	void LoadAssets(const sol::table& assets, 
 		const std::shared_ptr<AssetStore>& assetStore, SDL_Renderer* renderer);
 
@@ -35,7 +36,7 @@ public:
 	~LevelLoader();
 
 	void LoadLevel(const std::string& levelName, sol::state& lua,
-		const std::shared_ptr<KeyActionMap>& keyActionMap, 
+		const std::shared_ptr<ControllerManager>& controllerManager,
 		const std::shared_ptr<AssetStore>& assetStore, SDL_Renderer* renderer, 
 		const std::shared_ptr<AnimationManager>& animationManager,
 		const std::shared_ptr<ECSManager>& manager);

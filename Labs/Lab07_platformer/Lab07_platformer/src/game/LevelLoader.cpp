@@ -22,7 +22,7 @@ LevelLoader::~LevelLoader() {
 }
 
 void LevelLoader::LoadLevel(const std::string& levelName, sol::state& lua,
-	const std::shared_ptr<KeyActionMap>& keyActionMap,
+	const std::shared_ptr<ControllerManager>& controllerManager,
 	const std::shared_ptr<AssetStore>& assetStore, SDL_Renderer* renderer,
 	const std::shared_ptr<AnimationManager>& animationManager,
 	const std::shared_ptr<ECSManager>& manager) {
@@ -43,7 +43,7 @@ void LevelLoader::LoadLevel(const std::string& levelName, sol::state& lua,
 
 	// Lectura de la subtabla de key-action
 	sol::table keyActions = level["keyActions"];
-	LoadKeyAction(keyActions, keyActionMap);
+	LoadKeyAction(keyActions, controllerManager);
 
 	// Lectura de la subtabla assets
 	sol::table assets = level["assets"];
@@ -129,7 +129,7 @@ void LevelLoader::LoadMapSprites(const std::shared_ptr<ECSManager>& manager,
 }
 
 void LevelLoader::LoadKeyAction(const sol::table& keyActions, 
-	const std::shared_ptr<KeyActionMap>& keyActionMap) {
+	const std::shared_ptr<ControllerManager>& controllerManager) {
 	int index = 0;
 	while (true) {
 		// Verificacion de que exista un asset
@@ -147,11 +147,11 @@ void LevelLoader::LoadKeyAction(const sol::table& keyActions,
 
 		// Asociar teclas y acciones
 		if (key == "SDLK_UP") {
-			keyActionMap->InsertKeyAction(SDLK_UP, action);
+			controllerManager->AddKeyAction(SDLK_UP, action);
 		}else if (key == "SDLK_RIGHT") {
-			keyActionMap->InsertKeyAction(SDLK_RIGHT, action);
+			controllerManager->AddKeyAction(SDLK_RIGHT, action);
 		}else if (key == "SDLK_LEFT") {
-			keyActionMap->InsertKeyAction(SDLK_LEFT, action);
+			controllerManager->AddKeyAction(SDLK_LEFT, action);
 		}
 
 		index++;

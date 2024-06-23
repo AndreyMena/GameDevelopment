@@ -6,7 +6,7 @@
 #include "../AssetStore/AssetStore.h"
 #include "../ECS/ECS.h"
 #include "../EventManager/EventManager.h"
-#include "../KeyActionMap/KeyActionMap.h"
+#include "../ControllerManager/ControllerManager.h"
 
 #include <SDL.h>
 #include <memory>
@@ -31,7 +31,7 @@ class Game {
 	std::shared_ptr<AssetStore> assetStore;
 	std::shared_ptr<ECSManager> manager;
 	std::shared_ptr<EventManager> eventManager;
-	std::shared_ptr<KeyActionMap> keyActionMap;
+	std::shared_ptr<ControllerManager> controllerManager;
 
 	std::shared_ptr<LevelLoader> levelLoader;
 

@@ -8,12 +8,8 @@
 #include "../Systems/CircularCollisionSystem.h"
 #include "../Systems/CollisionSystem.h"
 #include "../Systems/DamageSystem.h"
-// #include "../Systems/KeyboardControllerSystem.h"
-// #include "../Systems/MouseControllerSystem.h"
 #include "../Systems/MovementSystem.h"
 #include "../Systems/OverlapSystem.h"
-//#include "../Systems/PlayerActionSystem.h"
-//#include "../Systems/PlayerStateSystem.h"
 #include "../Systems/RenderBoxColliderSystem.h"
 #include "../Systems/RenderSystem.h"
 #include "../Systems/WeightForceSystem.h"
@@ -33,7 +29,7 @@ Game::Game() {
 	assetStore = std::make_shared<AssetStore>();
 	manager = std::make_shared<ECSManager>();
 	eventManager = std::make_shared<EventManager>();
-	keyActionMap = std::make_shared<KeyActionMap>();
+	controllerManager = std::make_shared<ControllerManager>();
 	levelLoader = std::make_shared<LevelLoader>();
 
 	std::cout << "Se ejecuta el constructor de GAME" << std::endl;
@@ -87,7 +83,7 @@ void Game::Setup() {
 
 	lua.open_libraries(sol::lib::base);
 
-	levelLoader->LoadLevel("level_01.lua", lua, keyActionMap, assetStore, renderer,
+	levelLoader->LoadLevel("level_01.lua", lua, controllerManager, assetStore, renderer,
 		animationManager, manager);
 }
 
