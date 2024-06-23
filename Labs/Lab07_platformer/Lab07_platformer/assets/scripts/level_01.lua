@@ -39,35 +39,37 @@ level = {
 		{ -- Player
 			tag = "player",
 			components = {
-				numFrames = 11,
-				currentFrame = 1,
-				frameSpeedRate = 15,
-				isLoop = true
-			},
-			boxCollider = {
-				w = 32,
-				h = 32,
-				offset = {x = 0, y = 0}
-			},
-			camaraFollow = {},
-			playerData = {}, 
-			rigidbody = { 
-				isStatic = false,
-				mass = 5.0,
-				speed = 3.0 * 64.0,
-				jumpForce= { x = 0, y = -1200.0 * 64.0 }
-			},
-			sprite = {
-				assetId = "frog_idle",
-				w = 32,
-				h = 32,
-				srcRectX = 0,
-				srcRectY = 0
-			}, 
-			transform = {
-				position = { x = 17.0, y = 32.0 },
-				scale = { x = 1.0, y = 1.0 },
-				rotation = 0.0
+				animation = {
+					numFrames = 11,
+					currentFrame = 1,
+					frameSpeedRate = 15,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 32,
+					h = 32,
+					offset = {x = 0.0, y = 0.0}
+				},
+				cameraFollow = {},
+				playerData = {}, 
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0,
+					speed = 3.0 * 64.0,
+					jumpForce= { x = 0, y = -1200.0 * 64.0 }
+				},
+				sprite = {
+					assetId = "frog_idle",
+					w = 32,
+					h = 32,
+					srcRectX = 0,
+					srcRectY = 0
+				}, 
+				transform = {
+					position = { x = 17.0, y = 32.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 0.0
+				}			
 			}
 		}
 	}

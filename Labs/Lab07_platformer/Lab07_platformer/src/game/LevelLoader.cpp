@@ -258,6 +258,110 @@ void LevelLoader::LoadMap(const sol::table& map,
 }
 
 void LevelLoader::LoadEntities(const sol::table& entities, const std::shared_ptr<ECSManager>& manager) {
+	int index = 0;
+	while (true) {
+		// Verificar que exista una entidad
+		sol::optional<sol::table> hasEntity = entities[index];
+		if (hasEntity == sol::nullopt) {
+			break;
+		}
+
+		sol::table entity = entities[index];
+
+		Entity newEntity = manager->CreateEntity();
+
+		// Tag
+		sol::optional<std::string> tag = entity["tag"];
+		if (tag != sol::nullopt) {
+			newEntity.AddTag(entity["tag"]);
+		}
+
+		// Component
+		sol::optional<sol::table> hasComponents = entity["components"];
+		if (hasComponents != sol::nullopt) {
+			sol::table components = entity["components"];
+
+			// AnimationComponent
+			sol::optional<sol::table> animation = components["animation"];
+			if (animation != sol::nullopt) {
+				newEntity.AddComponent<AnimationComponent>(
+					components["animation"]["numFrames"],
+					components["animation"]["currentFrame"],
+					components["animation"]["frameSpeedRate"],
+					components["animation"]["isLoop"]
+				);
+			}
+			//BoxColliderComponent
+			sol::optional<sol::table> boxCollider = components["boxCollider"];
+			if (boxCollider != sol::nullopt) {
+				newEntity.AddComponent<BoxColliderComponent>(
+					components["boxCollider"]["w"],
+					components["boxCollider"]["h"],
+					glm::vec2(
+						components["boxCollider"]["offset"]["x"],
+						components["boxCollider"]["offset"]["y"]
+					)
+				);
+			}
+
+			// CameraFollowComponent
+			sol::optional<sol::table> cameraFollow = components["cameraFollow"];
+			if (cameraFollow != sol::nullopt) {
+				newEntity.AddComponent<CameraFollowComponent>();
+			}
+
+			// PlayerDataComponent
+			sol::optional<sol::table> playerData = components["playerData"];
+			if (playerData != sol::nullopt) {
+				newEntity.AddComponent<PlayerDataComponent>();
+			}
+
+			// RigidbodyComponent
+			sol::optional<sol::table> rigidbody = components["rigidbody"];
+			if (rigidbody != sol::nullopt) {
+				newEntity.AddComponent<RigidbodyComponent>(
+					components["rigidbody"]["isStatic"],
+					components["rigidbody"]["mass"],
+					components["rigidbody"]["speed"],
+					glm::vec2(
+						components["rigidbody"]["jumpForce"]["x"],
+						components["rigidbody"]["jumpForce"]["y"]
+					)
+				);
+			}
+
+			// SpriteComponent
+			sol::optional<sol::table> sprite = components["sprite"];
+			if (sprite != sol::nullopt) {
+				newEntity.AddComponent<SpriteComponent>(
+					components["sprite"]["assetId"], 
+					components["sprite"]["w"], 
+					components["sprite"]["h"], 
+					components["sprite"]["srcRectX"], 
+					components["sprite"]["srcRectY"]
+				);
+			}
+
+			// TransformComponent
+			sol::optional<sol::table> transform = components["sprite"];
+			if (transform != sol::nullopt) {
+				newEntity.AddComponent<TransformComponent>(
+					glm::vec2(
+						components["transform"]["position"]["x"],
+						components["transform"]["position"]["y"]
+					),
+					glm::vec2(
+						components["transform"]["scale"]["x"],
+						components["transform"]["scale"]["y"]
+					),
+					components["transform"]["rotation"]
+				);
+			}
+		}
+
+		index++;
+	}
+	/*
 	Entity player = manager->CreateEntity();
 	player.AddTag("player");
 	player.AddComponent<AnimationComponent>(11, 1, 15, true);
@@ -268,5 +372,6 @@ void LevelLoader::LoadEntities(const sol::table& entities, const std::shared_ptr
 		glm::vec2(0, -1200.0f * 64));
 	player.AddComponent<SpriteComponent>("frog_idle", 32, 32, 0, 0);
 	player.AddComponent<TransformComponent>(glm::vec2(300.0f, 50.0f));
+	*/
 }
 
