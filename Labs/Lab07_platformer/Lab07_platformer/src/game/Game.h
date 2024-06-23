@@ -46,14 +46,16 @@ class Game {
 	void update();
 	void render();
 
+	Game();
+	~Game();
 public:
 	static size_t windowWidth;
 	static size_t windowHeight;
 	static size_t mapWidth;
 	static size_t mapHeight;
 
-	Game();
-	~Game();
+	static Game& GetInstance();
+
 	void init();
 	void run();
 	void destroy();

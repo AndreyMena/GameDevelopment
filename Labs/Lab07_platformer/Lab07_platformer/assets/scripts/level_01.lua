@@ -51,7 +51,6 @@ level = {
 					offset = {x = 0.0, y = 0.0}
 				},
 				cameraFollow = {},
-				playerData = {}, 
 				rigidbody = { 
 					isStatic = false,
 					mass = 5.0,

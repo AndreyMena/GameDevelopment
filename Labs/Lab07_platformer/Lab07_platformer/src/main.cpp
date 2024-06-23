@@ -57,7 +57,7 @@ int main(int argc, char* argv[]) {
 
 	//TestLua();
 	
-	Game game;
+	Game& game = Game::GetInstance();
 	game.init();
 	game.run();
 	game.destroy();

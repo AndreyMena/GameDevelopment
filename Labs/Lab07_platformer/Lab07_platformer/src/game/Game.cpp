@@ -12,6 +12,7 @@
 #include "../Systems/OverlapSystem.h"
 #include "../Systems/RenderBoxColliderSystem.h"
 #include "../Systems/RenderSystem.h"
+#include "../Systems/ScriptSystem.h"
 #include "../Systems/WeightForceSystem.h"
 
 #include <cstdio>
@@ -37,6 +38,11 @@ Game::Game() {
 
 Game::~Game() {
 	std::cout << "Se ejecuta el destructor de GAME" << std::endl;
+}
+
+Game& Game::GetInstance() {
+	static Game game;
+	return game;
 }
 
 void Game::init() {
@@ -79,6 +85,7 @@ void Game::Setup() {
 	manager->AddSystem<OverlapSystem>();
 	manager->AddSystem<RenderBoxColliderSystem>();
 	manager->AddSystem<RenderSystem>();
+	manager->AddSystem<ScriptSystem>();
 	manager->AddSystem<WeightForceSystem>();
 
 	lua.open_libraries(sol::lib::base);
@@ -139,12 +146,12 @@ void Game::update() {
 	manager->GetSystem<OverlapSystem>().SubscribeToCollisionEvent(eventManager);
 
 	//Ejecutar funcion update
+	manager->GetSystem<ScriptSystem>().Update();
 	manager->GetSystem<WeightForceSystem>().Update();
 	manager->GetSystem<MovementSystem>().Update(deltaTime);
 	manager->GetSystem<CollisionSystem>().Update(eventManager);
 	manager->GetSystem<AnimationSystem>().Update();
 	manager->GetSystem<CameraMovementSystem>().Update(camera);
-
 
 	manager->Update();
 }

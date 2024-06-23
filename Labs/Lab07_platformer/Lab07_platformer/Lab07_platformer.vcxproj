@@ -150,6 +150,8 @@
     <ClCompile Include="src\Systems\AnimationSystem.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Bindings\LuaBindings.h" />
+    <ClInclude Include="src\Components\ScriptComponent.h" />
     <ClInclude Include="src\game\LevelLoader.h" />
     <ClInclude Include="src\AnimationManager\AnimationManager.h" />
     <ClInclude Include="src\Components\AnimationComponent.h" />
@@ -185,6 +187,7 @@
     <ClInclude Include="src\Systems\PlayerStateSystem.h" />
     <ClInclude Include="src\Systems\RenderBoxColliderSystem.h" />
     <ClInclude Include="src\Systems\RenderSystem.h" />
+    <ClInclude Include="src\Systems\ScriptSystem.h" />
     <ClInclude Include="src\Systems\WeightForceSystem.h" />
     <ClInclude Include="src\Util\Pool.h" />
   </ItemGroup>
