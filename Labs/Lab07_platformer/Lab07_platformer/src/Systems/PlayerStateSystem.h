@@ -8,6 +8,7 @@
 #include "../ECS/ECS.h"
 
 #include <memory>
+#include <iostream>
 #include <SDL.h>
 
 class PlayerStateSystem : public System {

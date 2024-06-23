@@ -25,6 +25,10 @@ public:
 		lua.set_function("add_force", AddForce);
 		lua.set_function("set_velocity", SetVelocity);
 		lua.set_function("get_velocity", GetVelocity);
+
+		lua.set_function("flip_sprite", FlipSprite);
+
+		lua.set_function("change_animation", ChangeAnimation);
 	}
 
 	void Update(sol::state& lua) {

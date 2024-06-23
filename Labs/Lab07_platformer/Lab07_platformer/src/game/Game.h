@@ -27,7 +27,6 @@ class Game {
 
 	int mPrvsFrame = 0; //miliseconds previous frame
 
-	std::shared_ptr<AnimationManager> animationManager;
 	std::shared_ptr<AssetStore> assetStore;
 	std::shared_ptr<ECSManager> manager;
 	std::shared_ptr<EventManager> eventManager;
@@ -53,6 +52,7 @@ public:
 	static size_t mapWidth;
 	static size_t mapHeight;
 
+	std::shared_ptr<AnimationManager> animationManager;
 	std::shared_ptr<ControllerManager> controllerManager;
 	
 	static Game& GetInstance();
