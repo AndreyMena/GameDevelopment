@@ -1,30 +1,19 @@
 #include "Game.h"
 
-#include "../Components/AnimationComponent.h"
-#include "../Components/CircleColliderComponent.h"
-#include "../Components/BoxColliderComponent.h"
-#include "../Components/MouseControllerComponent.h"
-#include "../Components/KeyboardControllerComponent.h"
-#include "../Components/RigidbodyComponent.h"
-#include "../Components/SpriteComponent.h"
-#include "../Components/TransformComponent.h"
-#include "../Components/PlayerDataComponent.h"
-#include "../Components/CameraFollowComponent.h"
-
 #include "../Events/KeyboardEvent.h"
 #include "../Events/MouseMotionEvent.h"
 
-#include "../Systems/CircularCollisionSystem.h"
-#include "../Systems/DamageSystem.h"
-#include "../Systems/KeyboardControllerSystem.h"
-#include "../Systems/MovementSystem.h"
-#include "../Systems/CollisionSystem.h"
-#include "../Systems/PlayerActionSystem.h"
-#include "../Systems/CameraMovementSystem.h"
-#include "../Systems/MouseControllerSystem.h"
 #include "../Systems/AnimationSystem.h"
+#include "../Systems/CameraMovementSystem.h"
+#include "../Systems/CircularCollisionSystem.h"
+#include "../Systems/CollisionSystem.h"
+#include "../Systems/DamageSystem.h"
+// #include "../Systems/KeyboardControllerSystem.h"
+// #include "../Systems/MouseControllerSystem.h"
+#include "../Systems/MovementSystem.h"
 #include "../Systems/OverlapSystem.h"
-#include "../Systems/PlayerStateSystem.h"
+//#include "../Systems/PlayerActionSystem.h"
+//#include "../Systems/PlayerStateSystem.h"
 #include "../Systems/RenderBoxColliderSystem.h"
 #include "../Systems/RenderSystem.h"
 #include "../Systems/WeightForceSystem.h"
@@ -90,11 +79,8 @@ void Game::Setup() {
 	manager->AddSystem<AnimationSystem>();
 	manager->AddSystem<CameraMovementSystem>();
 	manager->AddSystem<CollisionSystem>();
-	manager->AddSystem<KeyboardControllerSystem>(eventManager, keyActionMap);
 	manager->AddSystem<MovementSystem>();
 	manager->AddSystem<OverlapSystem>();
-	manager->AddSystem<PlayerActionSystem>();
-	manager->AddSystem<PlayerStateSystem>();
 	manager->AddSystem<RenderBoxColliderSystem>();
 	manager->AddSystem<RenderSystem>();
 	manager->AddSystem<WeightForceSystem>();
@@ -119,10 +105,10 @@ void Game::processInput() {
 			} else if (sdlEvent.key.keysym.sym == SDLK_d) {
 				debugMode = !debugMode;
 			}
-			eventManager->EmitteEvent<KeyboardEvent>(true, sdlEvent.key.keysym.sym);
+			// eventManager->EmitteEvent<KeyboardEvent>(true, sdlEvent.key.keysym.sym);
 			break;
 		case SDL_KEYUP:
-			eventManager->EmitteEvent<KeyboardEvent>(false, sdlEvent.key.keysym.sym);
+			// eventManager->EmitteEvent<KeyboardEvent>(false, sdlEvent.key.keysym.sym);
 			break;
 		case SDL_MOUSEMOTION:
 			int x, y;
@@ -153,16 +139,13 @@ void Game::update() {
 	eventManager->Clear();
 
 	// Subscribirnos a eventos
-	manager->GetSystem<KeyboardControllerSystem>().SubscribeToKeyboardEvent(
-		eventManager);
-	manager->GetSystem<PlayerActionSystem>().SubscribeToActionEvent(eventManager);
+
 	manager->GetSystem<OverlapSystem>().SubscribeToCollisionEvent(eventManager);
 
 	//Ejecutar funcion update
 	manager->GetSystem<WeightForceSystem>().Update();
 	manager->GetSystem<MovementSystem>().Update(deltaTime);
 	manager->GetSystem<CollisionSystem>().Update(eventManager);
-	manager->GetSystem<PlayerStateSystem>().Update(animationManager);
 	manager->GetSystem<AnimationSystem>().Update();
 	manager->GetSystem<CameraMovementSystem>().Update(camera);
 

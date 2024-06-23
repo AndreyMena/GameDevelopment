@@ -2,28 +2,26 @@
 
 #include "../AnimationManager/AnimationManager.h"
 #include "../Components/AnimationComponent.h"
-#include "../Components/SpriteComponent.h"
-#include "../Components/RigidbodyComponent.h"
 #include "../Components/PlayerDataComponent.h"
-#include "../EventManager/EventManager.h"
+#include "../Components/RigidbodyComponent.h"
+#include "../Components/SpriteComponent.h"
 #include "../ECS/ECS.h"
 
 #include <memory>
+#include <SDL.h>
 
 class PlayerStateSystem : public System {
 public:
 	PlayerStateSystem() {
-		RequireComponent<SpriteComponent>();
-		RequireComponent<PlayerDataComponent>();
 		RequireComponent<AnimationComponent>();
-		//RequireComponent<RigidbodyComponent>();
+		RequireComponent<PlayerDataComponent>();
+		RequireComponent<SpriteComponent>();
 	}
 
 	void Update(const std::shared_ptr<AnimationManager>& animationManager) {
 		if (GetSystemEntities().size() == 0) {
 			return;
 		}
-
 		auto player = GetSystemEntities()[0];
 
 		auto& animation = player.GetComponent<AnimationComponent>();

@@ -11,8 +11,8 @@
 class PlayerActionSystem : public System {
 public:
 	PlayerActionSystem() {
-		RequireComponent<RigidbodyComponent>();
 		RequireComponent<PlayerDataComponent>();
+		RequireComponent<RigidbodyComponent>();
 	}
 
 	void SubscribeToActionEvent(
