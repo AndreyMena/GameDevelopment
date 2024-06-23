@@ -157,7 +157,7 @@ void Game::update() {
 	manager->GetSystem<OverlapSystem>().SubscribeToCollisionEvent(eventManager);
 
 	//Ejecutar funcion update
-	manager->GetSystem<ScriptSystem>().Update();
+	manager->GetSystem<ScriptSystem>().Update(lua);
 	manager->GetSystem<WeightForceSystem>().Update();
 	manager->GetSystem<MovementSystem>().Update(deltaTime);
 	manager->GetSystem<CollisionSystem>().Update(eventManager);
