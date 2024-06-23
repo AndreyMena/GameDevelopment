@@ -21,7 +21,10 @@ public:
 		);
 
 		lua.set_function("get_action_state",  GetActionState);
+
 		lua.set_function("add_force", AddForce);
+		lua.set_function("set_velocity", SetVelocity);
+		lua.set_function("get_velocity", GetVelocity);
 	}
 
 	void Update(sol::state& lua) {
