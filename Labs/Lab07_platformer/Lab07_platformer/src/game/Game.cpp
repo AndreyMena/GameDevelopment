@@ -88,6 +88,8 @@ void Game::Setup() {
 	manager->AddSystem<ScriptSystem>();
 	manager->AddSystem<WeightForceSystem>();
 
+	manager->GetSystem<ScriptSystem>().CreateLuaBindings(lua);
+
 	lua.open_libraries(sol::lib::base);
 
 	levelLoader->LoadLevel("level_01.lua", lua, controllerManager, assetStore, renderer,
@@ -107,11 +109,20 @@ void Game::processInput() {
 				this->isRunning = false;
 			} else if (sdlEvent.key.keysym.sym == SDLK_d) {
 				debugMode = !debugMode;
+			} else {
+				if (controllerManager->IskeyMapped(sdlEvent.key.keysym.sym)) {
+					std::string action = controllerManager->GetAction(
+						sdlEvent.key.keysym.sym);
+					controllerManager->ActivateAction(action);
+				}
 			}
-			// eventManager->EmitteEvent<KeyboardEvent>(true, sdlEvent.key.keysym.sym);
 			break;
 		case SDL_KEYUP:
-			// eventManager->EmitteEvent<KeyboardEvent>(false, sdlEvent.key.keysym.sym);
+			if (controllerManager->IskeyMapped(sdlEvent.key.keysym.sym)) {
+				std::string action = controllerManager->GetAction(
+					sdlEvent.key.keysym.sym);
+				controllerManager->DeactivateAction(action);
+			}
 			break;
 		case SDL_MOUSEMOTION:
 			int x, y;

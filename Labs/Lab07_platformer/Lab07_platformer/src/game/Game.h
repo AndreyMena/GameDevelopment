@@ -31,7 +31,6 @@ class Game {
 	std::shared_ptr<AssetStore> assetStore;
 	std::shared_ptr<ECSManager> manager;
 	std::shared_ptr<EventManager> eventManager;
-	std::shared_ptr<ControllerManager> controllerManager;
 
 	std::shared_ptr<LevelLoader> levelLoader;
 
@@ -54,6 +53,8 @@ public:
 	static size_t mapWidth;
 	static size_t mapHeight;
 
+	std::shared_ptr<ControllerManager> controllerManager;
+	
 	static Game& GetInstance();
 
 	void init();
