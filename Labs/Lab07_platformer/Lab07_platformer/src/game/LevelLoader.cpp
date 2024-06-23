@@ -9,6 +9,7 @@
 #include "../Components/MouseControllerComponent.h"
 #include "../Components/PlayerDataComponent.h"
 #include "../Components/RigidbodyComponent.h"
+#include "../Components/ScriptComponent.h"
 #include "../Components/SpriteComponent.h"
 #include "../Components/TransformComponent.h"
 
@@ -59,7 +60,7 @@ void LevelLoader::LoadLevel(const std::string& levelName, sol::state& lua,
 
 	// Lectura de la subtabla de entidades
 	sol::table entities = level["entities"];
-	LoadEntities(entities, manager);
+	LoadEntities(entities, lua, manager);
 }
 
 void LevelLoader::LoadMapColliders(const std::shared_ptr<ECSManager>& manager, 
@@ -257,7 +258,8 @@ void LevelLoader::LoadMap(const sol::table& map,
 	}
 }
 
-void LevelLoader::LoadEntities(const sol::table& entities, const std::shared_ptr<ECSManager>& manager) {
+void LevelLoader::LoadEntities(const sol::table& entities, sol::state& lua,
+	const std::shared_ptr<ECSManager>& manager) {
 	int index = 0;
 	while (true) {
 		// Verificar que exista una entidad
@@ -310,12 +312,6 @@ void LevelLoader::LoadEntities(const sol::table& entities, const std::shared_ptr
 				newEntity.AddComponent<CameraFollowComponent>();
 			}
 
-			// PlayerDataComponent
-			sol::optional<sol::table> playerData = components["playerData"];
-			if (playerData != sol::nullopt) {
-				newEntity.AddComponent<PlayerDataComponent>();
-			}
-
 			// RigidbodyComponent
 			sol::optional<sol::table> rigidbody = components["rigidbody"];
 			if (rigidbody != sol::nullopt) {
@@ -328,6 +324,20 @@ void LevelLoader::LoadEntities(const sol::table& entities, const std::shared_ptr
 						components["rigidbody"]["jumpForce"]["y"]
 					)
 				);
+			}
+
+			// ScriptComponent
+			sol::optional<sol::table> script = components["script"];
+			if (script != sol::nullopt) {
+				lua["update"] = sol::nil;
+				std::string scriptPath = components["script"]["path"];
+				lua.script_file(scriptPath);
+				sol::optional<sol::function> hasUpdate = lua["update"];
+				sol::function update = sol::nil;
+				if (hasUpdate != sol::nullopt) {
+					update = lua["update"];
+				}
+				newEntity.AddComponent<ScriptComponent>(update);
 			}
 
 			// SpriteComponent

@@ -29,7 +29,7 @@ class LevelLoader {
 	void LoadMap(const sol::table& map, 
 		const std::shared_ptr<ECSManager>& manager);
 
-	void LoadEntities(const sol::table& entities,
+	void LoadEntities(const sol::table& entities, sol::state& lua,
 		const std::shared_ptr<ECSManager>& manager);
 public:
 	LevelLoader();

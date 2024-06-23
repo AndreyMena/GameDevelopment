@@ -57,6 +57,9 @@ level = {
 					speed = 3.0 * 64.0,
 					jumpForce= { x = 0, y = -1200.0 * 64.0 }
 				},
+				script = {
+					path = "./assets/scripts/player.lua"
+				},
 				sprite = {
 					assetId = "frog_idle",
 					w = 32,
