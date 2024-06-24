@@ -80,3 +80,14 @@ function update()
 
 	player_animation_state()
 end
+
+-- Function onCollision
+
+function on_collision(other)
+	if other:get_tag() == "floor" then
+		-- print(this:get_tag().." choca contra "..other:get_tag())
+		if check_dir_collision(this, other, "bottom") then
+			player_can_jump = true
+		end
+	end
+end

@@ -1,9 +1,13 @@
 #pragma once
 
 #include "../AnimationManager/AnimationManager.h"
+
 #include "../Components/AnimationComponent.h"
+#include "../Components/BoxColliderComponent.h"
 #include "../Components/RigidbodyComponent.h"
+#include "../Components/TransformComponent.h"
 #include "../Components/SpriteComponent.h"
+
 #include "../game/Game.h"
 
 #include <glm/glm.hpp>
@@ -64,4 +68,55 @@ void ChangeAnimation(Entity entity, const std::string& entityType,
 	animation.numberOffFrames = animation.numberOffFrames;
 	animation.isLoop = animation.isLoop;
 	animation.startTime = SDL_GetTicks();
+}
+
+// Collision direction checks
+
+bool CheckDirectionCollision(Entity a, Entity b, const std::string dir) {
+	auto& aCollider = a.GetComponent<BoxColliderComponent>();
+	auto& aTransform = a.GetComponent<TransformComponent>();
+	auto& bCollider = b.GetComponent<BoxColliderComponent>();
+	auto& bTransform = b.GetComponent<TransformComponent>();
+
+	float aX = aTransform.previousPosition.x;
+	float aY = aTransform.previousPosition.y;
+	float aW = static_cast<float>(aCollider.width);
+	float aH = static_cast<float>(aCollider.height);
+
+	float bX = bTransform.previousPosition.x;
+	float bY = bTransform.previousPosition.y;
+	float bW = static_cast<float>(bCollider.width);
+	float bH = static_cast<float>(bCollider.height);
+
+	bool direction = false;
+
+	if (dir == "top") {
+		return (
+			aX < bX + bW &&
+			aX + aW > bX &&
+			aY > bY
+			);
+	}
+	if (dir == "bottom") {
+		return (
+			aX < bX + bW &&
+			aX + aW > bX &&
+			aY < bY
+			);
+	}
+	if (dir == "left") {
+		return (
+			aY < bY + bH &&
+			aY + aH > bY &&
+			aX > bX
+			);
+	}
+	if (dir == "right") {
+		return (
+			aY < bY + bH &&
+			aY + aH > bY &&
+			aX < bX
+			);
+	}
+	return false;
 }

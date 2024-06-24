@@ -1,14 +1,16 @@
 #pragma once
 
-#include "../Components/TransformComponent.h"
+#include "../Components/ScriptComponent.h"
 #include "../Components/BoxColliderComponent.h"
+#include "../Components/TransformComponent.h"
 #include "../ECS/ECS.h"
 #include "../EventManager/EventManager.h"
 #include "../Events/CollisionEvent.h"
 
 #include <glm/glm.hpp>
-#include <memory>
 #include <iostream>
+#include <memory>
+#include <sol/sol.hpp>
 
 class CollisionSystem : public System {
 	bool CheckAABBCollision(float aX, float aY, float aW, float aH, float bX,
@@ -28,7 +30,8 @@ public:
 		RequireComponent<TransformComponent>();
 	}
 
-	void Update(const std::shared_ptr<EventManager>& eventManager) {
+	void Update(const std::shared_ptr<EventManager>& eventManager, 
+		sol::state& lua) {
 		auto entities = GetSystemEntities();
 
 		for (auto it = entities.begin(); it != entities.end(); it++) {
@@ -59,9 +62,23 @@ public:
 					/*std::cout << a.GetTag() << " colisiona con " << b.GetTag()
 						<< std::endl;*/
 					eventManager->EmitteEvent<CollisionEvent>(a, b);
+
+					if (a.HasComponent<ScriptComponent>()) {
+						const auto& script = a.GetComponent<ScriptComponent>();
+						if (script.onCollision != sol::nil) {
+							lua["this"] = a;
+							script.onCollision(b);
+						}
+					}
+					if (b.HasComponent<ScriptComponent>()) {
+						const auto& script = b.GetComponent<ScriptComponent>();
+						if (script.onCollision != sol::nil) {
+							lua["this"] = b;
+							script.onCollision(a);
+						}
+					}
 				}
 			}
 		}
-	
 	}
 };

@@ -158,9 +158,10 @@ void Game::update() {
 
 	//Ejecutar funcion update
 	manager->GetSystem<ScriptSystem>().Update(lua);
+
 	manager->GetSystem<WeightForceSystem>().Update();
 	manager->GetSystem<MovementSystem>().Update(deltaTime);
-	manager->GetSystem<CollisionSystem>().Update(eventManager);
+	manager->GetSystem<CollisionSystem>().Update(eventManager, lua);
 	manager->GetSystem<AnimationSystem>().Update();
 	manager->GetSystem<CameraMovementSystem>().Update(camera);
 
@@ -185,7 +186,6 @@ void Game::render() {
 	if (debugMode) {
 		manager->GetSystem<RenderBoxColliderSystem>().Update(renderer);
 	}
-
 
 	SDL_RenderPresent(this->renderer);
 }

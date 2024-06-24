@@ -80,6 +80,7 @@ void LevelLoader::LoadMapColliders(const std::shared_ptr<ECSManager>& manager,
 	collider.AddTag(tag);
 	collider.AddComponent<TransformComponent>(glm::vec2(x, y));
 	collider.AddComponent<BoxColliderComponent>(w, h);
+	//std::cout << collider.GetTag() << std::endl;
 }
 
 
@@ -330,14 +331,23 @@ void LevelLoader::LoadEntities(const sol::table& entities, sol::state& lua,
 			sol::optional<sol::table> script = components["script"];
 			if (script != sol::nullopt) {
 				lua["update"] = sol::nil;
+				lua["on_collision"] = sol::nil;
 				std::string scriptPath = components["script"]["path"];
 				lua.script_file(scriptPath);
+
 				sol::optional<sol::function> hasUpdate = lua["update"];
 				sol::function update = sol::nil;
 				if (hasUpdate != sol::nullopt) {
 					update = lua["update"];
 				}
-				newEntity.AddComponent<ScriptComponent>(update);
+
+				sol::optional<sol::function> hasOnCollision= lua["on_collision"];
+				sol::function onCollision = sol::nil;
+				if (hasOnCollision != sol::nullopt) {
+					onCollision = lua["on_collision"];
+				}
+
+				newEntity.AddComponent<ScriptComponent>(update, onCollision);
 			}
 
 			// SpriteComponent

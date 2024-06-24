@@ -29,6 +29,8 @@ public:
 		lua.set_function("flip_sprite", FlipSprite);
 
 		lua.set_function("change_animation", ChangeAnimation);
+
+		lua.set_function("check_dir_collision", CheckDirectionCollision);
 	}
 
 	void Update(sol::state& lua) {
