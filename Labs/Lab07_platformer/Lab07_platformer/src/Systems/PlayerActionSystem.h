@@ -52,18 +52,19 @@ public:
 
 		// Resolver accion
 		if (data.jump) {
-			if (rigidbody.onGround && data.canJump) {
-				rigidbody.sumForces += rigidbody.jumpForce;
-				rigidbody.onGround = false;
+			///if (rigidbody.onGround && data.canJump) {
+			if (data.canJump) {
+				//rigidbody.sumForces += rigidbody.jumpForce;
+				//rigidbody.onGround = false;
 				data.canJump = false;
 			}
 		}
 		rigidbody.velocity.x = 0;
 		if (data.right) {
-			rigidbody.velocity.x += rigidbody.speed;
+			//rigidbody.velocity.x += rigidbody.speed;
 		}
 		if (data.left) {
-			rigidbody.velocity.x += -rigidbody.speed;
+			//rigidbody.velocity.x += -rigidbody.speed;
 		}
 	}
 };

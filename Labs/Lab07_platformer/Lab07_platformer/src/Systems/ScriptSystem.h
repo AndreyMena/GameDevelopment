@@ -5,6 +5,7 @@
 #include "../Components/ScriptComponent.h"
 
 #include <iostream>
+#include <memory>
 #include <sol/sol.hpp>
 
 class ScriptSystem : public System {
@@ -31,6 +32,18 @@ public:
 		lua.set_function("change_animation", ChangeAnimation);
 
 		lua.set_function("check_dir_collision", CheckDirectionCollision);
+	}
+
+	void Awake(sol::state& lua, std::shared_ptr<ECSManager> manager) {
+		for (auto entity : manager->GetEntitiesToBeAdded()) {
+			if (entity.HasComponent<ScriptComponent>()) {
+				const auto& script = entity.GetComponent<ScriptComponent>();
+				lua["this"] = entity;
+				if (script.awake != sol::nil) {
+					script.awake();
+				}			
+			}
+		}
 	}
 
 	void Update(sol::state& lua) {

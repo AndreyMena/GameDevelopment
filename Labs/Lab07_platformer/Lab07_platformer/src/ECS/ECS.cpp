@@ -105,6 +105,10 @@ void ECSManager::RemoveEntityToSystem(Entity entity) {
 	}
 }
 
+std::set<Entity> ECSManager::GetEntitiesToBeAdded() {
+	return entitiesToBeAdded;
+}
+
 void ECSManager::AddTagToEntity(Entity entity, const std::string& tag) {
 	auto it = entityTag.find(entity.GetId());
 

@@ -192,6 +192,7 @@
     <ClInclude Include="src\Util\Pool.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\scripts\enemy.lua" />
     <None Include="assets\scripts\level_01.lua" />
     <None Include="assets\scripts\player.lua" />
     <None Include="assets\scripts\script_01.lua" />

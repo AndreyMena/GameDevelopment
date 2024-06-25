@@ -318,22 +318,24 @@ void LevelLoader::LoadEntities(const sol::table& entities, sol::state& lua,
 			if (rigidbody != sol::nullopt) {
 				newEntity.AddComponent<RigidbodyComponent>(
 					components["rigidbody"]["isStatic"],
-					components["rigidbody"]["mass"],
-					components["rigidbody"]["speed"],
-					glm::vec2(
-						components["rigidbody"]["jumpForce"]["x"],
-						components["rigidbody"]["jumpForce"]["y"]
-					)
+					components["rigidbody"]["mass"]
 				);
 			}
 
 			// ScriptComponent
 			sol::optional<sol::table> script = components["script"];
 			if (script != sol::nullopt) {
+				lua["awake"] = sol::nil;
 				lua["update"] = sol::nil;
 				lua["on_collision"] = sol::nil;
 				std::string scriptPath = components["script"]["path"];
 				lua.script_file(scriptPath);
+
+				sol::optional<sol::function> hasAwake= lua["awake"];
+				sol::function awake = sol::nil;
+				if (hasAwake != sol::nullopt) {
+					awake = lua["awake"];
+				}
 
 				sol::optional<sol::function> hasUpdate = lua["update"];
 				sol::function update = sol::nil;
@@ -347,7 +349,7 @@ void LevelLoader::LoadEntities(const sol::table& entities, sol::state& lua,
 					onCollision = lua["on_collision"];
 				}
 
-				newEntity.AddComponent<ScriptComponent>(update, onCollision);
+				newEntity.AddComponent<ScriptComponent>(awake, update, onCollision);
 			}
 
 			// SpriteComponent

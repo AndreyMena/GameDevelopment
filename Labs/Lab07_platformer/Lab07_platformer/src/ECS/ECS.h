@@ -136,6 +136,7 @@ public:
 	//General Manage
 	void AddEntityToSystem(Entity entity);
 	void RemoveEntityToSystem(Entity entity);
+	std::set<Entity> GetEntitiesToBeAdded();
 
 	// Tag management
 	void AddTagToEntity(Entity entity, const std::string& tag);

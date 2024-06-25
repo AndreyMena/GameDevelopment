@@ -75,21 +75,21 @@ class OverlapSystem : public System {
 			bTransform.position = glm::vec2(bTransform.position.x,
 				aTransform.position.y - bCollider.height);
 			bRigidbody.velocity = glm::vec2(bRigidbody.velocity.x, 0.0f);
-
-			bRigidbody.onGround = true;
-		}else if (CheckDirectionCollision(eStatic, eDynamic, Direction::bottom)) {
+		}
+		if (CheckDirectionCollision(eStatic, eDynamic, Direction::bottom)) {
 			bTransform.position = glm::vec2(bTransform.position.x,
 				aTransform.position.y + aCollider.height);
 			bRigidbody.velocity = glm::vec2(bRigidbody.velocity.x, 0.0f);
-
-		}else if (CheckDirectionCollision(eStatic, eDynamic, Direction::right)) {
+		}
+		if (CheckDirectionCollision(eStatic, eDynamic, Direction::right)) {
 			bTransform.position = glm::vec2(aTransform.position.x + aCollider.width,
 				bTransform.position.y);
-			bRigidbody.velocity = glm::vec2(0, bRigidbody.velocity.y);
-		}else if (CheckDirectionCollision(eStatic, eDynamic, Direction::left)) {
+			bRigidbody.velocity = glm::vec2(0.0f, bRigidbody.velocity.y);
+		}
+		if (CheckDirectionCollision(eStatic, eDynamic, Direction::left)) {
 			bTransform.position = glm::vec2(aTransform.position.x - bCollider.width,
 				bTransform.position.y);
-			bRigidbody.velocity = glm::vec2(0, bRigidbody.velocity.y);
+			bRigidbody.velocity = glm::vec2(0.0f, bRigidbody.velocity.y);
 		}
 	}
 

@@ -92,8 +92,8 @@ void Game::Setup() {
 
 	lua.open_libraries(sol::lib::base);
 
-	levelLoader->LoadLevel("level_01.lua", lua, controllerManager, assetStore, renderer,
-		animationManager, manager);
+	levelLoader->LoadLevel("level_01.lua", lua, controllerManager, assetStore, 
+		renderer, animationManager, manager);
 }
 
 void Game::processInput() {
@@ -165,6 +165,7 @@ void Game::update() {
 	manager->GetSystem<AnimationSystem>().Update();
 	manager->GetSystem<CameraMovementSystem>().Update(camera);
 
+	manager->GetSystem<ScriptSystem>().Awake(lua, manager);
 	manager->Update();
 }
 
