@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="120" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="1">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="120" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="48">
  <tileset firstgid="1" source="terrain_dark.tsx"/>
  <layer id="5" name="spikes" width="120" height="40">
   <data encoding="csv">
@@ -89,6 +89,25 @@
 108,108,109,108,108,108,107,108,122,123,36,36,36,122,123,122,123,122,123,122,123,122,123,36,36,36,36,36,36,36,75,76,64,65,53,20,0,0,0,20,0,0,0,0,0,0,0,20,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="6" name="colliders">
+  <object id="1" type="floor" x="0" y="864" width="96" height="416"/>
+  <object id="3" type="floor" x="96" y="896" width="64" height="384"/>
+  <object id="5" type="floor" x="160" y="928" width="32" height="352"/>
+  <object id="6" type="floor" x="192" y="1120" width="32" height="160"/>
+  <object id="9" type="floor" x="224" y="992" width="32" height="288"/>
+  <object id="10" type="floor" x="332" y="1460"/>
+  <object id="11" type="floor" x="256" y="1184" width="640" height="96"/>
+  <object id="38" type="floor" x="671.818" y="1087.64" width="159.636" height="18.9091"/>
+  <object id="39" type="floor" x="736" y="1120" width="32" height="64"/>
+  <object id="40" type="floor" x="799.818" y="991.818" width="126.848" height="18.5152"/>
+  <object id="41" type="floor" x="832" y="1024" width="32" height="160"/>
+  <object id="42" type="floor" x="1055.5" y="928" width="160.25" height="19"/>
+  <object id="43" type="floor" x="1120" y="960" width="32" height="320"/>
+  <object id="44" type="floor" x="1152" y="1055.91" width="512" height="19.0909"/>
+  <object id="45" type="floor" x="1504" y="1088" width="32" height="192"/>
+  <object id="46" type="floor" x="1631.75" y="960" width="96" height="18.75"/>
+  <object id="47" type="floor" x="1664" y="992" width="32" height="288"/>
+ </objectgroup>
  <layer id="4" name="walls" width="120" height="40">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
