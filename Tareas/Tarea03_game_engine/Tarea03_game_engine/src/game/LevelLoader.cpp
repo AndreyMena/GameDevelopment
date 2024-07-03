@@ -117,8 +117,8 @@ void LevelLoader::LoadMapSprites(const std::shared_ptr<ECSManager>& manager,
 					"terrain_img",
 					tileWidth,
 					tileHeight,
-					((tileId - 1) % 22) * tileWidth,
-					((tileId - 1) / 22) * tileHeight
+					((tileId - 1) % 11/*22*/) * tileWidth,
+					((tileId - 1) / 11/*22*/) * tileHeight  //11 para los elementos (bloques de terrain en tiled)
 				);
 			}
 
