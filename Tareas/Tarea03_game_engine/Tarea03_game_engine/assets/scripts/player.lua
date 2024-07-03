@@ -8,7 +8,7 @@ player_fall_state = 4
 player_current_state = player_idle_state
 
 player_speed = 3.0 * 64.0 
-player_jump_force = -1200.0 * 64.0 
+player_jump_force = -2000.0 * 64.0 
 player_can_jump = true 
 
 -- Funciones locales

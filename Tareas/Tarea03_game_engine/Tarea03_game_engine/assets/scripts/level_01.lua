@@ -10,7 +10,9 @@ level = {
 		{type = "texture", id = "frog_run",		path = "./assets/img/frog_run.png"},
 		{type = "texture", id = "frog_fall",	path = "./assets/img/frog_fall.png"},
 		{type = "texture", id = "frog_jump",	path = "./assets/img/frog_jump.png"},
-		{type = "texture", id = "mushroom_run",	path = "./assets/img/mushroom_run.png"}
+		{type = "texture", id = "mushroom_run",	path = "./assets/img/mushroom_run.png"},
+		{type = "texture", id = "dark_sky",	path = "./assets/img/backgrounds/dark_sky.png"},
+		{type = "texture", id = "dark_houses",	path = "./assets/img/backgrounds/dark_houses.png"}
 	},
 
 	-- Tablas de key-action

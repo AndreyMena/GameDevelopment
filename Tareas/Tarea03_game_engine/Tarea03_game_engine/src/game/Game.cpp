@@ -51,8 +51,8 @@ void Game::init() {
 		return;
 	}
 
-	windowWidth = 480;  // 800
-	windowHeight = 320;  // 600
+	windowWidth = 768;//480;  // 800
+	windowHeight = 416;//320;  // 600
 
 	this->window = SDL_CreateWindow(
 		"Lab 05: Motor de videojuegos",
@@ -183,6 +183,21 @@ void Game::render() {
 	SDL_SetRenderDrawColor(renderer, 35, 35, 35, 255);
 	SDL_RenderClear(this->renderer);
 
+	//Background
+	SDL_Rect destination;
+	destination.x = 0;
+	destination.y = 0;
+	destination.w = 768;
+	destination.h = 416;
+	SDL_RenderCopy(renderer, this->assetStore->GetTexture("dark_sky"), NULL, &destination);
+
+	//Background
+	SDL_Rect destinations;
+	destinations.x = 0;
+	destinations.y = 0;
+	destinations.w = 768;
+	destinations.h = 416;
+	SDL_RenderCopy(renderer, this->assetStore->GetTexture("dark_houses"), NULL, &destinations);
 	manager->GetSystem<RenderSystem>().Update(renderer, assetStore, camera);
 	if (debugMode) {
 		manager->GetSystem<RenderBoxColliderSystem>().Update(renderer);
