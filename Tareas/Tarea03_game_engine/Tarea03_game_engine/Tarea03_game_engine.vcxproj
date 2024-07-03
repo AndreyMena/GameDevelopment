@@ -206,8 +206,14 @@
     <None Include="assets\scripts\level_01.lua" />
     <None Include="assets\scripts\player.lua" />
     <None Include="assets\scripts\script_01.lua" />
+    <None Include="lua54.dll" />
+    <None Include="SDL2.dll" />
+    <None Include="SDL2_image.dll" />
+    <None Include="SDL2_ttf.dll" />
+    <None Include="src\.editorconfig" />
   </ItemGroup>
   <ItemGroup>
+    <Library Include="liblua54.a" />
     <Library Include="libs\lua\liblua54.a" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -33,7 +33,7 @@ level = {
 
 	-- Tabla de mapa
 	map = {
-		path = "./assets/levels/level_01.tmx"
+		path = "./assets/levels/Level1.tmx"
 	},
 
 	-- Tabla de entidades
