@@ -11,6 +11,15 @@ level = {
 		{type = "texture", id = "frog_fall",	path = "./assets/img/frog_fall.png"},
 		{type = "texture", id = "frog_jump",	path = "./assets/img/frog_jump.png"},
 		{type = "texture", id = "mushroom_run",	path = "./assets/img/mushroom_run.png"},
+		--Player
+		{type = "texture", id = "archer_attack",path = "./assets/img/players/archer/archer_attack.png"},
+		{type = "texture", id = "archer_death",	path = "./assets/img/players/archer/archer_death.png"},
+		{type = "texture", id = "archer_fall",	path = "./assets/img/players/archer/archer_fall.png"},
+		{type = "texture", id = "archer_gethit",path = "./assets/img/players/archer/archer_gethit.png"},
+		{type = "texture", id = "archer_idle",	path = "./assets/img/players/archer/archer_idle.png"},
+		{type = "texture", id = "archer_jump",	path = "./assets/img/players/archer/archer_jump.png"},
+		{type = "texture", id = "archer_run",	path = "./assets/img/players/archer/archer_run.png"},
+		--Backgrounds
 		{type = "texture", id = "dark_sky",	path = "./assets/img/backgrounds/dark_sky.png"},
 		{type = "texture", id = "dark_houses",	path = "./assets/img/backgrounds/dark_houses.png"}
 	},
@@ -26,11 +35,17 @@ level = {
 	-- Tabla de animaciones
 	animations = {
 		[0] = 
-		{entityType = "player", id = "idle", spriteId = "frog_idle", w = 32, h = 32, numFrames = 11, currentFrame = 01, speedRate = 15, isLoop = true},
-		{entityType = "player", id = "fall", spriteId = "frog_fall", w = 32, h = 32, numFrames = 01, currentFrame = 01, speedRate = 01, isLoop = true},
-		{entityType = "player", id = "jump", spriteId = "frog_jump", w = 32, h = 32, numFrames = 01, currentFrame = 01, speedRate = 01, isLoop = true},
-		{entityType = "player", id = "run",  spriteId = "frog_run",  w = 32, h = 32, numFrames = 12, currentFrame = 01, speedRate = 15, isLoop = true},
+		--{entityType = "player", id = "idle", spriteId = "frog_idle", w = 32, h = 32, numFrames = 11, currentFrame = 01, speedRate = 15, isLoop = true},
+		--{entityType = "player", id = "fall", spriteId = "frog_fall", w = 32, h = 32, numFrames = 01, currentFrame = 01, speedRate = 01, isLoop = true},
+		--{entityType = "player", id = "jump", spriteId = "frog_jump", w = 32, h = 32, numFrames = 01, currentFrame = 01, speedRate = 01, isLoop = true},
+		--{entityType = "player", id = "run",  spriteId = "frog_run",  w = 32, h = 32, numFrames = 12, currentFrame = 01, speedRate = 15, isLoop = true},
 		{entityType = "enemy",	id = "run",  spriteId = "mushroom_run",  w = 32, h = 32, numFrames = 16, currentFrame = 01, speedRate = 15, isLoop = true},
+		--Archer
+		{entityType = "player", id = "idle", spriteId = "archer_idle", w = 100, h = 100, numFrames = 10, currentFrame = 01, speedRate = 15, isLoop = true},
+		{entityType = "player", id = "fall", spriteId = "archer_fall", w = 100, h = 100, numFrames = 02, currentFrame = 01, speedRate = 15, isLoop = true},
+		{entityType = "player", id = "jump", spriteId = "archer_jump", w = 100, h = 100, numFrames = 02, currentFrame = 01, speedRate = 15, isLoop = true},
+		{entityType = "player", id = "run",  spriteId = "archer_run",  w = 100, h = 100, numFrames = 08, currentFrame = 01, speedRate = 15, isLoop = true},
+		{entityType = "enemy",	id = "run",  spriteId = "mushroom_run",  w = 32, h = 32, numFrames = 16, currentFrame = 01, speedRate = 15, isLoop = true}
 	},
 
 	-- Tabla de mapa
@@ -45,14 +60,14 @@ level = {
 			tag = "player",
 			components = {
 				animation = {
-					numFrames = 11,
+					numFrames = 10,
 					currentFrame = 1,
 					frameSpeedRate = 15,
 					isLoop = true				
 				},
 				boxCollider = {
-					w = 32,
-					h = 32,
+					w = 100,
+					h = 100,
 					offset = {x = 0.0, y = 0.0}
 				},
 				cameraFollow = {},
@@ -64,9 +79,9 @@ level = {
 					path = "./assets/scripts/player.lua"
 				},
 				sprite = {
-					assetId = "frog_idle",
-					w = 32,
-					h = 32,
+					assetId = "archer_idle",
+					w = 100,
+					h = 100,
 					srcRectX = 0,
 					srcRectY = 0
 				}, 
@@ -106,7 +121,7 @@ level = {
 					srcRectY = 0
 				}, 
 				transform = {
-					position = { x = 260.0, y = 320.0 },
+					position = { x = 360.0, y = 320.0 },
 					scale = { x = 1.0, y = 1.0 },
 					rotation = 0.0
 				}			
