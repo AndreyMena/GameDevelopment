@@ -63,10 +63,10 @@ void ChangeAnimation(Entity entity, const std::string& entityType,
 	sprite.srcRect.x = animationData.srcRectX;
 	sprite.srcRect.y = animationData.srcRectY;
 
-	animation.currentFrame = animation.currentFrame;
-	animation.frameSpeedRate = animation.frameSpeedRate;
-	animation.numberOffFrames = animation.numberOffFrames;
-	animation.isLoop = animation.isLoop;
+	animation.currentFrame = animationData.currentFrame;
+	animation.frameSpeedRate = animationData.frameSpeedRate;
+	animation.numberOffFrames = animationData.numberFrames;
+	animation.isLoop = animationData.isLoop;
 	animation.startTime = SDL_GetTicks();
 }
 
