@@ -212,10 +212,12 @@ void LevelLoader::LoadAnimation(const sol::table& animations,
 		int currentFrame = animation["currentFrame"];
 		int speedRate = animation["speedRate"];
 		bool isLoop = animation["isLoop"];
+		int srcRectX = animation["srcRectX"];
+		int srcRectY = animation["srcRectY"];
 
 		// Add animation information
 		animationManager->AddAnimation(entityType, id, spriteId, width, height, 
-			numFrames, currentFrame, speedRate, isLoop);
+			numFrames, currentFrame, speedRate, srcRectX, srcRectY, isLoop);
 
 		index++;
 	}

@@ -8,7 +8,7 @@ AnimationManager::~AnimationManager() {
 
 void AnimationManager::AddAnimation(const std::string& entityType, 
 	const std::string& label, const std::string& spriteLabel, int widht, 
-	int height, int numberFrames, int currentFrame, int frameSpeedRate, 
+	int height, int numberFrames, int currentFrame, int frameSpeedRate, int srcRectX, int srcRectY,
 	bool isLoop) {
 
 	auto animationData = AnimationData(
@@ -18,7 +18,9 @@ void AnimationManager::AddAnimation(const std::string& entityType,
 		numberFrames,
 		currentFrame,
 		frameSpeedRate,
-		isLoop
+		isLoop,
+		srcRectX,
+		srcRectY
 	);
 
 	animations[entityType][label] = animationData;

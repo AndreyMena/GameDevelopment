@@ -39,13 +39,13 @@ level = {
 		--{entityType = "player", id = "fall", spriteId = "frog_fall", w = 32, h = 32, numFrames = 01, currentFrame = 01, speedRate = 01, isLoop = true},
 		--{entityType = "player", id = "jump", spriteId = "frog_jump", w = 32, h = 32, numFrames = 01, currentFrame = 01, speedRate = 01, isLoop = true},
 		--{entityType = "player", id = "run",  spriteId = "frog_run",  w = 32, h = 32, numFrames = 12, currentFrame = 01, speedRate = 15, isLoop = true},
-		{entityType = "enemy",	id = "run",  spriteId = "mushroom_run",  w = 32, h = 32, numFrames = 16, currentFrame = 01, speedRate = 15, isLoop = true},
+		{entityType = "enemy",	id = "run",  spriteId = "mushroom_run",  w = 32, h = 32, numFrames = 16, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0, srcRectY = 0},
 		--Archer
-		{entityType = "player", id = "idle", spriteId = "archer_idle", w = 100, h = 100, numFrames = 10, currentFrame = 01, speedRate = 15, isLoop = true},
-		{entityType = "player", id = "fall", spriteId = "archer_fall", w = 100, h = 100, numFrames = 02, currentFrame = 01, speedRate = 15, isLoop = true},
-		{entityType = "player", id = "jump", spriteId = "archer_jump", w = 100, h = 100, numFrames = 02, currentFrame = 01, speedRate = 15, isLoop = true},
-		{entityType = "player", id = "run",  spriteId = "archer_run",  w = 100, h = 100, numFrames = 08, currentFrame = 01, speedRate = 15, isLoop = true},
-		{entityType = "enemy",	id = "run",  spriteId = "mushroom_run",  w = 32, h = 32, numFrames = 16, currentFrame = 01, speedRate = 15, isLoop = true}
+		{entityType = "player", id = "idle", spriteId = "archer_idle", w = 100, h = 100, numFrames = 10, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 30, srcRectY = 30},
+		{entityType = "player", id = "fall", spriteId = "archer_fall", w = 100, h = 100, numFrames = 02, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 30, srcRectY = 30},
+		{entityType = "player", id = "jump", spriteId = "archer_jump", w = 100, h = 100, numFrames = 02, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 30, srcRectY = 30},
+		{entityType = "player", id = "run",  spriteId = "archer_run",  w = 100, h = 100, numFrames = 08, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 30, srcRectY = 30},
+		{entityType = "enemy",	id = "run",  spriteId = "mushroom_run",  w = 32, h = 32, numFrames = 16, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 30, srcRectY = 30}
 	},
 
 	-- Tabla de mapa
@@ -66,8 +66,8 @@ level = {
 					isLoop = true				
 				},
 				boxCollider = {
-					w = 100,
-					h = 100,
+					w = 60,
+					h = 60,
 					offset = {x = 0.0, y = 0.0}
 				},
 				cameraFollow = {},
@@ -80,8 +80,8 @@ level = {
 				},
 				sprite = {
 					assetId = "archer_idle",
-					w = 100,
-					h = 100,
+					w = 70,
+					h = 70,
 					srcRectX = 0,
 					srcRectY = 0
 				}, 

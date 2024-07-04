@@ -11,6 +11,8 @@ struct AnimationData{
 	int currentFrame;
 	int frameSpeedRate;
 	bool isLoop;
+	int srcRectX;
+	int srcRectY;
 	
 	AnimationData(
 		const std::string& spriteLabel = "",
@@ -19,7 +21,9 @@ struct AnimationData{
 		int numberFrames = 1,
 		int currentFrame = 1,
 		int frameSpeedRate = 1,
-		bool isLoop = true
+		bool isLoop = true,
+		int srcRectX = 0,
+		int srcRectY = 0
 	) {
 		this->spriteLabel = spriteLabel;
 		this->widht = widht;
@@ -28,6 +32,8 @@ struct AnimationData{
 		this->currentFrame = currentFrame;
 		this->frameSpeedRate = frameSpeedRate;
 		this->isLoop = isLoop;
+		this->srcRectX = srcRectX;
+		this->srcRectY = srcRectY;
 	}
 
 };
@@ -49,6 +55,8 @@ public:
 		int numberFrames,
 		int currentFrame,
 		int frameSpeedRate,
+		int srcRectX,
+		int srcRectY,
 		bool isLoop = true
 	);
 

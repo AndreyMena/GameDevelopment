@@ -15,12 +15,14 @@ public:
 	void Update() {
 		for (auto entity : GetSystemEntities()) {
 			auto& animation = entity.GetComponent<AnimationComponent>();
-			auto& sprite= entity.GetComponent<SpriteComponent>();
+			auto& sprite = entity.GetComponent<SpriteComponent>();
 
 			animation.currentFrame = ((SDL_GetTicks() - animation.startTime)
 				* animation.frameSpeedRate / 1000) % animation.numberOffFrames;
 
-			sprite.srcRect.x = animation.currentFrame * sprite.width;
+			sprite.srcRect.x = (animation.currentFrame * sprite.width) /* + 30*/;
+			std::cout << "El " << sprite.width << std::endl;
+			//sprite.srcRect.y = sprite.srcRect.y;
 		}
 	}
 };

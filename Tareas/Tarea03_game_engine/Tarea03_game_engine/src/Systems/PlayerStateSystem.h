@@ -81,8 +81,8 @@ public:
 			sprite.assetId = animationData.spriteLabel;
 			sprite.width = animationData.widht;
 			sprite.height = animationData.height;
-			sprite.srcRect.x = 0;
-			sprite.srcRect.y = 0;
+			sprite.srcRect.x = animationData.srcRectX;
+			sprite.srcRect.y = animationData.srcRectY;
 
 			animation.currentFrame = animation.currentFrame;
 			animation.frameSpeedRate = animation.frameSpeedRate;
