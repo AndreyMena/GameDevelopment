@@ -21,7 +21,9 @@ level = {
 		{type = "texture", id = "archer_run",	path = "./assets/img/players/archer/archer_run.png"},
 		--Backgrounds
 		{type = "texture", id = "dark_sky",	path = "./assets/img/backgrounds/dark_sky.png"},
-		{type = "texture", id = "dark_houses",	path = "./assets/img/backgrounds/dark_houses.png"}
+		{type = "texture", id = "dark_houses",	path = "./assets/img/backgrounds/dark_houses.png"},
+		--Projectiles
+		{type = "texture", id = "arrow",	path = "./assets/img/projectiles/arrow.png"}
 	},
 
 	-- Tablas de key-action
@@ -88,7 +90,14 @@ level = {
 					position = { x = 17.0, y = 32.0 },
 					scale = { x = 1.0, y = 1.0 },
 					rotation = 0.0
-				}			
+				},
+				projectile = {
+					assetId = "arrow",
+					speedProjectile = 400,
+					mass = 0.5,
+					width = 24,
+					height = 5
+				}
 			}
 		},
 		{ -- Enemy

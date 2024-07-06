@@ -7,6 +7,8 @@
 #include "../Components/RigidbodyComponent.h"
 #include "../Components/TransformComponent.h"
 #include "../Components/SpriteComponent.h"
+#include "../Components/ProjectileComponent.h"
+#include "../Events/ProjectileEvent.h"
 
 #include "../game/Game.h"
 
@@ -72,6 +74,10 @@ void ChangeAnimation(Entity entity, const std::string& entityType,
 			AllowActionStates();
 			Game::GetInstance().controllerManager->DeactivateAction("attack");
 			animation.animationEnd = true;
+
+			Game::GetInstance().eventManager->EmitteEvent<ProjectileEvent>(
+				glm::vec2(1500, 1500));  // El 1500 no se utiliza, TODO quitar
+			return;  //Para error
 		} else {
 			if (animation.animationEnd == false) {
 				return;
@@ -82,7 +88,7 @@ void ChangeAnimation(Entity entity, const std::string& entityType,
 	}
 
 	sprite.assetId = animationData.spriteLabel; 
-	sprite.width = animationData.widht;
+ 	sprite.width = animationData.widht;
 	sprite.height = animationData.height;
 	sprite.srcRect.x = animationData.srcRectX;
 	sprite.srcRect.y = animationData.srcRectY;

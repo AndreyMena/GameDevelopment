@@ -14,6 +14,7 @@
 #include "../Systems/RenderSystem.h"
 #include "../Systems/ScriptSystem.h"
 #include "../Systems/WeightForceSystem.h"
+#include "../Systems/ProjectileEmitterSystem.h"
 
 #include <cstdio>
 #include <sstream>
@@ -89,6 +90,7 @@ void Game::Setup() {
 	manager->AddSystem<WeightForceSystem>();
 
 	manager->GetSystem<ScriptSystem>().CreateLuaBindings(lua);
+	manager->AddSystem<ProjectileEmitterSystem>(manager);
 
 	lua.open_libraries(sol::lib::base);
 
@@ -155,6 +157,8 @@ void Game::update() {
 	// Subscribirnos a eventos
 
 	manager->GetSystem<OverlapSystem>().SubscribeToCollisionEvent(eventManager);
+	manager->GetSystem<ProjectileEmitterSystem>().SubscribeToProjectileEvent(
+		eventManager);
 
 	//Ejecutar funcion update
 	manager->GetSystem<ScriptSystem>().Update(lua);

@@ -12,6 +12,7 @@
 #include "../Components/ScriptComponent.h"
 #include "../Components/SpriteComponent.h"
 #include "../Components/TransformComponent.h"
+#include "../Components/ProjectileComponent.h"
 
 #include <sstream>
 #include <../glm/glm.hpp>
@@ -377,21 +378,21 @@ void LevelLoader::LoadEntities(const sol::table& entities, sol::state& lua,
 					components["transform"]["rotation"]
 				);
 			}
+
+			// ProjectileComponent
+			sol::optional<sol::table> projectile = components["projectile"];
+			if (projectile != sol::nullopt) {
+				newEntity.AddComponent<ProjectileComponent>(
+					components["projectile"]["assetId"],
+					components["projectile"]["speedProjectile"],
+					components["projectile"]["mass"],
+					components["projectile"]["width"],
+					components["projectile"]["height"]
+				);
+			}
 		}
 
 		index++;
 	}
-	/*
-	Entity player = manager->CreateEntity();
-	player.AddTag("player");
-	player.AddComponent<AnimationComponent>(11, 1, 15, true);
-	player.AddComponent<BoxColliderComponent>(32, 32);
-	player.AddComponent<CameraFollowComponent>();
-	player.AddComponent<PlayerDataComponent>();
-	player.AddComponent<RigidbodyComponent>(false, 5.0f, 3.0f * 64, 
-		glm::vec2(0, -1200.0f * 64));
-	player.AddComponent<SpriteComponent>("frog_idle", 32, 32, 0, 0);
-	player.AddComponent<TransformComponent>(glm::vec2(300.0f, 50.0f));
-	*/
 }
 

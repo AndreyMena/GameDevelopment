@@ -48,6 +48,7 @@ public:
 		Entity bullet = manager->CreateEntity();
 		bullet.AddComponent<CircleColliderComponent>(16.0f);
 		bullet.AddComponent<RigidbodyComponent>(glm::vec2(direccion.x, direccion.y), projectile.speed);
+		std::cout << direccion.x <<" " << direccion.y << std::endl;
 		bullet.AddComponent<SpriteComponent>(projectile.assetId, 16.0f, 16.0f, 0.0f, 0);
 		glm::vec2 pos;
 		pos.x = transform.position.x;
