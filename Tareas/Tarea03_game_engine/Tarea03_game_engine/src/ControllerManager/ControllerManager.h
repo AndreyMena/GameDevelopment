@@ -7,6 +7,7 @@
 class ControllerManager {
 	std::map<SDL_Keycode, std::string> keyActionMap;
 	std::map<std::string, bool> actionActiveMap;
+	bool actionEnd = false;
 
 public:
 	ControllerManager();
@@ -22,5 +23,7 @@ public:
 	bool GetActionState(const std::string& action) const;
 	void ActivateAction(const std::string& action);
 	void DeactivateAction(const std::string& action);
+	void BlockActions();
+	void AllowActions();
 };
 

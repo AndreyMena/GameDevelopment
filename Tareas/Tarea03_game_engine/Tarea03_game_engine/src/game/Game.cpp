@@ -162,10 +162,10 @@ void Game::update() {
 	manager->GetSystem<WeightForceSystem>().Update();
 	manager->GetSystem<MovementSystem>().Update(deltaTime);
 	manager->GetSystem<CollisionSystem>().Update(eventManager, lua);
-	manager->GetSystem<AnimationSystem>().Update();
 	manager->GetSystem<CameraMovementSystem>().Update(camera);
 
 	manager->GetSystem<ScriptSystem>().Awake(lua, manager);
+	manager->GetSystem<AnimationSystem>().Update();
 	manager->Update();
 }
 

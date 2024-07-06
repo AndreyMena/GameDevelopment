@@ -59,15 +59,27 @@ bool ControllerManager::GetActionState(const std::string& action) const {
 }
 
 void ControllerManager::ActivateAction(const std::string& action) {
-	auto it = actionActiveMap.find(action);
-	if (it != actionActiveMap.end()) {
-		actionActiveMap[action] = true; 
+	if (!actionEnd) {
+		auto it = actionActiveMap.find(action);
+		if (it != actionActiveMap.end()) {
+			actionActiveMap[action] = true; 
+		}
 	}
 }
 
 void ControllerManager::DeactivateAction(const std::string& action) {
-	auto it = actionActiveMap.find(action);
-	if (it != actionActiveMap.end()) {
-		actionActiveMap[action] = false;
+	if (!actionEnd) {
+		auto it = actionActiveMap.find(action);
+		if (it != actionActiveMap.end()) {
+			actionActiveMap[action] = false;
+		}
 	}
+}
+
+void ControllerManager::BlockActions() {
+	actionEnd = true;
+}
+
+void ControllerManager::AllowActions() {
+	actionEnd = false;
 }

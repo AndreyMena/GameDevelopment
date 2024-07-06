@@ -27,24 +27,23 @@ level = {
 	-- Tablas de key-action
 	keyActions = {
 		[0] = 
-		{key = "SDLK_UP", action = "jump"},
-		{key = "SDLK_RIGHT", action = "move_right"},
-		{key = "SDLK_LEFT", action = "move_left"}
+		{key = "SDLK_UP", valueMacro = 1073741906, action = "jump"},
+		{key = "SDLK_RIGHT", valueMacro = 1073741903, action = "move_right"},
+		{key = "SDLK_LEFT", valueMacro = 1073741904, action = "move_left"},
+		{key = "SDLK_SPACE", valueMacro = 32, action = "attack"}
 	},
 
 	-- Tabla de animaciones
 	animations = {
 		[0] = 
-		--{entityType = "player", id = "idle", spriteId = "frog_idle", w = 32, h = 32, numFrames = 11, currentFrame = 01, speedRate = 15, isLoop = true},
-		--{entityType = "player", id = "fall", spriteId = "frog_fall", w = 32, h = 32, numFrames = 01, currentFrame = 01, speedRate = 01, isLoop = true},
-		--{entityType = "player", id = "jump", spriteId = "frog_jump", w = 32, h = 32, numFrames = 01, currentFrame = 01, speedRate = 01, isLoop = true},
-		--{entityType = "player", id = "run",  spriteId = "frog_run",  w = 32, h = 32, numFrames = 12, currentFrame = 01, speedRate = 15, isLoop = true},
-		{entityType = "enemy",	id = "run",  spriteId = "mushroom_run",  w = 32, h = 32, numFrames = 16, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0, srcRectY = 0},
 		--Archer
 		{entityType = "player", id = "idle", spriteId = "archer_idle", w = 40, h = 40, numFrames = 10, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 30, srcRectY = 30},
-		{entityType = "player", id = "fall", spriteId = "archer_fall", w = 40, h = 40, numFrames = 02, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 30, srcRectY = 30},
+		{entityType = "player", id = "fall", spriteId = "archer_fall", w = 40, h = 40, numFrames = 02, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 30, srcRectY = 26},
 		{entityType = "player", id = "jump", spriteId = "archer_jump", w = 40, h = 40, numFrames = 02, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 30, srcRectY = 30},
 		{entityType = "player", id = "run",  spriteId = "archer_run",  w = 40, h = 40, numFrames = 08, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 30, srcRectY = 30},
+		{entityType = "player", id = "attack",spriteId ="archer_attack",w =40, h = 40, numFrames = 06, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 30, srcRectY = 30},
+		--Horse
+		{entityType = "enemy",	id = "run",  spriteId = "mushroom_run",w = 32, h = 32, numFrames = 16, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,	srcRectY = 0}
 	},
 
 	-- Tabla de mapa
@@ -84,7 +83,7 @@ level = {
 					srcRectX = 0,
 					srcRectY = 0,
 					spacingRect = 60
-				}, 
+				},
 				transform = {
 					position = { x = 17.0, y = 32.0 },
 					scale = { x = 1.0, y = 1.0 },

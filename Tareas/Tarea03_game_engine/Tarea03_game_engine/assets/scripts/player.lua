@@ -4,16 +4,23 @@ player_idle_state = 1
 player_run_state = 2
 player_jump_state = 3 
 player_fall_state = 4 
+player_attack_state = 5
 
 player_current_state = player_idle_state
 
 player_speed = 3.0 * 64.0 
 player_jump_force = -2000.0 * 64.0 
-player_can_jump = true 
+player_can_jump = true
 
 -- Funciones locales
-function player_animation_state()
+function player_animation_state(attack)
 	local x_vel, y_vel = get_velocity(this)
+
+	if attack then
+		player_current_state = player_attack_state
+		change_animation(this, "player", "attack")
+		return
+	end
 
 	if x_vel >= 0.01 then
 		flip_sprite(this, false)
@@ -57,7 +64,7 @@ end
 function update()
 	local x_vel, y_vel = get_velocity(this)
 	x_vel = 0
-
+	attack = false;
 	if get_action_state("jump") then
 		-- print("jumping")
 		if player_can_jump then
@@ -76,9 +83,15 @@ function update()
 		x_vel = x_vel - player_speed
 	end
 
+	if get_action_state("attack") then
+		print("attack movement")
+		y_vel = 0;
+		attack = true;
+	end
+
 	set_velocity(this, x_vel, y_vel)
 
-	player_animation_state()
+	player_animation_state(attack)
 end
 
 -- Function onCollision

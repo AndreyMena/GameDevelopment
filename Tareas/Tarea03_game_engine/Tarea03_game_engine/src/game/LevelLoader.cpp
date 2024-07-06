@@ -146,15 +146,10 @@ void LevelLoader::LoadKeyAction(const sol::table& keyActions,
 		//Obtener valores del asset
 		std::string key = keyAction["key"];
 		std::string action = keyAction["action"];
+		int macro = keyAction["valueMacro"];
 
 		// Asociar teclas y acciones
-		if (key == "SDLK_UP") {
-			controllerManager->AddKeyAction(SDLK_UP, action);
-		}else if (key == "SDLK_RIGHT") {
-			controllerManager->AddKeyAction(SDLK_RIGHT, action);
-		}else if (key == "SDLK_LEFT") {
-			controllerManager->AddKeyAction(SDLK_LEFT, action);
-		}
+		controllerManager->AddKeyAction(macro, action);
 
 		index++;
 	}

@@ -32,6 +32,9 @@ public:
 		lua.set_function("change_animation", ChangeAnimation);
 
 		lua.set_function("check_dir_collision", CheckDirectionCollision);
+
+		lua.set_function("block_action", BlockActionStates);
+		lua.set_function("allow_action", AllowActionStates);
 	}
 
 	void Awake(sol::state& lua, std::shared_ptr<ECSManager> manager) {

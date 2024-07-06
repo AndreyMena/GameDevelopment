@@ -19,6 +19,14 @@ bool GetActionState(const std::string action) {
 	return Game::GetInstance().controllerManager->GetActionState(action);
 }
 
+void BlockActionStates() {
+	Game::GetInstance().controllerManager->BlockActions();
+}
+
+void AllowActionStates() {
+	Game::GetInstance().controllerManager->AllowActions();
+}
+
 // RigidbodyComponent
 void AddForce(Entity entity, double x, double y) {
 	// TODO: verificar si tine rigidbody
@@ -56,6 +64,22 @@ void ChangeAnimation(Entity entity, const std::string& entityType,
 	AnimationData animationData;
 	animationData = Game::GetInstance().animationManager->GetAnimationData(
 		entityType, id);
+
+	if (id == "attack") {
+		if (animation.currentFrame == animation.numberOffFrames - 1) {
+			std::cout << animation.currentFrame << std::endl;
+			
+			AllowActionStates();
+			Game::GetInstance().controllerManager->DeactivateAction("attack");
+			animation.animationEnd = true;
+		} else {
+			if (animation.animationEnd == false) {
+				return;
+			}
+			animation.animationEnd = false;
+			BlockActionStates();
+		}
+	}
 
 	sprite.assetId = animationData.spriteLabel; 
 	sprite.width = animationData.widht;

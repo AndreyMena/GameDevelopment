@@ -21,9 +21,6 @@ public:
 				* animation.frameSpeedRate / 1000) % animation.numberOffFrames;
 
 			sprite.srcRect.x = 30 + (animation.currentFrame * (sprite.width + sprite.spacingRect));
-			//sprite.srcRect.x = 30 + (animation.currentFrame * sprite.width);
-			//std::cout << "El " << sprite.width << std::endl;
-			//sprite.srcRect.y = sprite.srcRect.y;
 		}
 	}
 };
