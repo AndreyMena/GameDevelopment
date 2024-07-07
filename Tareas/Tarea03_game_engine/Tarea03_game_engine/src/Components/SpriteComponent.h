@@ -10,13 +10,16 @@ struct SpriteComponent {
 	SDL_Rect srcRect;
 	bool flip = false;
 	int spacingRect;
+	int startRect;
 
 	SpriteComponent(const std::string& assetId = "", int width = 0, 
-		int height = 0, int srcRectX = 0, int srcRectY = 0, int spacingRect = 0) {
+		int height = 0, int srcRectX = 0, int srcRectY = 0, int spacingRect = 0,
+		int startRect = 0) {
 		this->assetId = assetId;
 		this->width = width;
 		this->height = height;
 		srcRect = { srcRectX, srcRectY, width, height };
 		this->spacingRect = spacingRect;
+		this->startRect = startRect;
 	}
 };

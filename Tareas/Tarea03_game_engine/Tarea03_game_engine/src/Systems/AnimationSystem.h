@@ -20,7 +20,7 @@ public:
 			animation.currentFrame = ((SDL_GetTicks() - animation.startTime)
 				* animation.frameSpeedRate / 1000) % animation.numberOffFrames;
 
-			sprite.srcRect.x = 30 + (animation.currentFrame * (sprite.width + sprite.spacingRect));
+			sprite.srcRect.x = sprite.startRect + (animation.currentFrame * (sprite.width + sprite.spacingRect));
 		}
 	}
 };

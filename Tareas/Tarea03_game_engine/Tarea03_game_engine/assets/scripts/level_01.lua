@@ -23,7 +23,10 @@ level = {
 		{type = "texture", id = "dark_sky",	path = "./assets/img/backgrounds/dark_sky.png"},
 		{type = "texture", id = "dark_houses",	path = "./assets/img/backgrounds/dark_houses.png"},
 		--Projectiles
-		{type = "texture", id = "arrow",	path = "./assets/img/projectiles/arrow.png"}
+		{type = "texture", id = "arrow",	path = "./assets/img/projectiles/arrow.png"},
+		--Enemies
+		{type = "texture", id = "horse_galloping",	path = "./assets/img/enemies/horse/nightmare-galloping.png"},
+		{type = "texture", id = "horse_idle",	path = "./assets/img/enemies/horse/nightmare-idle.png.png"}
 	},
 
 	-- Tablas de key-action
@@ -45,7 +48,8 @@ level = {
 		{entityType = "player", id = "run",  spriteId = "archer_run",  w = 40, h = 40, numFrames = 08, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 30, srcRectY = 30},
 		{entityType = "player", id = "attack",spriteId ="archer_attack",w =40, h = 40, numFrames = 06, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 30, srcRectY = 30},
 		--Horse
-		{entityType = "enemy",	id = "run",  spriteId = "mushroom_run",w = 32, h = 32, numFrames = 16, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,	srcRectY = 0}
+		{entityType = "enemy",	id = "run",  spriteId = "mushroom_run",w = 32, h = 32, numFrames = 16, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,	srcRectY = 0},
+		{entityType = "enemy",	id = "run",  spriteId = "horse_galloping",w = 144, h = 96, numFrames = 4, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0}
 	},
 
 	-- Tabla de mapa
@@ -84,7 +88,8 @@ level = {
 					h = 40,
 					srcRectX = 0,
 					srcRectY = 0,
-					spacingRect = 60
+					spacingRect = 60,  -- Pixels entre imagen de un mismo png
+					startRect = 30,  -- Pixels antes de que empiece el png
 				},
 				transform = {
 					position = { x = 17.0, y = 32.0 },
@@ -127,10 +132,49 @@ level = {
 					h = 32,
 					srcRectX = 0,
 					srcRectY = 0,
-					spacingRect = 0
+					spacingRect = 0,
+					startRect = 0
+
 				}, 
 				transform = {
 					position = { x = 360.0, y = 320.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 0.0
+				}			
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 4,
+					currentFrame = 1,
+					frameSpeedRate = 15,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 144,
+					h = 96,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy.lua"
+				},
+				sprite = {
+					assetId = "horse_galloping",
+					w = 144,
+					h = 96,
+					srcRectX = 0,
+					srcRectY = 0,
+					spacingRect = 0,
+					startRect = 0,
+				}, 
+				transform = {
+					position = { x = 600.0, y = 320.0 },
 					scale = { x = 1.0, y = 1.0 },
 					rotation = 0.0
 				}			
