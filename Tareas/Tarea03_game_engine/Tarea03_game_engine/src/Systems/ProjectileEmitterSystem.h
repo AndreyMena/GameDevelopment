@@ -47,22 +47,24 @@ public:
 		auto& bulletRigid = bullet.GetComponent<RigidbodyComponent>();
 
 		double angleDegree = 0;
+		glm::vec2 pos;
+		pos.y = transform.position.y - 1;
 		if (sprite.flip == false) {
 			bulletRigid.velocity.x = 600;
+			pos.x = transform.position.x + sprite.width;
 		}else{
 			bulletRigid.velocity.x = -600;
 			angleDegree = 180;  // Rotacion de la imagen cambiar a +90 dependiendo de imagen
+			pos.x = transform.position.x - sprite.width;
 		}
 		bulletRigid.velocity.y = 0;
-		//bulletRigid.mass = projectile.mass;
 
 		bullet.AddComponent<SpriteComponent>(projectile.assetId, 
 			projectile.width, projectile.height, 0.0f, 0.0f);
-		glm::vec2 pos;
-		pos.x = transform.position.x;
-		pos.y = transform.position.y - 1;
+
 		bullet.AddComponent<TransformComponent>(pos,
 			glm::vec2(2, 2), 0);
+
 		bullet.AddTag("arrow");
 
 		auto& transformBullet = bullet.GetComponent<TransformComponent>();
@@ -94,6 +96,5 @@ public:
 		}
 
 		bullet.AddComponent<ScriptComponent>(awake, update, onCollision);
-		
 	}
 };

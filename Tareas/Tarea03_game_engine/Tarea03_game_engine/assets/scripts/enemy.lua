@@ -26,4 +26,10 @@ function on_collision(other)
 			set_velocity(this, -enemy_speed, y_vel)
 		end
 	end	
+	if other:get_tag() == "player" then
+		
+	end	
+	if other:get_tag() == "arrow" then
+		this:kill()
+	end	
 end
