@@ -100,6 +100,12 @@ void ECSManager::AddEntityToSystem(Entity entity) {
 }
 
 void ECSManager::RemoveEntityToSystem(Entity entity) {
+	//Remover tag del map asociado al id del entity
+	entityTag.erase(entity.GetId());
+
+	//TODO remover del entityGroups, esto no se usa, pero si se usara hay que eliminarlo
+
+	//Remueve la entidad del sistema
 	for (auto system : systems) {
 		system.second->RemoveEntityFromSystem(entity);
 	}
