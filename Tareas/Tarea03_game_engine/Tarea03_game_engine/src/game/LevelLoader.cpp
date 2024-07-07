@@ -23,14 +23,66 @@ LevelLoader::LevelLoader() {
 LevelLoader::~LevelLoader() {
 }
 
-void LevelLoader::LoadLevel(const std::string& levelName, sol::state& lua,
+void LevelLoader::LoadLevels(const std::string& game_levels, sol::state& lua) {
+	// Verificar que el codigo del script sea correcto
+	sol::load_result script = lua.load_file(game_levels);
+	if (!script.valid()) {
+		sol::error err = script;
+		std::string errMessage = err.what();
+		std::cout << errMessage << std::endl;
+	}
+
+	// Ejecutar el script; lectura de la tabla level
+	lua.script_file(game_levels);
+
+	//Lectura de la tabla level
+	sol::table levelsLua = lua["levels"];
+
+	int index = 0;
+	while (true) {
+		// Verificar que exista una entidad
+		sol::optional<sol::table> hasLevels = levelsLua[index];
+		if (hasLevels == sol::nullopt) {
+			break;
+		}
+
+		sol::table level_table = levelsLua[index];
+
+		Level level;
+		sol::optional<std::string> level_name = level_table["level_name"];
+		if (level_name != sol::nullopt) {
+			level.level_name = level_table["level_name"];
+		}
+		sol::optional<std::string> level_path = level_table["level_path"];
+		if (level_path != sol::nullopt) {
+			level.level_path = level_table["level_path"];
+		}
+		sol::optional<std::string> terrain_name = level_table["terrain_name"];
+		if (terrain_name != sol::nullopt) {
+			level.terrain_name = level_table["terrain_name"];
+		}
+		sol::optional<std::string> terrain_path = level_table["terrain_path"];
+		if (terrain_path != sol::nullopt) {
+			level.terrain_path = level_table["terrain_path"];
+		}
+		sol::optional<int> terrain_elements = level_table["terrain_elements"];
+		if (terrain_elements != sol::nullopt) {
+			level.terrain_elements = level_table["terrain_elements"];
+		}
+		levels.push_back(level);
+		index++;
+	}
+
+}
+
+void LevelLoader::LoadLevel(sol::state& lua,
 	const std::shared_ptr<ControllerManager>& controllerManager,
 	const std::shared_ptr<AssetStore>& assetStore, SDL_Renderer* renderer,
 	const std::shared_ptr<AnimationManager>& animationManager,
 	const std::shared_ptr<ECSManager>& manager) {
 
 	// Verificar que el codigo del script sea correcto
-	sol::load_result script = lua.load_file("./assets/scripts/"+ levelName);
+	sol::load_result script = lua.load_file(levels[actualLevel].level_path);
 	if (!script.valid()) {
 		sol::error err = script;
 		std::string errMessage = err.what();
@@ -38,7 +90,7 @@ void LevelLoader::LoadLevel(const std::string& levelName, sol::state& lua,
 	}
 	
 	// Ejecutar el script; lectura de la tabla level
-	lua.script_file("./assets/scripts/" + levelName);
+	lua.script_file(levels[actualLevel].level_path);
 
 	//Lectura de la tabla level
 	sol::table level = lua["level"];
@@ -115,11 +167,11 @@ void LevelLoader::LoadMapSprites(const std::shared_ptr<ECSManager>& manager,
 					)
 				);
 				tile.AddComponent<SpriteComponent>(
-					"terrain_dark_img",
+					levels[actualLevel].terrain_name,
 					tileWidth,
 					tileHeight,
-					((tileId - 1) % 11/*22*/ /*Elementos del terrain*/) * tileWidth,
-					((tileId - 1) / 11/*22*/) * tileHeight
+					((tileId - 1) % levels[actualLevel].terrain_elements/*11*//*22*/ /*Elementos del terrain*/) * tileWidth,
+					((tileId - 1) / levels[actualLevel].terrain_elements/*11*//*22*/) * tileHeight
 				);
 			}
 
@@ -395,5 +447,21 @@ void LevelLoader::LoadEntities(const sol::table& entities, sol::state& lua,
 
 		index++;
 	}
+}
+
+void LevelLoader::LoadNextLevel(sol::state& lua,
+	const std::shared_ptr<ControllerManager>& controllerManager,
+	const std::shared_ptr<AssetStore>& assetStore, SDL_Renderer* renderer,
+	const std::shared_ptr<AnimationManager>& animationManager,
+	const std::shared_ptr<ECSManager>& manager) {
+	//Se avanza de nivel
+	actualLevel++;
+
+	//Se eliminan todas las entidades del nivel anterior
+	manager->KillAllEntities();
+
+	//Se carga el nivel
+	LoadLevel(lua, controllerManager, assetStore,
+		renderer, animationManager, manager);
 }
 

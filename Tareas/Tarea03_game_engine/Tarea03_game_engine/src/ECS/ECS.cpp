@@ -139,3 +139,15 @@ void ECSManager::ClearTags() {
 	entityTag.clear();
 	entityGroups.clear();
 }
+
+void ECSManager::KillAllEntities() {
+	// Marca todas las entidades para ser eliminadas
+	for (size_t entityId = 0; entityId < numEntities; ++entityId) {
+		Entity entity(entityId);
+		entitiesToBeKilled.insert(entity);
+	}
+
+	// Actualiza el sistema para eliminar las entidades marcadas
+	// Al quitarlo de aqui se bugea en el cambio de niveles
+	Update();
+}

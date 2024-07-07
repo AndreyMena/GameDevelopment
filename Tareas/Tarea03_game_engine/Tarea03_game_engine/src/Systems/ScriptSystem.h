@@ -35,6 +35,8 @@ public:
 
 		lua.set_function("block_action", BlockActionStates);
 		lua.set_function("allow_action", AllowActionStates);
+
+		lua.set_function("win_level", WinLevel);
 	}
 
 	void Awake(sol::state& lua, std::shared_ptr<ECSManager> manager) {

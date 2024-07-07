@@ -15,6 +15,7 @@
 #include "../Systems/ScriptSystem.h"
 #include "../Systems/WeightForceSystem.h"
 #include "../Systems/ProjectileEmitterSystem.h"
+#include "../Systems/GameStateSystem.h"
 
 #include <cstdio>
 #include <sstream>
@@ -77,6 +78,11 @@ void Game::init() {
 	isRunning = true;
 }
 
+void Game::NextLevel() {
+	levelLoader->LoadNextLevel(lua, controllerManager, assetStore,
+		renderer, animationManager, manager);
+}
+
 void Game::Setup() {
 	// Agregar Sistemas
 	manager->AddSystem<AnimationSystem>();
@@ -88,13 +94,17 @@ void Game::Setup() {
 	manager->AddSystem<RenderSystem>();
 	manager->AddSystem<ScriptSystem>();
 	manager->AddSystem<WeightForceSystem>();
+	manager->AddSystem<GameStateSystem>();
 
 	manager->GetSystem<ScriptSystem>().CreateLuaBindings(lua);
 
 	lua.open_libraries(sol::lib::base);
 
-	levelLoader->LoadLevel("level_01.lua", lua, controllerManager, assetStore, 
+	levelLoader->LoadLevels("./assets/scripts/game_levels.lua", lua);
+
+	levelLoader->LoadLevel(lua, controllerManager, assetStore, 
 		renderer, animationManager, manager);
+
 	manager->AddSystem<ProjectileEmitterSystem>(manager, lua);
 }
 
@@ -111,7 +121,13 @@ void Game::processInput() {
 				this->isRunning = false;
 			} else if (sdlEvent.key.keysym.sym == SDLK_d) {
 				debugMode = !debugMode;
-			} else {
+			} else if (sdlEvent.key.keysym.sym == SDLK_y) {
+
+				//manager->KillAllEntities();
+
+				levelLoader->LoadLevel(lua, controllerManager, assetStore,
+					renderer, animationManager, manager);
+			}else {
 				if (controllerManager->IskeyMapped(sdlEvent.key.keysym.sym)) {
 					std::string action = controllerManager->GetAction(
 						sdlEvent.key.keysym.sym);
@@ -159,6 +175,7 @@ void Game::update() {
 	manager->GetSystem<OverlapSystem>().SubscribeToCollisionEvent(eventManager);
 	manager->GetSystem<ProjectileEmitterSystem>().SubscribeToProjectileEvent(
 		eventManager);
+	manager->GetSystem<GameStateSystem>().SubscribeToOnLevelEvent(eventManager);
 
 	//Ejecutar funcion update
 	manager->GetSystem<ScriptSystem>().Update(lua);
@@ -206,6 +223,8 @@ void Game::render() {
 	if (debugMode) {
 		manager->GetSystem<RenderBoxColliderSystem>().Update(renderer);
 	}
+
+	manager->GetSystem<GameStateSystem>().Update(renderer, assetStore, windowWidth, windowHeight);
 
 	SDL_RenderPresent(this->renderer);
 }

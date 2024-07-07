@@ -29,7 +29,6 @@ class Game {
 
 	std::shared_ptr<AssetStore> assetStore;
 	std::shared_ptr<ECSManager> manager;
-
 	std::shared_ptr<LevelLoader> levelLoader;
 
 
@@ -60,5 +59,7 @@ public:
 	void init();
 	void run();
 	void destroy();
+
+	void NextLevel();
 };
 

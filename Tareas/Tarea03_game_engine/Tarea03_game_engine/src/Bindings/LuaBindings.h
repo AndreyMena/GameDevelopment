@@ -9,6 +9,7 @@
 #include "../Components/SpriteComponent.h"
 #include "../Components/ProjectileComponent.h"
 #include "../Events/ProjectileEvent.h"
+#include "../Events/LevelEvent.h"
 
 #include "../game/Game.h"
 
@@ -149,4 +150,8 @@ bool CheckDirectionCollision(Entity a, Entity b, const std::string dir) {
 			);
 	}
 	return false;
+}
+
+void WinLevel() {
+	Game::GetInstance().eventManager->EmitteEvent<LevelEvent>("win_event");
 }

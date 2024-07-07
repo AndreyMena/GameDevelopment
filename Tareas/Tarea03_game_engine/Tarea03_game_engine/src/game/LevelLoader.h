@@ -4,8 +4,10 @@
 #include "../AssetStore/AssetStore.h"
 #include "../ECS/ECS.h"
 #include "../ControllerManager/ControllerManager.h"
+#include "../Util/Level.h"
 
 #include <memory>
+#include <vector>
 #include <SDL.h>
 #include <sol/sol.hpp>
 #include <tinyxml2/tinyxml2.h>
@@ -31,14 +33,24 @@ class LevelLoader {
 
 	void LoadEntities(const sol::table& entities, sol::state& lua,
 		const std::shared_ptr<ECSManager>& manager);
+
+	std::vector<Level> levels;
 public:
+	int actualLevel = 0;
 	LevelLoader();
 	~LevelLoader();
 
-	void LoadLevel(const std::string& levelName, sol::state& lua,
+	void LoadNextLevel(sol::state& lua,
+		const std::shared_ptr<ControllerManager>& controllerManager,
+		const std::shared_ptr<AssetStore>& assetStore, SDL_Renderer* renderer,
+		const std::shared_ptr<AnimationManager>& animationManager,
+		const std::shared_ptr<ECSManager>& manager);
+
+	void LoadLevel(sol::state& lua,
 		const std::shared_ptr<ControllerManager>& controllerManager,
 		const std::shared_ptr<AssetStore>& assetStore, SDL_Renderer* renderer, 
 		const std::shared_ptr<AnimationManager>& animationManager,
 		const std::shared_ptr<ECSManager>& manager);
-
+	
+	void LoadLevels(const std::string& levels, sol::state& lua);
 };

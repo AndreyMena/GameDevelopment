@@ -142,6 +142,9 @@ public:
 	void AddTagToEntity(Entity entity, const std::string& tag);
 	std::string GetTagFromEntity(Entity entity);
 	void ClearTags();
+
+	//Kill entities, necesario para el cambio de un nivel a otro
+	void KillAllEntities();
 };
 
 template<typename TComponent>

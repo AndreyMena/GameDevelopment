@@ -181,6 +181,7 @@
     <ClInclude Include="src\Events\KeyboardEvent.h" />
     <ClInclude Include="src\Events\MouseMotionEvent.h" />
     <ClInclude Include="src\Events\ProjectileEvent.h" />
+    <ClInclude Include="src\Events\LevelEvent.h" />
     <ClInclude Include="src\game\Game.h" />
     <ClInclude Include="src\game\LevelLoader.h" />
     <ClInclude Include="src\Systems\AnimationSystem.h" />
@@ -188,6 +189,7 @@
     <ClInclude Include="src\Systems\CircularCollisionSystem.h" />
     <ClInclude Include="src\Systems\CollisionSystem.h" />
     <ClInclude Include="src\Systems\DamageSystem.h" />
+    <ClInclude Include="src\Systems\GameStateSystem.h" />
     <ClInclude Include="src\Systems\KeyboardControllerSystem.h" />
     <ClInclude Include="src\Systems\MouseControllerSystem.h" />
     <ClInclude Include="src\Systems\MovementSystem.h" />
@@ -199,6 +201,7 @@
     <ClInclude Include="src\Systems\RenderSystem.h" />
     <ClInclude Include="src\Systems\ScriptSystem.h" />
     <ClInclude Include="src\Systems\WeightForceSystem.h" />
+    <ClInclude Include="src\Util\Level.h" />
     <ClInclude Include="src\Util\Pool.h" />
   </ItemGroup>
   <ItemGroup>
@@ -208,7 +211,10 @@
     <None Include="assets\scripts\arrow.lua" />
     <None Include="assets\scripts\boss_demon.lua" />
     <None Include="assets\scripts\enemy.lua" />
+    <None Include="assets\scripts\game_levels.lua" />
     <None Include="assets\scripts\level_01.lua" />
+    <None Include="assets\scripts\level_02.lua" />
+    <None Include="assets\scripts\level_03.lua" />
     <None Include="assets\scripts\player.lua" />
     <None Include="assets\scripts\script_01.lua" />
     <None Include="lua54.dll" />

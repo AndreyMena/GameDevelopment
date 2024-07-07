@@ -194,6 +194,15 @@
     <ClInclude Include="src\Events\ProjectileEvent.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="src\Util\Level.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\LevelEvent.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Systems\GameStateSystem.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\scripts\enemy.lua" />
@@ -210,6 +219,9 @@
     <None Include="assets\levels\Level1.tmx" />
     <None Include="assets\scripts\arrow.lua" />
     <None Include="assets\scripts\boss_demon.lua" />
+    <None Include="assets\scripts\level_02.lua" />
+    <None Include="assets\scripts\game_levels.lua" />
+    <None Include="assets\scripts\level_03.lua" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="liblua54.a" />
