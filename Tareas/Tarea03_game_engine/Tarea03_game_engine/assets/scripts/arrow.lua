@@ -3,7 +3,9 @@
 -- Funcion on_collision
 
 function on_collision(other)
-
+	if other:get_tag() == "boss" or other:get_tag() == "enemy" then		
+		this:kill()
+	end
 	--print(this:get_tag().." chocaa contra "..other:get_tag())
 end
 

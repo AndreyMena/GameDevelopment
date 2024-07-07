@@ -103,7 +103,7 @@ function on_collision(other)
 			player_can_jump = true
 		end
 	end
-	if other:get_tag() == "enemy" then		
+	if other:get_tag() == "enemy" or other:get_tag() == "boss" then		
 		this:kill()
 	end
 end
