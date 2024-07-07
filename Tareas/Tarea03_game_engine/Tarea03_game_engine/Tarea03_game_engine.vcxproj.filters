@@ -208,6 +208,7 @@
     <None Include="assets\levels\level_01.tmx" />
     <None Include="assets\levels\level_02.tmx" />
     <None Include="assets\levels\Level1.tmx" />
+    <None Include="assets\scripts\arrow.lua" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="liblua54.a" />

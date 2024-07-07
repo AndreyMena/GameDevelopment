@@ -90,7 +90,7 @@ void Game::Setup() {
 	manager->AddSystem<WeightForceSystem>();
 
 	manager->GetSystem<ScriptSystem>().CreateLuaBindings(lua);
-	manager->AddSystem<ProjectileEmitterSystem>(manager);
+	manager->AddSystem<ProjectileEmitterSystem>(manager, lua);
 
 	lua.open_libraries(sol::lib::base);
 

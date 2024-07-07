@@ -205,6 +205,7 @@
     <None Include="assets\levels\Level1.tmx" />
     <None Include="assets\levels\level_01.tmx" />
     <None Include="assets\levels\level_02.tmx" />
+    <None Include="assets\scripts\arrow.lua" />
     <None Include="assets\scripts\enemy.lua" />
     <None Include="assets\scripts\level_01.lua" />
     <None Include="assets\scripts\player.lua" />

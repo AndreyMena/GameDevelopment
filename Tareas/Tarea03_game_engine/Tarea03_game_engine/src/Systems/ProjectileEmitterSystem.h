@@ -12,11 +12,13 @@
 #include <cmath>
 #include <iostream>
 #include <glm/glm.hpp>
+#include <sol/sol.hpp>
 
 class ProjectileEmitterSystem : public System {
 	std::shared_ptr<ECSManager>& manager;
+	sol::state& lua;
 public:
-	ProjectileEmitterSystem(std::shared_ptr<ECSManager>& manager) : manager(manager) {
+	ProjectileEmitterSystem(std::shared_ptr<ECSManager>& manager, sol::state& lua) : manager(manager), lua(lua) {
 		RequireComponent<ProjectileComponent>();
 	}
 
@@ -39,8 +41,8 @@ public:
 		double time = distance / projectile.speed;
 
 		Entity bullet = manager->CreateEntity();
-		//bullet.AddComponent<BoxColliderComponent>(projectile.width, projectile.height);
-		bullet.AddComponent<CircleColliderComponent>(24);
+		bullet.AddComponent<BoxColliderComponent>(projectile.width, projectile.height);
+		//bullet.AddComponent<CircleColliderComponent>(24);
 		bullet.AddComponent<RigidbodyComponent>(false, projectile.mass);
 		auto& bulletRigid = bullet.GetComponent<RigidbodyComponent>();
 
@@ -66,5 +68,34 @@ public:
 		auto& transformBullet = bullet.GetComponent<TransformComponent>();
 
 		transformBullet.rotation = angleDegree;
+
+		// ScriptComponent
+		/*
+		lua["awake"] = sol::nil;
+		lua["update"] = sol::nil;
+		lua["on_collision"] = sol::nil;
+		std::string scriptPath = "./assets/scripts/arrow.lua";
+		lua.script_file(scriptPath);
+
+		sol::optional<sol::function> hasAwake = lua["awake"];
+		sol::function awake = sol::nil;
+		if (hasAwake != sol::nullopt) {
+			awake = lua["awake"];
+		}
+
+		sol::optional<sol::function> hasUpdate = lua["update"];
+		sol::function update = sol::nil;
+		if (hasUpdate != sol::nullopt) {
+			update = lua["update"];
+		}
+
+		sol::optional<sol::function> hasOnCollision = lua["on_collision"];
+		sol::function onCollision = sol::nil;
+		if (hasOnCollision != sol::nullopt) {
+			onCollision = lua["on_collision"];
+		}
+
+		bullet.AddComponent<ScriptComponent>(awake, update, onCollision);
+		*/
 	}
 };
