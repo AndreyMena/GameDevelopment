@@ -24,11 +24,11 @@
             "scaleInDock": 1
         },
         "Level1.tmx": {
-            "scale": 0.75,
-            "selectedLayer": 0,
+            "scale": 1.5,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 331.33333333333326,
-                "y": 1132.6666666666665
+                "x": 3275.333333333333,
+                "y": 987.6666666666665
             }
         },
         "level_01.tmx": {
@@ -47,7 +47,7 @@
             "selectedLayer": 2,
             "viewCenter": {
                 "x": 719.5,
-                "y": 320.5
+                "y": 168.5
             }
         },
         "terrain.tsx": {
@@ -60,7 +60,7 @@
             "scaleInEditor": 2
         },
         "terrain_dark.tsx": {
-            "scaleInDock": 1,
+            "scaleInDock": 0.75,
             "scaleInEditor": 2
         }
     },

@@ -103,7 +103,10 @@ function on_collision(other)
 			player_can_jump = true
 		end
 	end
-	if other:get_tag() == "enemy" or other:get_tag() == "boss" then		
+	print(this:get_tag().." choca contra "..other:get_tag())
+	if other:get_tag() == "spikes" then		
+	end
+	if other:get_tag() == "enemy" or other:get_tag() == "boss" or other:get_tag() == "spikes" then		
 		this:kill()
 	end
 end
