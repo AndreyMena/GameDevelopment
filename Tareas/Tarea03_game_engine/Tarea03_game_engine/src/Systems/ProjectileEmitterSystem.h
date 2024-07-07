@@ -57,10 +57,10 @@ public:
 		//bulletRigid.mass = projectile.mass;
 
 		bullet.AddComponent<SpriteComponent>(projectile.assetId, 
-			projectile.width, projectile.height, 0.0f, 0, 0);
+			projectile.width, projectile.height, 0.0f, 0.0f);
 		glm::vec2 pos;
 		pos.x = transform.position.x;
-		pos.y = transform.position.y;
+		pos.y = transform.position.y - 1;
 		bullet.AddComponent<TransformComponent>(pos,
 			glm::vec2(2, 2), 0);
 		bullet.AddTag("arrow");
@@ -70,32 +70,30 @@ public:
 		transformBullet.rotation = angleDegree;
 
 		// ScriptComponent
-		/*
+		// Verificar que el codigo del script sea correcto
 		lua["awake"] = sol::nil;
-		lua["update"] = sol::nil;
-		lua["on_collision"] = sol::nil;
 		std::string scriptPath = "./assets/scripts/arrow.lua";
-		lua.script_file(scriptPath);
 
-		sol::optional<sol::function> hasAwake = lua["awake"];
+		Game::GetInstance().lua.script_file(scriptPath);
+		sol::optional<sol::function> hasAwake = Game::GetInstance().lua["awake"];
 		sol::function awake = sol::nil;
 		if (hasAwake != sol::nullopt) {
-			awake = lua["awake"];
+			awake = Game::GetInstance().lua["awake"];
 		}
 
-		sol::optional<sol::function> hasUpdate = lua["update"];
+		sol::optional<sol::function> hasUpdate = Game::GetInstance().lua["update"];
 		sol::function update = sol::nil;
 		if (hasUpdate != sol::nullopt) {
-			update = lua["update"];
+			update = Game::GetInstance().lua["update"];
 		}
 
-		sol::optional<sol::function> hasOnCollision = lua["on_collision"];
+		sol::optional<sol::function> hasOnCollision = Game::GetInstance().lua["on_collision"];
 		sol::function onCollision = sol::nil;
 		if (hasOnCollision != sol::nullopt) {
-			onCollision = lua["on_collision"];
+			onCollision = Game::GetInstance().lua["on_collision"];
 		}
 
 		bullet.AddComponent<ScriptComponent>(awake, update, onCollision);
-		*/
+		
 	}
 };

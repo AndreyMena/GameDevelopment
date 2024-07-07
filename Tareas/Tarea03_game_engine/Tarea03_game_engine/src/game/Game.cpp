@@ -90,12 +90,12 @@ void Game::Setup() {
 	manager->AddSystem<WeightForceSystem>();
 
 	manager->GetSystem<ScriptSystem>().CreateLuaBindings(lua);
-	manager->AddSystem<ProjectileEmitterSystem>(manager, lua);
 
 	lua.open_libraries(sol::lib::base);
 
 	levelLoader->LoadLevel("level_01.lua", lua, controllerManager, assetStore, 
 		renderer, animationManager, manager);
+	manager->AddSystem<ProjectileEmitterSystem>(manager, lua);
 }
 
 void Game::processInput() {

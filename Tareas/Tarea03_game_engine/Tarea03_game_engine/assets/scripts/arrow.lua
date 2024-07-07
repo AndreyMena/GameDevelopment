@@ -3,17 +3,14 @@
 -- Funcion on_collision
 
 function on_collision(other)
-	if other:get_tag() == "floor" then
-		print("arrowwwww")
 
-		--local x_vel, y_vel = get_velocity(this)
-		--if check_dir_collision(this, other, "left") then
-		--	flip_sprite(this, true)
-		--	set_velocity(this, enemy_speed, y_vel)
-		--end
-		--if check_dir_collision(this, other, "right") then
-		--	flip_sprite(this, false)
-		--	set_velocity(this, -enemy_speed, y_vel)
-		--end
-	end	
+	--print(this:get_tag().." chocaa contra "..other:get_tag())
+end
+
+-- Function update del jugador
+function update()
+	local x_vel, y_vel = get_velocity(this)
+
+	set_velocity(this, x_vel, 0)
+	--print("update arrow")
 end

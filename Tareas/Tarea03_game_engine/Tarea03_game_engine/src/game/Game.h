@@ -32,7 +32,6 @@ class Game {
 
 	std::shared_ptr<LevelLoader> levelLoader;
 
-	sol::state lua;
 
 	void CreateLevel(tinyxml2::XMLElement* layer, int tileWidth, int tileHeight,
 		int levelWidth, int levelHeight);
@@ -46,6 +45,7 @@ class Game {
 	Game();
 	~Game();
 public:
+	sol::state lua;
 	static size_t windowWidth;
 	static size_t windowHeight;
 	static size_t mapWidth;
