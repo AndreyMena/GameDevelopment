@@ -24,11 +24,11 @@
             "scaleInDock": 1
         },
         "Level1.tmx": {
-            "scale": 1.5,
-            "selectedLayer": 2,
+            "scale": 0.75,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 3275.333333333333,
-                "y": 987.6666666666665
+                "x": 3550.6666666666665,
+                "y": 1110
             }
         },
         "level_01.tmx": {
@@ -60,7 +60,7 @@
             "scaleInEditor": 2
         },
         "terrain_dark.tsx": {
-            "scaleInDock": 0.75,
+            "scaleInDock": 1.5,
             "scaleInEditor": 2
         }
     },
