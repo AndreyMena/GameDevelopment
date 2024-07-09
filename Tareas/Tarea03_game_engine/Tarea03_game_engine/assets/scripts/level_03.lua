@@ -111,18 +111,18 @@ level = {
 				}
 			}
 		},
-		{ -- Enemy
-			tag = "enemy",
+		{ -- Boss
+			tag = "boss",
 			components = {
 				animation = {
-					numFrames = 16,
+					numFrames = 6,
 					currentFrame = 1,
-					frameSpeedRate = 15,
+					frameSpeedRate = 5,
 					isLoop = true				
 				},
 				boxCollider = {
-					w = 32,
-					h = 32,
+					w = 160,
+					h = 144,
 					offset = {x = 0.0, y = 0.0}
 				},
 				rigidbody = { 
@@ -130,20 +130,19 @@ level = {
 					mass = 5.0
 				},
 				script = {
-					path = "./assets/scripts/enemy.lua"
+					path = "./assets/scripts/boss_demon.lua"
 				},
 				sprite = {
-					assetId = "mushroom_run",
-					w = 32,
-					h = 32,
+					assetId = "demon_idle",
+					w = 160,
+					h = 144,
 					srcRectX = 0,
 					srcRectY = 0,
 					spacingRect = 0,
-					startRect = 0
-
+					startRect = 0,
 				}, 
 				transform = {
-					position = { x = 360.0, y = 320.0 },
+					position = { x = 1000.0, y = 320.0 },
 					scale = { x = 1.0, y = 1.0 },
 					rotation = 0.0
 				}			

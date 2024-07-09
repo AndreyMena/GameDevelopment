@@ -222,6 +222,7 @@
     <None Include="assets\scripts\level_02.lua" />
     <None Include="assets\scripts\game_levels.lua" />
     <None Include="assets\scripts\level_03.lua" />
+    <None Include="assets\levels\Level2.tmx" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="liblua54.a" />

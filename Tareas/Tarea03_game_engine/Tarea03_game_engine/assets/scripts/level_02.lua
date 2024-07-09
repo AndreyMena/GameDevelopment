@@ -5,6 +5,7 @@ level = {
 	assets = {
 		[0] = 
 		{type = "texture", id = "terrain_img",	path = "./assets/img/terrain.png"},
+		{type = "texture", id = "terrain_cave",	path = "./assets/img/terrain_cave.png"},
 		{type = "texture", id = "terrain_dark_img",	path = "./assets/img/terrain_dark.png"},
 		{type = "texture", id = "frog_idle",	path = "./assets/img/frog_idle.png"},
 		{type = "texture", id = "frog_run",		path = "./assets/img/frog_run.png"},
@@ -60,7 +61,7 @@ level = {
 
 	-- Tabla de mapa
 	map = {
-		path = "./assets/levels/Level1.tmx"
+		path = "./assets/levels/Level2.tmx"
 	},
 
 	-- Tabla de entidades
@@ -98,7 +99,7 @@ level = {
 					startRect = 30,  -- Pixels antes de que empiece el png
 				},
 				transform = {
-					position = { x = 17.0, y = 32.0 },
+					position = { x = 60.0, y = 32.0 },
 					scale = { x = 1.0, y = 1.0 },
 					rotation = 0.0
 				},
@@ -109,43 +110,6 @@ level = {
 					width = 24,
 					height = 5
 				}
-			}
-		},
-		{ -- Boss
-			tag = "boss",
-			components = {
-				animation = {
-					numFrames = 6,
-					currentFrame = 1,
-					frameSpeedRate = 5,
-					isLoop = true				
-				},
-				boxCollider = {
-					w = 160,
-					h = 144,
-					offset = {x = 0.0, y = 0.0}
-				},
-				rigidbody = { 
-					isStatic = false,
-					mass = 5.0
-				},
-				script = {
-					path = "./assets/scripts/boss_demon.lua"
-				},
-				sprite = {
-					assetId = "demon_idle",
-					w = 160,
-					h = 144,
-					srcRectX = 0,
-					srcRectY = 0,
-					spacingRect = 0,
-					startRect = 0,
-				}, 
-				transform = {
-					position = { x = 1000.0, y = 320.0 },
-					scale = { x = 1.0, y = 1.0 },
-					rotation = 0.0
-				}			
 			}
 		}
 	}
