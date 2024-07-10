@@ -32,11 +32,11 @@
             }
         },
         "Level2.tmx": {
-            "scale": 0.25,
+            "scale": 0.0625,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 1292,
-                "y": 322
+                "x": 448,
+                "y": -168
             }
         },
         "level_01.tmx": {
