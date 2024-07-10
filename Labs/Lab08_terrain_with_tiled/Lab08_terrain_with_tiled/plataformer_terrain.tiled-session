@@ -32,11 +32,11 @@
             }
         },
         "Level2.tmx": {
-            "scale": 0.75,
-            "selectedLayer": 1,
+            "scale": 0.25,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 1926.6666666666665,
-                "y": 535.3333333333334
+                "x": 1292,
+                "y": 322
             }
         },
         "level_01.tmx": {
@@ -68,7 +68,7 @@
             "scaleInEditor": 2
         },
         "terrain_cave.tsx": {
-            "scaleInDock": 1,
+            "scaleInDock": 0.75,
             "scaleInEditor": 1
         },
         "terrain_dark.tsx": {
