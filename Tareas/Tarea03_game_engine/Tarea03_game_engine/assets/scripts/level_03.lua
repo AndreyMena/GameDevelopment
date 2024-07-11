@@ -6,6 +6,7 @@ level = {
 		[0] = 
 		{type = "texture", id = "terrain_img",	path = "./assets/img/terrain.png"},
 		{type = "texture", id = "terrain_dark_img",	path = "./assets/img/terrain_dark.png"},
+		{type = "texture", id = "terrain_inferno_img",	path = "./assets/img/terrain_inferno.png"},
 		{type = "texture", id = "frog_idle",	path = "./assets/img/frog_idle.png"},
 		{type = "texture", id = "frog_run",		path = "./assets/img/frog_run.png"},
 		{type = "texture", id = "frog_fall",	path = "./assets/img/frog_fall.png"},
@@ -60,7 +61,7 @@ level = {
 
 	-- Tabla de mapa
 	map = {
-		path = "./assets/levels/Level1.tmx"
+		path = "./assets/levels/Level3.tmx"
 	},
 
 	-- Tabla de entidades
@@ -83,7 +84,7 @@ level = {
 				cameraFollow = {},
 				rigidbody = { 
 					isStatic = false,
-					mass = 5.0
+					mass = 6.0
 				},
 				script = {
 					path = "./assets/scripts/player.lua"

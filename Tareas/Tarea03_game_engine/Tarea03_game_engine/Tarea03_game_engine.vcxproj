@@ -207,6 +207,7 @@
   <ItemGroup>
     <None Include="assets\levels\Level1.tmx" />
     <None Include="assets\levels\Level2.tmx" />
+    <None Include="assets\levels\Level3.tmx" />
     <None Include="assets\levels\level_01.tmx" />
     <None Include="assets\levels\level_02.tmx" />
     <None Include="assets\scripts\arrow.lua" />
