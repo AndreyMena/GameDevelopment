@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Level2.tmx",
+    "activeFile": "Level3.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -37,6 +37,14 @@
             "viewCenter": {
                 "x": 296,
                 "y": 996
+            }
+        },
+        "Level3.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 1328,
+                "y": 507
             }
         },
         "level_01.tmx": {
@@ -74,6 +82,9 @@
         "terrain_dark.tsx": {
             "scaleInDock": 1.5,
             "scaleInEditor": 2
+        },
+        "terrain_inferno.tsx": {
+            "scaleInDock": 2
         }
     },
     "last.imagePath": "C:/Users/andre/OneDrive/Escritorio/UCR/2024 Cursos 1 Ciclo/Creacion de videojuegos/resources/Sprites",
@@ -83,10 +94,11 @@
     "map.tileWidth": 24,
     "map.width": 160,
     "openFiles": [
-        "Level2.tmx"
+        "Level3.tmx"
     ],
     "project": "plataformer_terrain.tiled-project",
     "recentFiles": [
+        "Level3.tmx",
         "Level2.tmx",
         "terrain16.tsx",
         "terrain_dark.tsx",
