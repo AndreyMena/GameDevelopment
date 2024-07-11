@@ -99,7 +99,7 @@ level = {
 					startRect = 30,  -- Pixels antes de que empiece el png
 				},
 				transform = {
-					position = { x = 17.0, y = 32.0 },
+					position = { x = 25.0, y = 32.0 },
 					scale = { x = 1.0, y = 1.0 },
 					rotation = 0.0
 				},
