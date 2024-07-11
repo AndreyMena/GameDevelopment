@@ -40,11 +40,11 @@
             }
         },
         "Level3.tmx": {
-            "scale": 0.5,
-            "selectedLayer": 1,
+            "scale": 0.75,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 1328,
-                "y": 507
+                "x": 2662.6666666666665,
+                "y": 561.9999999999999
             }
         },
         "level_01.tmx": {
@@ -84,7 +84,7 @@
             "scaleInEditor": 2
         },
         "terrain_inferno.tsx": {
-            "scaleInDock": 2
+            "scaleInDock": 1.5
         }
     },
     "last.imagePath": "C:/Users/andre/OneDrive/Escritorio/UCR/2024 Cursos 1 Ciclo/Creacion de videojuegos/resources/Sprites",
