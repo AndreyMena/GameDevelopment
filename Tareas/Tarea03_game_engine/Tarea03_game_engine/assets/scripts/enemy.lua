@@ -15,7 +15,7 @@ end
 -- Funcion on_collision
 
 function on_collision(other)
-	if other:get_tag() == "floor" then
+	if other:get_tag() == "floor" or other:get_tag() == "enemy" or other:get_tag() == "player" then
 		local x_vel, y_vel = get_velocity(this)
 		if check_dir_collision(this, other, "left") then
 			flip_sprite(this, true)
@@ -25,9 +25,6 @@ function on_collision(other)
 			flip_sprite(this, false)
 			set_velocity(this, -enemy_speed, y_vel)
 		end
-	end	
-	if other:get_tag() == "player" then
-		
 	end	
 	if other:get_tag() == "arrow" then
 		this:kill()

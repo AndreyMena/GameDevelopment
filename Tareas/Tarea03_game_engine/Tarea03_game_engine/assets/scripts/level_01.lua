@@ -27,8 +27,8 @@ level = {
 		--Enemies
 		{type = "texture", id = "horse_galloping",	path = "./assets/img/enemies/horse/nightmare-galloping.png"},
 		{type = "texture", id = "horse_idle",	path = "./assets/img/enemies/horse/nightmare-idle.png"},
-		{type = "texture", id = "ghost_idle",	path = "./assets/img/enemies/horse/ghost-idle.png"},
-		{type = "texture", id = "horse_idle",	path = "./assets/img/enemies/horse/nightmare-idle.png"},
+		{type = "texture", id = "ghost_idle",	path = "./assets/img/enemies/ghost/ghost-idle.png"},
+		{type = "texture", id = "hound_run",	path = "./assets/img/enemies/hound/hell-hound-run.png"},
 		--Bosses
 		{type = "texture", id = "demon_attack",	path = "./assets/img/bosses/flying_demon/demon-attack.png"},
 		{type = "texture", id = "demon_idle",	path = "./assets/img/bosses/flying_demon/demon-idle.png"}
@@ -56,7 +56,9 @@ level = {
 		{entityType = "enemy",	id = "run",  spriteId = "mushroom_run",w = 32, h = 32, numFrames = 16, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,	srcRectY = 0},
 		{entityType = "enemy",	id = "run",  spriteId = "horse_galloping",w = 144, h = 96, numFrames = 4, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0},
 		--Ghost
-		{entityType = "enemy",	id = "run",  spriteId = "ghost_idle",w = 144, h = 96, numFrames = 4, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0},
+		{entityType = "enemy",	id = "idle",  spriteId = "ghost_idle",w = 64, h = 80, numFrames = 7, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0},
+		--Hound
+		{entityType = "enemy",	id = "run",  spriteId = "hound_run",w = 67, h = 32, numFrames = 5, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0},
 		--Boss
 		{entityType = "boss",	id = "run",  spriteId = "demon_attack",w = 240, h = 192, numFrames = 11, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0},
 		{entityType = "boss",	id = "idle", spriteId = "demon_idle",w = 160, h = 144, numFrames = 6, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0}
@@ -102,7 +104,7 @@ level = {
 					startRect = 30,  -- Pixels antes de que empiece el png
 				},
 				transform = {
-					position = { x = 17.0, y = 32.0 },
+					position = { x = 266.0, y = 1000.0 },
 					scale = { x = 1.0, y = 1.0 },
 					rotation = 0.0
 				},
@@ -147,6 +149,154 @@ level = {
 				}, 
 				transform = {
 					position = { x = 600.0, y = 320.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 0.0
+				}			
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 4,
+					currentFrame = 1,
+					frameSpeedRate = 15,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 120,
+					h = 70,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy.lua"
+				},
+				sprite = {
+					assetId = "horse_galloping",
+					w = 144,
+					h = 80,
+					srcRectX = 0,
+					srcRectY = 20,
+					spacingRect = 0,
+					startRect = 10,
+				}, 
+				transform = {
+					position = { x = 2500.0, y = 900.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 0.0
+				}			
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 7,
+					currentFrame = 1,
+					frameSpeedRate = 15,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 80,
+					h = 80,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy.lua"
+				},
+				sprite = {
+					assetId = "ghost_idle",
+					w = 64,
+					h = 80,
+					srcRectX = 0,
+					srcRectY = 0,
+					spacingRect = 0,
+					startRect = 0,
+				}, 
+				transform = {
+					position = { x = 1373.0, y = 900.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 0.0
+				}			
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 7,
+					currentFrame = 1,
+					frameSpeedRate = 15,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 80,
+					h = 80,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy.lua"
+				},
+				sprite = {
+					assetId = "ghost_idle",
+					w = 64,
+					h = 80,
+					srcRectX = 0,
+					srcRectY = 0,
+					spacingRect = 0,
+					startRect = 0,
+				}, 
+				transform = {
+					position = { x = 1200.0, y = 900.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 0.0
+				}			
+			}
+		},
+		{ -- Hound
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 5,
+					currentFrame = 1,
+					frameSpeedRate = 15,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 80,
+					h = 32,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy.lua"
+				},
+				sprite = {
+					assetId = "hound_run",
+					w = 67,
+					h = 32,
+					srcRectX = 0,
+					srcRectY = 0,
+					spacingRect = 0,
+					startRect = 0,
+				}, 
+				transform = {
+					position = { x = 2751.0, y = 900.0 },
 					scale = { x = 1.0, y = 1.0 },
 					rotation = 0.0
 				}			
