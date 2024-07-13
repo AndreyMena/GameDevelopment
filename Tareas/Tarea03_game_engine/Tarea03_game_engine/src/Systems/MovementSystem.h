@@ -17,6 +17,11 @@ public:
 			auto& rigidbody = entity.GetComponent<RigidbodyComponent>();
 			auto& transform = entity.GetComponent<TransformComponent>();
 
+			auto player = GetSystemEntities()[0];
+
+			auto& t = player.GetComponent<TransformComponent>();
+			std::cout << t.position.x << ", " << t.position.y << std::endl;
+
 			if (rigidbody.isStatic) { continue; }
 
 			rigidbody.acceleration = rigidbody.sumForces * rigidbody.invMass;

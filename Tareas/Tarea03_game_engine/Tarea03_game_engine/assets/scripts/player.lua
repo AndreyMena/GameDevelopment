@@ -88,7 +88,7 @@ function update()
 		y_vel = 0;
 		attack = true;
 	end
-
+	--print(x_vel..", "..y_vel)
 	set_velocity(this, x_vel, y_vel)
 
 	player_animation_state(attack)
@@ -103,7 +103,7 @@ function on_collision(other)
 			player_can_jump = true
 		end
 	end
-	print(this:get_tag().." choca contra "..other:get_tag())
+	--print(this:get_tag().." choca contra "..other:get_tag())
 	if other:get_tag() == "spikes" then		
 	end
 	if other:get_tag() == "enemy" or other:get_tag() == "boss" or other:get_tag() == "spikes" then		

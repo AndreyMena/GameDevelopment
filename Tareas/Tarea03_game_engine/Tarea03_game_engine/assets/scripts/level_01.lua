@@ -27,6 +27,8 @@ level = {
 		--Enemies
 		{type = "texture", id = "horse_galloping",	path = "./assets/img/enemies/horse/nightmare-galloping.png"},
 		{type = "texture", id = "horse_idle",	path = "./assets/img/enemies/horse/nightmare-idle.png"},
+		{type = "texture", id = "ghost_idle",	path = "./assets/img/enemies/horse/ghost-idle.png"},
+		{type = "texture", id = "horse_idle",	path = "./assets/img/enemies/horse/nightmare-idle.png"},
 		--Bosses
 		{type = "texture", id = "demon_attack",	path = "./assets/img/bosses/flying_demon/demon-attack.png"},
 		{type = "texture", id = "demon_idle",	path = "./assets/img/bosses/flying_demon/demon-idle.png"}
@@ -53,6 +55,8 @@ level = {
 		--Horse
 		{entityType = "enemy",	id = "run",  spriteId = "mushroom_run",w = 32, h = 32, numFrames = 16, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,	srcRectY = 0},
 		{entityType = "enemy",	id = "run",  spriteId = "horse_galloping",w = 144, h = 96, numFrames = 4, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0},
+		--Ghost
+		{entityType = "enemy",	id = "run",  spriteId = "ghost_idle",w = 144, h = 96, numFrames = 4, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0},
 		--Boss
 		{entityType = "boss",	id = "run",  spriteId = "demon_attack",w = 240, h = 192, numFrames = 11, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0},
 		{entityType = "boss",	id = "idle", spriteId = "demon_idle",w = 160, h = 144, numFrames = 6, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0}
