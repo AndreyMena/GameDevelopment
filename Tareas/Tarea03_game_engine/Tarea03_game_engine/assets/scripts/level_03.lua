@@ -74,6 +74,7 @@ level = {
 					numFrames = 10,
 					currentFrame = 1,
 					frameSpeedRate = 15,
+					lifes = 3,
 					isLoop = true				
 				},
 				boxCollider = {
@@ -120,6 +121,7 @@ level = {
 					numFrames = 6,
 					currentFrame = 1,
 					frameSpeedRate = 5,
+					lifes = 3,
 					isLoop = true				
 				},
 				boxCollider = {
