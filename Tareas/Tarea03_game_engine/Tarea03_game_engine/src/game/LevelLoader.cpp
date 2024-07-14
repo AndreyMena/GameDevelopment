@@ -341,7 +341,9 @@ void LevelLoader::LoadEntities(const sol::table& entities, sol::state& lua,
 					components["animation"]["numFrames"],
 					components["animation"]["currentFrame"],
 					components["animation"]["frameSpeedRate"],
-					components["animation"]["isLoop"]
+					components["animation"]["isLoop"],
+					true,
+					components["animation"]["lifes"]
 				);
 			}
 			//BoxColliderComponent

@@ -1,6 +1,5 @@
 -- Variables globales
 enemy_speed = 0.5 * 100.0
-lifesEnemy = 3
 
 -- Funcion awake
 function awake()
@@ -37,13 +36,14 @@ function on_collision(other)
 			flip_sprite(this, true)
 			set_velocity(this, enemy_speed, y_vel)
 		end
-		lifesEnemy = lifesEnemy - 1
-		print(lifesEnemy);
-		--Para que vaya en direccion de donde se lanzo la flecha
-
-		if lifesEnemy == 0 then
-
+		
+		local lifes = get_lifes(this)
+		print(lifes.." vidas");
+		if lifes <= 0 then
 			this:kill()
+		end
+		if lifes > 0 then
+			discount_life(this)
 		end	
 	end	
 end

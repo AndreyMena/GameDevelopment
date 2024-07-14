@@ -74,17 +74,17 @@ function update()
 	end
 
 	if get_action_state("move_right") then
-		print("right movement")
+		--print("right movement")
 		x_vel = x_vel + player_speed
 	end
 
 	if get_action_state("move_left") then
-		print("left movement")
+		--print("left movement")
 		x_vel = x_vel - player_speed
 	end
 
 	if get_action_state("attack") then
-		print("attack movement")
+		--print("attack movement")
 		y_vel = 0;
 		attack = true;
 	end

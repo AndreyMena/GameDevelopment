@@ -15,7 +15,15 @@ public:
 	}
 
 	void OnCollisionEvent(CollisionEvent& e) {
-		e.a.Kill();
-		e.b.Kill();
+		auto& animationA = e.a.GetComponent<AnimationComponent>();
+		auto& animationB = e.b.GetComponent<AnimationComponent>();
+		animationA.lifes--;
+		animationB.lifes--;
+		if (animationA.lifes <= 0) {
+			e.a.Kill();
+		}
+		if (animationB.lifes <= 0) {
+			e.b.Kill();
+		}
 	}
 };

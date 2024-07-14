@@ -51,6 +51,18 @@ std::tuple<double, double> GetVelocity(Entity entity) {
 	return std::make_tuple(rigidbody.velocity.x, rigidbody.velocity.y);
 }
 
+int GetLifes(Entity entity) {
+	// TODO:verificar si tiene rigidbody
+	auto& animation = entity.GetComponent<AnimationComponent>();
+	return animation.lifes;
+}
+
+void DiscountLife(Entity entity) {
+	// TODO:verificar si tiene rigidbody
+	auto& animation = entity.GetComponent<AnimationComponent>();
+	animation.lifes--;
+}
+
 // SpriteComponent
 
 void FlipSprite(Entity entity, bool flip) {

@@ -80,6 +80,7 @@ level = {
 					numFrames = 10,
 					currentFrame = 1,
 					frameSpeedRate = 15,
+					lifes = 3,
 					isLoop = true				
 				},
 				boxCollider = {
@@ -90,7 +91,7 @@ level = {
 				cameraFollow = {},
 				rigidbody = { 
 					isStatic = false,
-					mass = 9.5
+					mass = 12.5
 				},
 				script = {
 					path = "./assets/scripts/player.lua"
@@ -126,6 +127,7 @@ level = {
 					numFrames = 8,
 					currentFrame = 1,
 					frameSpeedRate = 15,
+					lifes = 3,
 					isLoop = true				
 				},
 				boxCollider = {
@@ -165,6 +167,7 @@ level = {
 					numFrames = 8,
 					currentFrame = 1,
 					frameSpeedRate = 10,
+					lifes = 3,
 					isLoop = true				
 				},
 				boxCollider = {
@@ -203,6 +206,7 @@ level = {
 					numFrames = 8,
 					currentFrame = 1,
 					frameSpeedRate = 10,
+					lifes = 3,
 					isLoop = true				
 				},
 				boxCollider = {
@@ -229,6 +233,674 @@ level = {
 				}, 
 				transform = {
 					position = { x = 200.0, y = 600.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 360.0
+				}			
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 8,
+					currentFrame = 1,
+					frameSpeedRate = 15,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 50,
+					h = 50,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy_flip.lua"
+				},
+				sprite = {
+					assetId = "flying_eye",
+					w = 50,
+					h = 50,
+					srcRectX = 0,
+					srcRectY = 65,
+					spacingRect = 100,
+					startRect = 50,
+					flip = true,
+
+				}, 
+				transform = {
+					position = { x = 500.0, y = 500.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 360.0
+				}			
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 8,
+					currentFrame = 1,
+					frameSpeedRate = 10,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 50,
+					h = 50,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy_flip.lua"
+				},
+				sprite = {
+					assetId = "mushroom",
+					w = 50,
+					h = 50,
+					srcRectX = 0,
+					srcRectY = 50,
+					spacingRect = 100,
+					startRect = 50,
+					flip = true,
+				}, 
+				transform = {
+					position = { x = 100.0, y = 900.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 360.0
+				}			
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 8,
+					currentFrame = 1,
+					frameSpeedRate = 10,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 50,
+					h = 50,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy_flip.lua"
+				},
+				sprite = {
+					assetId = "goblin",
+					w = 50,
+					h = 50,
+					srcRectX = 0,
+					srcRectY = 50,
+					spacingRect = 100,
+					startRect = 50,
+					flip = true,
+				}, 
+				transform = {
+					position = { x = 400.0, y = 1000.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 360.0
+				}			
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 8,
+					currentFrame = 1,
+					frameSpeedRate = 15,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 50,
+					h = 50,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy_flip.lua"
+				},
+				sprite = {
+					assetId = "flying_eye",
+					w = 50,
+					h = 50,
+					srcRectX = 0,
+					srcRectY = 65,
+					spacingRect = 100,
+					startRect = 50,
+					flip = true,
+
+				}, 
+				transform = {
+					position = { x = 840.0, y = 900.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 360.0
+				}			
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 8,
+					currentFrame = 1,
+					frameSpeedRate = 10,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 50,
+					h = 50,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy_flip.lua"
+				},
+				sprite = {
+					assetId = "mushroom",
+					w = 50,
+					h = 50,
+					srcRectX = 0,
+					srcRectY = 50,
+					spacingRect = 100,
+					startRect = 50,
+					flip = true,
+				}, 
+				transform = {
+					position = { x = 1760.0, y = 750.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 360.0
+				}			
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 8,
+					currentFrame = 1,
+					frameSpeedRate = 10,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 50,
+					h = 50,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy_flip.lua"
+				},
+				sprite = {
+					assetId = "goblin",
+					w = 50,
+					h = 50,
+					srcRectX = 0,
+					srcRectY = 50,
+					spacingRect = 100,
+					startRect = 50,
+					flip = true,
+				}, 
+				transform = {
+					position = { x = 2105.0, y = 650.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 360.0
+				}			
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 8,
+					currentFrame = 1,
+					frameSpeedRate = 15,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 50,
+					h = 50,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy_flip.lua"
+				},
+				sprite = {
+					assetId = "flying_eye",
+					w = 50,
+					h = 50,
+					srcRectX = 0,
+					srcRectY = 65,
+					spacingRect = 100,
+					startRect = 50,
+					flip = true,
+
+				}, 
+				transform = {
+					position = { x = 2619.0, y = 550.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 360.0
+				}			
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 8,
+					currentFrame = 1,
+					frameSpeedRate = 10,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 50,
+					h = 50,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy_flip.lua"
+				},
+				sprite = {
+					assetId = "mushroom",
+					w = 50,
+					h = 50,
+					srcRectX = 0,
+					srcRectY = 50,
+					spacingRect = 100,
+					startRect = 50,
+					flip = true,
+				}, 
+				transform = {
+					position = { x = 2840.0, y = 420.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 360.0
+				}			
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 8,
+					currentFrame = 1,
+					frameSpeedRate = 10,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 50,
+					h = 50,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy_flip.lua"
+				},
+				sprite = {
+					assetId = "goblin",
+					w = 50,
+					h = 50,
+					srcRectX = 0,
+					srcRectY = 50,
+					spacingRect = 100,
+					startRect = 50,
+					flip = true,
+				}, 
+				transform = {
+					position = { x = 3373.0, y = 520.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 360.0
+				}			
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 8,
+					currentFrame = 1,
+					frameSpeedRate = 15,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 50,
+					h = 50,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy_flip.lua"
+				},
+				sprite = {
+					assetId = "flying_eye",
+					w = 50,
+					h = 50,
+					srcRectX = 0,
+					srcRectY = 65,
+					spacingRect = 100,
+					startRect = 50,
+					flip = true,
+
+				}, 
+				transform = {
+					position = { x = 3263.0, y = 990.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 360.0
+				}			
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 8,
+					currentFrame = 1,
+					frameSpeedRate = 10,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 50,
+					h = 50,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy_flip.lua"
+				},
+				sprite = {
+					assetId = "mushroom",
+					w = 50,
+					h = 50,
+					srcRectX = 0,
+					srcRectY = 50,
+					spacingRect = 100,
+					startRect = 50,
+					flip = true,
+				}, 
+				transform = {
+					position = { x = 2831.0, y = 760.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 360.0
+				}			
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 8,
+					currentFrame = 1,
+					frameSpeedRate = 10,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 50,
+					h = 50,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy_flip.lua"
+				},
+				sprite = {
+					assetId = "goblin",
+					w = 50,
+					h = 50,
+					srcRectX = 0,
+					srcRectY = 50,
+					spacingRect = 100,
+					startRect = 50,
+					flip = true,
+				}, 
+				transform = {
+					position = { x = 3501.0, y = 820.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 360.0
+				}			
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 8,
+					currentFrame = 1,
+					frameSpeedRate = 15,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 50,
+					h = 50,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy_flip.lua"
+				},
+				sprite = {
+					assetId = "flying_eye",
+					w = 50,
+					h = 50,
+					srcRectX = 0,
+					srcRectY = 65,
+					spacingRect = 100,
+					startRect = 50,
+					flip = true,
+
+				}, 
+				transform = {
+					position = { x = 3501.0, y = 820.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 360.0
+				}			
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 8,
+					currentFrame = 1,
+					frameSpeedRate = 10,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 50,
+					h = 50,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy_flip.lua"
+				},
+				sprite = {
+					assetId = "mushroom",
+					w = 50,
+					h = 50,
+					srcRectX = 0,
+					srcRectY = 50,
+					spacingRect = 100,
+					startRect = 50,
+					flip = true,
+				}, 
+				transform = {
+					position = { x = 1354.0, y = 120.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 360.0
+				}			
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 8,
+					currentFrame = 1,
+					frameSpeedRate = 10,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 50,
+					h = 50,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy_flip.lua"
+				},
+				sprite = {
+					assetId = "goblin",
+					w = 50,
+					h = 50,
+					srcRectX = 0,
+					srcRectY = 50,
+					spacingRect = 100,
+					startRect = 50,
+					flip = true,
+				}, 
+				transform = {
+					position = { x = 1729.0, y = 70.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 360.0
+				}			
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 8,
+					currentFrame = 1,
+					frameSpeedRate = 10,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 50,
+					h = 50,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy_flip.lua"
+				},
+				sprite = {
+					assetId = "goblin",
+					w = 50,
+					h = 50,
+					srcRectX = 0,
+					srcRectY = 50,
+					spacingRect = 100,
+					startRect = 50,
+					flip = true,
+				}, 
+				transform = {
+					position = { x = 2778.0, y = 100.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 360.0
+				}			
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 8,
+					currentFrame = 1,
+					frameSpeedRate = 10,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 50,
+					h = 50,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy_flip.lua"
+				},
+				sprite = {
+					assetId = "goblin",
+					w = 50,
+					h = 50,
+					srcRectX = 0,
+					srcRectY = 50,
+					spacingRect = 100,
+					startRect = 50,
+					flip = true,
+				}, 
+				transform = {
+					position = { x = 2395.0, y = 200.0 },
 					scale = { x = 1.0, y = 1.0 },
 					rotation = 360.0
 				}			

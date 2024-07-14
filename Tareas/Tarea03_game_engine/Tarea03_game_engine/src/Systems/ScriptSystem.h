@@ -26,6 +26,8 @@ public:
 		lua.set_function("add_force", AddForce);
 		lua.set_function("set_velocity", SetVelocity);
 		lua.set_function("get_velocity", GetVelocity);
+		lua.set_function("get_lifes", GetLifes);
+		lua.set_function("discount_life", DiscountLife);
 
 		lua.set_function("flip_sprite", FlipSprite);
 
