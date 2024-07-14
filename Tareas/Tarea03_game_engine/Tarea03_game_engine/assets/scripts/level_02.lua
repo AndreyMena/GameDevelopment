@@ -53,7 +53,7 @@ level = {
 		{entityType = "player", id = "run",  spriteId = "archer_run",  w = 40, h = 40, numFrames = 08, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 30, srcRectY = 30},
 		{entityType = "player", id = "attack",spriteId ="archer_attack",w =40, h = 40, numFrames = 06, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 30, srcRectY = 30},
 		--flying_eye
-		{entityType = "enemy",	id = "run",  spriteId = "flying_eye",w = 75, h = 75, numFrames = 8, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,	srcRectY = 0},
+		{entityType = "enemy",	id = "run",  spriteId = "flying_eye",w = 50, h = 50, numFrames = 8, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,	srcRectY = 0},
 		--Boss
 		{entityType = "boss",	id = "run",  spriteId = "demon_attack",w = 240, h = 192, numFrames = 11, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0},
 		{entityType = "boss",	id = "idle", spriteId = "demon_idle",w = 160, h = 144, numFrames = 6, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0}
@@ -123,8 +123,8 @@ level = {
 					isLoop = true				
 				},
 				boxCollider = {
-					w = 75,
-					h = 75,
+					w = 50,
+					h = 50,
 					offset = {x = 0.0, y = 0.0}
 				},
 				rigidbody = { 
@@ -136,12 +136,12 @@ level = {
 				},
 				sprite = {
 					assetId = "flying_eye",
-					w = 75,
-					h = 75,
+					w = 50,
+					h = 50,
 					srcRectX = 0,
-					srcRectY = 20,
-					spacingRect = 75,
-					startRect = 45,
+					srcRectY = 65,
+					spacingRect = 100,
+					startRect = 50,
 					flip = true,
 
 				}, 
