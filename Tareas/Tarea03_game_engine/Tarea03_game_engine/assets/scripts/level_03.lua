@@ -28,6 +28,8 @@ level = {
 		--Enemies
 		{type = "texture", id = "horse_galloping",	path = "./assets/img/enemies/horse/nightmare-galloping.png"},
 		{type = "texture", id = "horse_idle",	path = "./assets/img/enemies/horse/nightmare-idle.png"},
+		{type = "texture", id = "hell_beast",	path = "./assets/img/enemies/hell_beast/hell-beast-idle.png"},
+		{type = "texture", id = "fire_skull",	path = "./assets/img/enemies/fire_skull/fire-skull.png"},
 		--Bosses
 		{type = "texture", id = "demon_attack",	path = "./assets/img/bosses/flying_demon/demon-attack.png"},
 		{type = "texture", id = "demon_idle",	path = "./assets/img/bosses/flying_demon/demon-idle.png"}
@@ -54,6 +56,10 @@ level = {
 		--Horse
 		{entityType = "enemy",	id = "run",  spriteId = "mushroom_run",w = 32, h = 32, numFrames = 16, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,	srcRectY = 0},
 		{entityType = "enemy",	id = "run",  spriteId = "horse_galloping",w = 144, h = 96, numFrames = 4, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0},
+		--hell_beast
+		{entityType = "enemy",	id = "run",  spriteId = "hell_beast",w = 55, h = 67, numFrames = 6, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0, srcRectY = 0},
+		--fire_skull
+		{entityType = "enemy",	id = "run",  spriteId = "fire_skull",w = 96, h = 112, numFrames = 8, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0, srcRectY = 0},
 		--Boss
 		{entityType = "boss",	id = "run",  spriteId = "demon_attack",w = 240, h = 192, numFrames = 11, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0},
 		{entityType = "boss",	id = "idle", spriteId = "demon_idle",w = 160, h = 144, numFrames = 6, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0}
@@ -114,6 +120,241 @@ level = {
 				}
 			}
 		},
+		{ -- hell_beast
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 6,
+					currentFrame = 1,
+					frameSpeedRate = 15,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 80,
+					h = 80,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy.lua"
+				},
+				sprite = {
+					assetId = "hell_beast",
+					w = 55,
+					h = 67,
+					srcRectX = 0,
+					srcRectY = 0,
+					spacingRect = 0,
+					startRect = 0,
+					flip = false,
+				}, 
+				transform = {
+					position = { x = 575.0, y = 250.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 0.0
+				}			
+			}
+		},
+		{ -- skull
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 8,
+					currentFrame = 1,
+					frameSpeedRate = 15,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 96,
+					h = 96,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy.lua"
+				},
+				sprite = {
+					assetId = "fire_skull",
+					w = 96,
+					h = 112,
+					srcRectX = 0,
+					srcRectY = 10,
+					spacingRect = 0,
+					startRect = 0,
+					flip = false,
+				}, 
+				transform = {
+					position = { x = 800.0, y = 250.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 0.0
+				}			
+			}
+		},
+		{ -- hell_beast
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 6,
+					currentFrame = 1,
+					frameSpeedRate = 15,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 80,
+					h = 80,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy.lua"
+				},
+				sprite = {
+					assetId = "hell_beast",
+					w = 55,
+					h = 67,
+					srcRectX = 0,
+					srcRectY = 0,
+					spacingRect = 0,
+					startRect = 0,
+					flip = false,
+				}, 
+				transform = {
+					position = { x = 1859.0, y = 250.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 0.0
+				}			
+			}
+		},
+		{ -- skull
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 8,
+					currentFrame = 1,
+					frameSpeedRate = 15,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 96,
+					h = 96,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy.lua"
+				},
+				sprite = {
+					assetId = "fire_skull",
+					w = 96,
+					h = 112,
+					srcRectX = 0,
+					srcRectY = 10,
+					spacingRect = 0,
+					startRect = 0,
+					flip = false,
+				}, 
+				transform = {
+					position = { x = 2650.0, y = 380.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 0.0
+				}			
+			}
+		},
+
+		{ -- hell_beast
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 6,
+					currentFrame = 1,
+					frameSpeedRate = 15,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 80,
+					h = 80,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy.lua"
+				},
+				sprite = {
+					assetId = "hell_beast",
+					w = 55,
+					h = 67,
+					srcRectX = 0,
+					srcRectY = 0,
+					spacingRect = 0,
+					startRect = 0,
+					flip = false,
+				}, 
+				transform = {
+					position = { x = 3030.0, y = 310.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 0.0
+				}			
+			}
+		},
+		{ -- skull
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 8,
+					currentFrame = 1,
+					frameSpeedRate = 15,
+					lifes = 3,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 96,
+					h = 96,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy.lua"
+				},
+				sprite = {
+					assetId = "fire_skull",
+					w = 96,
+					h = 112,
+					srcRectX = 0,
+					srcRectY = 10,
+					spacingRect = 0,
+					startRect = 0,
+					flip = false,
+				}, 
+				transform = {
+					position = { x = 2667.0, y = 360.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 0.0
+				}			
+			}
+		},
 		{ -- Boss
 			tag = "boss",
 			components = {
@@ -147,7 +388,7 @@ level = {
 					flip = false,
 				}, 
 				transform = {
-					position = { x = 1000.0, y = 320.0 },
+					position = { x = 3527.0, y = 400.0 },
 					scale = { x = 1.0, y = 1.0 },
 					rotation = 0.0
 				}			

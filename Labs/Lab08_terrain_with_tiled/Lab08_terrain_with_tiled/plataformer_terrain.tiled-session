@@ -46,11 +46,11 @@
             "expandedObjectLayers": [
                 4
             ],
-            "scale": 0.75,
+            "scale": 1,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 3322.6666666666665,
-                "y": 551.3333333333333
+                "x": 1546.5,
+                "y": 442.5
             }
         },
         "level_01.tmx": {
