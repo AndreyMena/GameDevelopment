@@ -59,8 +59,19 @@ public:
 				);
 
 				if (collision) {
-					/*std::cout << a.GetTag() << " colisiona con " << b.GetTag()
-						<< std::endl;*/
+					//Esta barrera es solo para enemigos o bosses
+					if ((a.GetTag() == "player" && b.GetTag() == "barrier") || 
+						b.GetTag() == "player" && a.GetTag() == "barrier") {
+						return;
+					}
+					if ((a.GetTag() == "player" && b.GetTag() == "playerbarrier") ||
+						b.GetTag() == "player" && a.GetTag() == "playerbarrier") {
+						return;
+					}
+					if ((a.GetTag() == "arrow" && b.GetTag() == "barrier") ||
+						b.GetTag() == "arrow" && a.GetTag() == "barrier") {
+						return;
+					}
 					eventManager->EmitteEvent<CollisionEvent>(a, b);
 
 					if (a.HasComponent<ScriptComponent>()) {
