@@ -15,6 +15,7 @@
 #include "../Components/ProjectileComponent.h"
 
 #include <sstream>
+#include <string>
 #include <../glm/glm.hpp>
 
 LevelLoader::LevelLoader() {
@@ -98,6 +99,10 @@ void LevelLoader::LoadLevel(sol::state& lua,
 	// Lectura de la subtabla de key-action
 	sol::table keyActions = level["keyActions"];
 	LoadKeyAction(keyActions, controllerManager);
+
+	// Lectura de la subtabla de key-action
+	sol::table backgrounds = level["backgrounds"];
+	LoadBackground(backgrounds, controllerManager);
 
 	// Lectura de la subtabla assets
 	sol::table assets = level["assets"];
@@ -206,6 +211,30 @@ void LevelLoader::LoadKeyAction(const sol::table& keyActions,
 
 		index++;
 	}
+}
+
+void LevelLoader::LoadBackground(const sol::table& backgrounds,
+	const std::shared_ptr<ControllerManager>& controllerManager) {
+	int index = 0;
+	std::vector<std::string> bg;
+	while (true) {
+		// Verificacion de que exista un asset
+		sol::optional<sol::table> hasbackground = backgrounds[index];
+		if (hasbackground == sol::nullopt) {
+			break;
+		}
+
+		// Obtener el asset
+		sol::table background = backgrounds[index];
+
+		//Obtener valores del asset
+		std::string asset = background["asset"];
+
+		bg.push_back(asset);
+
+		index++;
+	}
+	Game::GetInstance().backgroundLevels.push_back(bg);
 }
 
 void LevelLoader::LoadAssets(const sol::table& assets, 

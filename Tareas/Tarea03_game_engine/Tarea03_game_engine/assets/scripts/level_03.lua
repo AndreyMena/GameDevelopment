@@ -45,6 +45,13 @@ level = {
 		{key = "SDLK_SPACE", valueMacro = 32, action = "attack"}
 	},
 
+	-- Tablas de backgrounds
+	backgrounds = {
+		[0] = 
+		{asset = "dark_sky"},
+		{asset = "dark_houses"}
+	},
+
 	-- Tabla de animaciones
 	animations = {
 		[0] = 

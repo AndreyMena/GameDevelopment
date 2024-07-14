@@ -48,13 +48,11 @@ level = {
 		{key = "SDLK_SPACE", valueMacro = 32, action = "attack"}
 	},
 
-	-- Tablas de key-action
+	-- Tablas de backgrounds
 	backgrounds = {
 		[0] = 
-		{asset = "SDLK_UP", valueMacro = 1073741906, action = "jump"},
-		{key = "SDLK_RIGHT", valueMacro = 1073741903, action = "move_right"},
-		{key = "SDLK_LEFT", valueMacro = 1073741904, action = "move_left"},
-		{key = "SDLK_SPACE", valueMacro = 32, action = "attack"}
+		{asset = "cave_bg2"},
+		{asset = "cave_bg"}
 	},
 
 	-- Tabla de animaciones
