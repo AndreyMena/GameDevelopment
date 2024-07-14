@@ -1,10 +1,10 @@
 -- Variables globales
-enemy_speed = 0.5 * 64.0
-lifes = 5
+boss_speed = 0.5 * 64.0
+lifes_boss = 5
 
 -- Funcion awake
 function awake()
-	set_velocity(this, -enemy_speed, 0)
+	set_velocity(this, -boss_speed, 0)
 end
 
 -- Funcion update
@@ -20,11 +20,11 @@ function on_collision(other)
 		local x_vel, y_vel = get_velocity(this)
 		if check_dir_collision(this, other, "left") then
 			flip_sprite(this, true)
-			set_velocity(this, enemy_speed, y_vel)
+			set_velocity(this, boss_speed, y_vel)
 		end
 		if check_dir_collision(this, other, "right") then
 			flip_sprite(this, false)
-			set_velocity(this, -enemy_speed, y_vel)
+			set_velocity(this, -boss_speed, y_vel)
 		end
 	end	
 	if other:get_tag() == "player" then
@@ -34,17 +34,17 @@ function on_collision(other)
 		local x_vel, y_vel = get_velocity(this)
 		if check_dir_collision(this, other, "left") then
 			flip_sprite(this, false)
-			set_velocity(this, -enemy_speed, y_vel)
+			set_velocity(this, -boss_speed, y_vel)
 		end
 		if check_dir_collision(this, other, "right") then
 			flip_sprite(this, true)
-			set_velocity(this, enemy_speed, y_vel)
+			set_velocity(this, boss_speed, y_vel)
 		end
-		lifes = lifes - 1
+		lifes_boss = lifes_boss - 1
 
 		--Para que vaya en direccion de donde se lanzo la flecha
 
-		if lifes == 0 then
+		if lifes_boss == 0 then
 			this:kill()
 		end	
 	end	
