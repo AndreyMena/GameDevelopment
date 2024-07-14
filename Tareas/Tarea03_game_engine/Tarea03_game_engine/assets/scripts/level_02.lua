@@ -28,6 +28,7 @@ level = {
 		--Enemies
 		{type = "texture", id = "horse_galloping",	path = "./assets/img/enemies/horse/nightmare-galloping.png"},
 		{type = "texture", id = "horse_idle",	path = "./assets/img/enemies/horse/nightmare-idle.png"},
+		{type = "texture", id = "flying_eye",	path = "./assets/img/enemies/flying_eye/Flight.png"},
 		--Bosses
 		{type = "texture", id = "demon_attack",	path = "./assets/img/bosses/flying_demon/demon-attack.png"},
 		{type = "texture", id = "demon_idle",	path = "./assets/img/bosses/flying_demon/demon-idle.png"}
@@ -51,9 +52,8 @@ level = {
 		{entityType = "player", id = "jump", spriteId = "archer_jump", w = 40, h = 40, numFrames = 02, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 30, srcRectY = 30},
 		{entityType = "player", id = "run",  spriteId = "archer_run",  w = 40, h = 40, numFrames = 08, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 30, srcRectY = 30},
 		{entityType = "player", id = "attack",spriteId ="archer_attack",w =40, h = 40, numFrames = 06, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 30, srcRectY = 30},
-		--Horse
-		{entityType = "enemy",	id = "run",  spriteId = "mushroom_run",w = 32, h = 32, numFrames = 16, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,	srcRectY = 0},
-		{entityType = "enemy",	id = "run",  spriteId = "horse_galloping",w = 144, h = 96, numFrames = 4, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0},
+		--flying_eye
+		{entityType = "enemy",	id = "run",  spriteId = "flying_eye",w = 150, h = 150, numFrames = 8, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,	srcRectY = 0},
 		--Boss
 		{entityType = "boss",	id = "run",  spriteId = "demon_attack",w = 240, h = 192, numFrames = 11, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0},
 		{entityType = "boss",	id = "idle", spriteId = "demon_idle",w = 160, h = 144, numFrames = 6, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0}
@@ -97,6 +97,7 @@ level = {
 					srcRectY = 0,
 					spacingRect = 60,  -- Pixels entre imagen de un mismo png
 					startRect = 30,  -- Pixels antes de que empiece el png
+					flip = true,
 				},
 				transform = {
 					position = { x = 60.0, y = 32.0 },
@@ -110,6 +111,45 @@ level = {
 					width = 24,
 					height = 5
 				}
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 8,
+					currentFrame = 1,
+					frameSpeedRate = 15,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 150,
+					h = 150,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy_flip.lua"
+				},
+				sprite = {
+					assetId = "flying_eye",
+					w = 150,
+					h = 150,
+					srcRectX = 0,
+					srcRectY = 0,
+					spacingRect = 0,
+					startRect = 0,
+					flip = true,
+
+				}, 
+				transform = {
+					position = { x = 620.0, y = 150.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 360.0
+				}			
 			}
 		},
 		{ -- Enemy
@@ -140,13 +180,13 @@ level = {
 					srcRectX = 0,
 					srcRectY = 0,
 					spacingRect = 0,
-					startRect = 0
-
+					startRect = 0,
+					flip = false,
 				}, 
 				transform = {
 					position = { x = 360.0, y = 320.0 },
 					scale = { x = 1.0, y = 1.0 },
-					rotation = 0.0
+					rotation = .0
 				}			
 			}
 		},

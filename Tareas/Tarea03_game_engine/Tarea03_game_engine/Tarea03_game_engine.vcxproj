@@ -213,6 +213,7 @@
     <None Include="assets\scripts\arrow.lua" />
     <None Include="assets\scripts\boss_demon.lua" />
     <None Include="assets\scripts\enemy.lua" />
+    <None Include="assets\scripts\enemy_flip.lua" />
     <None Include="assets\scripts\game_levels.lua" />
     <None Include="assets\scripts\level_01.lua" />
     <None Include="assets\scripts\level_02.lua" />

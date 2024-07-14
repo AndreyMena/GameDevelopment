@@ -97,6 +97,7 @@ level = {
 					srcRectY = 0,
 					spacingRect = 60,  -- Pixels entre imagen de un mismo png
 					startRect = 30,  -- Pixels antes de que empiece el png
+					flip = false,
 				},
 				transform = {
 					position = { x = 25.0, y = 32.0 },
@@ -141,6 +142,7 @@ level = {
 					srcRectY = 0,
 					spacingRect = 0,
 					startRect = 0,
+					flip = false,
 				}, 
 				transform = {
 					position = { x = 1000.0, y = 320.0 },

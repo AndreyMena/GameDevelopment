@@ -412,7 +412,8 @@ void LevelLoader::LoadEntities(const sol::table& entities, sol::state& lua,
 					components["sprite"]["srcRectX"], 
 					components["sprite"]["srcRectY"],
 					components["sprite"]["spacingRect"],
-					components["sprite"]["startRect"]
+					components["sprite"]["startRect"],
+					components["sprite"]["flip"]
 				);
 			}
 

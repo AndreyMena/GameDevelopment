@@ -102,6 +102,7 @@ level = {
 					srcRectY = 0,
 					spacingRect = 60,  -- Pixels entre imagen de un mismo png
 					startRect = 30,  -- Pixels antes de que empiece el png
+					flip = false,
 				},
 				transform = {
 					position = { x = 266.0, y = 1000.0 },
@@ -146,6 +147,7 @@ level = {
 					srcRectY = 20,
 					spacingRect = 0,
 					startRect = 10,
+					flip = false,
 				}, 
 				transform = {
 					position = { x = 600.0, y = 320.0 },
@@ -183,6 +185,7 @@ level = {
 					srcRectY = 20,
 					spacingRect = 0,
 					startRect = 10,
+					flip = false,
 				}, 
 				transform = {
 					position = { x = 2500.0, y = 900.0 },
@@ -220,6 +223,7 @@ level = {
 					srcRectY = 0,
 					spacingRect = 0,
 					startRect = 0,
+					flip = false,
 				}, 
 				transform = {
 					position = { x = 1373.0, y = 900.0 },
@@ -257,6 +261,7 @@ level = {
 					srcRectY = 0,
 					spacingRect = 0,
 					startRect = 0,
+					flip = false,
 				}, 
 				transform = {
 					position = { x = 1200.0, y = 900.0 },
@@ -294,6 +299,7 @@ level = {
 					srcRectY = 0,
 					spacingRect = 0,
 					startRect = 0,
+					flip = false,
 				}, 
 				transform = {
 					position = { x = 2751.0, y = 900.0 },
@@ -331,6 +337,7 @@ level = {
 					srcRectY = 0,
 					spacingRect = 0,
 					startRect = 0,
+					flip = false,
 				}, 
 				transform = {
 					position = { x = 1000.0, y = 320.0 },
