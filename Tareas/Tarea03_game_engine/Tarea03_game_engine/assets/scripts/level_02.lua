@@ -190,7 +190,7 @@ level = {
 					flip = true,
 				}, 
 				transform = {
-					position = { x = 500.0, y = 150.0 },
+					position = { x = 1004.0, y = 500.0 },
 					scale = { x = 1.0, y = 1.0 },
 					rotation = 360.0
 				}			
@@ -228,7 +228,7 @@ level = {
 					flip = true,
 				}, 
 				transform = {
-					position = { x = 400.0, y = 150.0 },
+					position = { x = 200.0, y = 600.0 },
 					scale = { x = 1.0, y = 1.0 },
 					rotation = 360.0
 				}			
