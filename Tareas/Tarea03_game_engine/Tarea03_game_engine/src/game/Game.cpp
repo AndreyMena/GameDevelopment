@@ -16,6 +16,11 @@
 #include "../Systems/WeightForceSystem.h"
 #include "../Systems/ProjectileEmitterSystem.h"
 #include "../Systems/GameStateSystem.h"
+#include "../Systems/MouseControllerSystem.h"
+
+#include "../Events/MouseMotionEvent.h"
+#include "../Events/MouseClickEvent.h"
+//#include "../Events/MouseRightClickEvent.h"
 
 #include <cstdio>
 #include <sstream>
@@ -95,6 +100,7 @@ void Game::Setup() {
 	manager->AddSystem<ScriptSystem>();
 	manager->AddSystem<WeightForceSystem>();
 	manager->AddSystem<GameStateSystem>();
+	manager->AddSystem<MouseControllerSystem>();
 
 	manager->GetSystem<ScriptSystem>().CreateLuaBindings(lua);
 
@@ -147,6 +153,18 @@ void Game::processInput() {
 			SDL_GetMouseState(&x, &y);
 			//eventManager->EmitteEvent<MouseMotionEvent>(glm::vec2(x, y));
 			break;
+		case SDL_MOUSEBUTTONDOWN:
+			if (sdlEvent.button.button == SDL_BUTTON_LEFT) {
+				eventManager->EmitteEvent<MouseClickEvent>(
+					glm::vec2(sdlEvent.button.x, sdlEvent.button.y));
+			}
+			/*
+			if (sdlEvent.button.button == SDL_BUTTON_RIGHT) {
+				eventManager->EmitteEvent<MouseRightClickEvent>(
+					glm::vec2(sdlEvent.button.x, sdlEvent.button.y));
+			}
+			*/
+			break;
 		default:
 			break;
 		}
@@ -171,7 +189,8 @@ void Game::update() {
 	eventManager->Clear();
 
 	// Subscribirnos a eventos
-
+	//manager->GetSystem<MouseControllerSystem>().SubscribeToMouseClickEvent(
+	//	eventManager);
 	manager->GetSystem<OverlapSystem>().SubscribeToCollisionEvent(eventManager);
 	manager->GetSystem<ProjectileEmitterSystem>().SubscribeToProjectileEvent(
 		eventManager);
@@ -194,10 +213,57 @@ void Game::run() {
 	Setup();
 
 	while (this->isRunning) {
-		processInput();
-		update();
-		render();
+		processMenu();
+		renderMenu();
+		while (this->isPlaying) {
+			processInput();
+			update();
+			render();
+		}
 	}
+}
+
+void Game::processMenu() {
+	SDL_Event sdlEvent;
+
+	while (SDL_PollEvent(&sdlEvent)) {
+		switch (sdlEvent.type) {
+		case SDL_MOUSEBUTTONDOWN:
+			if (sdlEvent.button.button == SDL_BUTTON_LEFT) {
+				eventManager->EmitteEvent<MouseClickEvent>(
+					glm::vec2(sdlEvent.button.x, sdlEvent.button.y));
+			}
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+void Game::renderMenu() {
+	int timeToWait = MILLISECS_PER_FRAME - (SDL_GetTicks() - this->mPrvsFrame);
+
+	if (0 < timeToWait && timeToWait <= MILLISECS_PER_FRAME) {
+		SDL_Delay(timeToWait);
+	}
+	double deltaTime = (SDL_GetTicks() - this->mPrvsFrame) / 1000.0;
+
+	this->mPrvsFrame = SDL_GetTicks();
+	eventManager->Clear();
+
+	manager->GetSystem<MouseControllerSystem>().SubscribeToMouseClickEvent(
+		eventManager);
+
+	//Background
+	SDL_Rect menu;
+	menu.x = 0;
+	menu.y = 0;
+	menu.w = 768;
+	menu.h = 416;
+	SDL_RenderCopy(renderer, this->assetStore->GetTexture("menu1"), NULL, &menu);
+
+	SDL_RenderPresent(this->renderer);
+
 }
 
 void Game::render() {

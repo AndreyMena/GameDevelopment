@@ -23,6 +23,9 @@ level = {
 		--Backgrounds
 		{type = "texture", id = "dark_sky",	path = "./assets/img/backgrounds/dark_sky.png"},
 		{type = "texture", id = "dark_houses",	path = "./assets/img/backgrounds/dark_houses.png"},
+		{type = "texture", id = "cave_bg",	path = "./assets/img/backgrounds/cave.png"},
+		{type = "texture", id = "cave_bg2",	path = "./assets/img/backgrounds/cave_bg2.png"},
+		{type = "texture", id = "menu1",	path = "./assets/img/menu/menu.png"},
 		--Projectiles
 		{type = "texture", id = "arrow",	path = "./assets/img/projectiles/arrow.png"},
 		--Enemies
@@ -40,6 +43,15 @@ level = {
 	keyActions = {
 		[0] = 
 		{key = "SDLK_UP", valueMacro = 1073741906, action = "jump"},
+		{key = "SDLK_RIGHT", valueMacro = 1073741903, action = "move_right"},
+		{key = "SDLK_LEFT", valueMacro = 1073741904, action = "move_left"},
+		{key = "SDLK_SPACE", valueMacro = 32, action = "attack"}
+	},
+
+	-- Tablas de key-action
+	backgrounds = {
+		[0] = 
+		{asset = "SDLK_UP", valueMacro = 1073741906, action = "jump"},
 		{key = "SDLK_RIGHT", valueMacro = 1073741903, action = "move_right"},
 		{key = "SDLK_LEFT", valueMacro = 1073741904, action = "move_left"},
 		{key = "SDLK_SPACE", valueMacro = 32, action = "attack"}

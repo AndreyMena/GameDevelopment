@@ -11,6 +11,7 @@
 #include <SDL.h>
 #include <memory>
 #include <string>
+#include <vector>
 #include <sol/sol.hpp>
 #include <tinyxml2/tinyxml2.h>
 
@@ -22,7 +23,6 @@ class Game {
 	SDL_Renderer* renderer = nullptr;
 	SDL_Rect camera = {0, 0, 0, 0};
 
-	bool isRunning = false;
 	bool debugMode = false;
 
 	int mPrvsFrame = 0; //miliseconds previous frame
@@ -38,12 +38,17 @@ class Game {
 
 	void Setup();
 	void processInput();
+	void processMenu();
 	void update();
 	void render();
+	void renderMenu();
 
 	Game();
 	~Game();
 public:
+	std::vector<std::vector<std::string>> backgroundLevels;
+	bool isRunning = false;
+	bool isPlaying = false;
 	sol::state lua;
 	static size_t windowWidth;
 	static size_t windowHeight;

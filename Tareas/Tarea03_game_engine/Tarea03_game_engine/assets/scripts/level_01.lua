@@ -22,6 +22,7 @@ level = {
 		--Backgrounds
 		{type = "texture", id = "dark_sky",	path = "./assets/img/backgrounds/dark_sky.png"},
 		{type = "texture", id = "dark_houses",	path = "./assets/img/backgrounds/dark_houses.png"},
+		{type = "texture", id = "menu1",	path = "./assets/img/menu/menu.png"},
 		--Projectiles
 		{type = "texture", id = "arrow",	path = "./assets/img/projectiles/arrow.png"},
 		--Enemies
