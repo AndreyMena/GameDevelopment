@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="240" height="80" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="169">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="240" height="80" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="210">
  <tileset firstgid="1" source="terrain_cave.tsx"/>
  <layer id="3" name="spikes" width="240" height="80">
   <data encoding="csv">
@@ -289,5 +289,46 @@
   <object id="165" type="spikes" x="2512" y="1232" width="192" height="48"/>
   <object id="166" type="spikes" x="1472" y="1232" width="16" height="48"/>
   <object id="168" type="checkpoint" x="3730.25" y="1270.25" width="76.25" height="7.75"/>
+  <object id="169" type="barrier" x="704" y="1120" width="16" height="48"/>
+  <object id="170" type="barrier" x="240" y="1120" width="16" height="48"/>
+  <object id="171" type="barrier" x="32" y="720" width="16" height="48"/>
+  <object id="172" type="barrier" x="368" y="720" width="16" height="48"/>
+  <object id="173" type="barrier" x="640" y="608" width="16" height="48"/>
+  <object id="174" type="barrier" x="368" y="608" width="16" height="48"/>
+  <object id="175" type="barrier" x="832" y="656" width="16" height="32"/>
+  <object id="176" type="barrier" x="1264" y="656" width="16" height="32"/>
+  <object id="177" type="barrier" x="1056" y="448" width="16" height="32"/>
+  <object id="178" type="barrier" x="1392" y="448" width="16" height="32"/>
+  <object id="179" type="barrier" x="800" y="288" width="16" height="32"/>
+  <object id="180" type="barrier" x="416" y="288" width="16" height="32"/>
+  <object id="181" type="barrier" x="1024" y="176" width="16" height="32"/>
+  <object id="182" type="barrier" x="1232" y="176" width="16" height="32"/>
+  <object id="183" type="barrier" x="1552" y="112" width="16" height="32"/>
+  <object id="184" type="barrier" x="1936" y="112" width="16" height="32"/>
+  <object id="185" type="barrier" x="1792" y="432" width="16" height="32"/>
+  <object id="186" type="barrier" x="2048" y="432" width="16" height="32"/>
+  <object id="187" type="barrier" x="1440" y="576" width="16" height="32"/>
+  <object id="188" type="barrier" x="240" y="1040" width="16" height="32"/>
+  <object id="189" type="barrier" x="704" y="1040" width="16" height="32"/>
+  <object id="190" type="barrier" x="1008" y="1040" width="16" height="32"/>
+  <object id="191" type="barrier" x="1488" y="960" width="16" height="32"/>
+  <object id="192" type="barrier" x="1904" y="816" width="16" height="32"/>
+  <object id="193" type="barrier" x="2304" y="816" width="16" height="32"/>
+  <object id="194" type="barrier" x="2400" y="704" width="16" height="32"/>
+  <object id="195" type="barrier" x="2160" y="320" width="16" height="32"/>
+  <object id="196" type="barrier" x="2320" y="320" width="16" height="64"/>
+  <object id="197" type="barrier" x="2464" y="208" width="16" height="32"/>
+  <object id="198" type="barrier" x="3216" y="208" width="16" height="32"/>
+  <object id="199" type="barrier" x="2688" y="560" width="16" height="32"/>
+  <object id="200" type="barrier" x="3088" y="560" width="16" height="32"/>
+  <object id="201" type="barrier" x="2960" y="864" width="16" height="32"/>
+  <object id="202" type="barrier" x="3104" y="1008" width="16" height="32"/>
+  <object id="203" type="barrier" x="3392" y="976" width="16" height="32"/>
+  <object id="204" type="barrier" x="3632" y="976" width="16" height="32"/>
+  <object id="205" type="barrier" x="3696" y="704" width="16" height="32"/>
+  <object id="206" type="barrier" x="3216" y="656" width="16" height="32"/>
+  <object id="207" type="barrier" x="3472" y="656" width="16" height="32"/>
+  <object id="208" type="barrier" x="3040" y="864" width="16" height="32"/>
+  <object id="209" type="barrier" x="3440" y="160" width="16" height="32"/>
  </objectgroup>
 </map>

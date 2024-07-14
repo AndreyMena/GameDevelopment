@@ -84,7 +84,7 @@ level = {
 				cameraFollow = {},
 				rigidbody = { 
 					isStatic = false,
-					mass = 7.5
+					mass = 9.5
 				},
 				script = {
 					path = "./assets/scripts/player.lua"
