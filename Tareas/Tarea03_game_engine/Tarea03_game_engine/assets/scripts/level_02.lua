@@ -29,6 +29,8 @@ level = {
 		{type = "texture", id = "horse_galloping",	path = "./assets/img/enemies/horse/nightmare-galloping.png"},
 		{type = "texture", id = "horse_idle",	path = "./assets/img/enemies/horse/nightmare-idle.png"},
 		{type = "texture", id = "flying_eye",	path = "./assets/img/enemies/flying_eye/Flight.png"},
+		{type = "texture", id = "mushroom",	path = "./assets/img/enemies/mushroom/Run.png"},
+		{type = "texture", id = "goblin",	path = "./assets/img/enemies/goblin/Run.png"},
 		--Bosses
 		{type = "texture", id = "demon_attack",	path = "./assets/img/bosses/flying_demon/demon-attack.png"},
 		{type = "texture", id = "demon_idle",	path = "./assets/img/bosses/flying_demon/demon-idle.png"}
@@ -54,6 +56,10 @@ level = {
 		{entityType = "player", id = "attack",spriteId ="archer_attack",w =40, h = 40, numFrames = 06, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 30, srcRectY = 30},
 		--flying_eye
 		{entityType = "enemy",	id = "run",  spriteId = "flying_eye",w = 50, h = 50, numFrames = 8, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,	srcRectY = 0},
+		--flying_eye
+		{entityType = "enemy",	id = "run",  spriteId = "mushroom",w = 50, h = 50, numFrames = 8, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,	srcRectY = 0},
+		--flying_eye
+		{entityType = "enemy",	id = "run",  spriteId = "goblin",w = 50, h = 50, numFrames = 8, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,	srcRectY = 0},
 		--Boss
 		{entityType = "boss",	id = "run",  spriteId = "demon_attack",w = 240, h = 192, numFrames = 11, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0},
 		{entityType = "boss",	id = "idle", spriteId = "demon_idle",w = 160, h = 144, numFrames = 6, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0}
@@ -156,14 +162,14 @@ level = {
 			tag = "enemy",
 			components = {
 				animation = {
-					numFrames = 16,
+					numFrames = 8,
 					currentFrame = 1,
-					frameSpeedRate = 15,
+					frameSpeedRate = 10,
 					isLoop = true				
 				},
 				boxCollider = {
-					w = 32,
-					h = 32,
+					w = 50,
+					h = 50,
 					offset = {x = 0.0, y = 0.0}
 				},
 				rigidbody = { 
@@ -171,22 +177,60 @@ level = {
 					mass = 5.0
 				},
 				script = {
-					path = "./assets/scripts/enemy.lua"
+					path = "./assets/scripts/enemy_flip.lua"
 				},
 				sprite = {
-					assetId = "mushroom_run",
-					w = 32,
-					h = 32,
+					assetId = "mushroom",
+					w = 50,
+					h = 50,
 					srcRectX = 0,
-					srcRectY = 0,
-					spacingRect = 0,
-					startRect = 0,
-					flip = false,
+					srcRectY = 50,
+					spacingRect = 100,
+					startRect = 50,
+					flip = true,
 				}, 
 				transform = {
-					position = { x = 360.0, y = 320.0 },
+					position = { x = 500.0, y = 150.0 },
 					scale = { x = 1.0, y = 1.0 },
-					rotation = .0
+					rotation = 360.0
+				}			
+			}
+		},
+		{ -- Enemy
+			tag = "enemy",
+			components = {
+				animation = {
+					numFrames = 8,
+					currentFrame = 1,
+					frameSpeedRate = 10,
+					isLoop = true				
+				},
+				boxCollider = {
+					w = 50,
+					h = 50,
+					offset = {x = 0.0, y = 0.0}
+				},
+				rigidbody = { 
+					isStatic = false,
+					mass = 5.0
+				},
+				script = {
+					path = "./assets/scripts/enemy_flip.lua"
+				},
+				sprite = {
+					assetId = "goblin",
+					w = 50,
+					h = 50,
+					srcRectX = 0,
+					srcRectY = 50,
+					spacingRect = 100,
+					startRect = 50,
+					flip = true,
+				}, 
+				transform = {
+					position = { x = 400.0, y = 150.0 },
+					scale = { x = 1.0, y = 1.0 },
+					rotation = 360.0
 				}			
 			}
 		},
