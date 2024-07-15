@@ -1,6 +1,6 @@
 -- Variables globales
 boss_speed = 0.5 * 64.0
-lifes_boss = 5
+lifes_boss = 10
 cooldown = 0
 cooldown_attack = 0
 boss_idle_state = 1 

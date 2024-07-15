@@ -372,7 +372,7 @@ level = {
 					numFrames = 6,
 					currentFrame = 1,
 					frameSpeedRate = 5,
-					lifes = 3,
+					lifes = 10,
 					isLoop = true				
 				},
 				boxCollider = {

@@ -27,7 +27,7 @@ public:
 				sprite.srcRect.h = 192;
 				if (!checkAnimation) {
 					checkAnimation = true;
-					glm::vec2 velocity = glm::vec2(-64, 0);
+					glm::vec2 velocity = glm::vec2(64, 0);
 					rigidbody.velocity = velocity;
 				}
 			} else if (entity.GetTag() == "boss" && !animation.isAttacking) {
