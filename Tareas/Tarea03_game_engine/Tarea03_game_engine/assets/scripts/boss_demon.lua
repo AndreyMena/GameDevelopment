@@ -46,10 +46,16 @@ function on_collision(other)
 		if check_dir_collision(this, other, "left") then
 			flip_sprite(this, true)
 			set_velocity(this, boss_speed, y_vel)
+			if boss_current_state == boss_attack_state then
+				set_velocity(this, boss_speed * 2, y_vel)
+			end
 		end
 		if check_dir_collision(this, other, "right") then
 			flip_sprite(this, false)
 			set_velocity(this, -boss_speed, y_vel)
+			if boss_current_state == boss_attack_state then
+				set_velocity(this, -boss_speed * 2, y_vel)
+			end
 		end
 	end	
 	if other:get_tag() == "player" then
@@ -60,10 +66,16 @@ function on_collision(other)
 		if check_dir_collision(this, other, "left") then
 			flip_sprite(this, false)
 			set_velocity(this, -boss_speed, y_vel)
+			if boss_current_state == boss_attack_state then
+				set_velocity(this, -boss_speed * 2, y_vel)
+			end
 		end
 		if check_dir_collision(this, other, "right") then
 			flip_sprite(this, true)
 			set_velocity(this, boss_speed, y_vel)
+			if boss_current_state == boss_attack_state then
+				set_velocity(this, boss_speed * 2, y_vel)
+			end
 		end
 		lifes_boss = lifes_boss - 1
 
