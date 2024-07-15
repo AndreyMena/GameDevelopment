@@ -23,6 +23,7 @@ level = {
 		--Backgrounds
 		{type = "texture", id = "dark_sky",	path = "./assets/img/backgrounds/dark_sky.png"},
 		{type = "texture", id = "dark_houses",	path = "./assets/img/backgrounds/dark_houses.png"},
+		{type = "texture", id = "bg3",	path = "./assets/img/backgrounds/bg3.png"},
 		{type = "texture", id = "menu1",	path = "./assets/img/menu/menu.png"},
 		--Projectiles
 		{type = "texture", id = "arrow",	path = "./assets/img/projectiles/arrow.png"},
@@ -48,8 +49,7 @@ level = {
 	-- Tablas de backgrounds
 	backgrounds = {
 		[0] = 
-		{asset = "dark_sky"},
-		{asset = "dark_houses"}
+		{asset = "bg3"},
 	},
 
 	-- Tabla de animaciones
@@ -69,6 +69,7 @@ level = {
 		--fire_skull
 		{entityType = "enemy",	id = "run",  spriteId = "fire_skull",w = 96, h = 112, numFrames = 8, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0, srcRectY = 0},
 		--Boss
+		{entityType = "boss",	id = "attack",  spriteId = "demon_attack",w = 240, h = 192, numFrames = 11, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0},
 		{entityType = "boss",	id = "run",  spriteId = "demon_attack",w = 240, h = 192, numFrames = 11, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0},
 		{entityType = "boss",	id = "idle", spriteId = "demon_idle",w = 160, h = 144, numFrames = 6, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0}
 	},

@@ -71,12 +71,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\SDL2\include;C:\Users\Lenovo\Desktop\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs;C:\Users\Lenovo\Desktop\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs\lua;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SDL2\lib\x86;C:\Users\Lenovo\Desktop\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs;C:\Users\Lenovo\Desktop\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs\lua;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SDL\include;C:\Users\andre\OneDrive\Escritorio\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs;C:\Users\andre\OneDrive\Escritorio\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs\lua;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\SDL\lib\x86;C:\Users\andre\OneDrive\Escritorio\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs;C:\Users\andre\OneDrive\Escritorio\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs\lua;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\SDL2\include;C:\Users\Lenovo\Desktop\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs;C:\Users\Lenovo\Desktop\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs\lua;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SDL2\lib\x86;C:\Users\Lenovo\Desktop\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs;C:\Users\Lenovo\Desktop\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs\lua;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SDL\include;C:\Users\andre\OneDrive\Escritorio\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs;C:\Users\andre\OneDrive\Escritorio\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs\lua;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\SDL\lib\x86;C:\Users\andre\OneDrive\Escritorio\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs;C:\Users\andre\OneDrive\Escritorio\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs\lua;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

@@ -20,6 +20,7 @@ public:
 	bool nextLevel = false;
 	bool reload_level = false;
 	bool game_over = false;
+	bool win_game = false;
 	GameStateSystem() {
 		//RequireComponent<RigidbodyComponent>();
 		//RequireComponent<TransformComponent>();
@@ -41,6 +42,9 @@ public:
 		}
 		if (e.levelEvent == "game_over_event") {
 			game_over = true;
+		}
+		if (e.levelEvent == "win_game_event") {
+			win_game = true;
 		}
 	}
 
@@ -80,11 +84,9 @@ public:
 				NULL,
 				SDL_FLIP_NONE
 			);
-		}
-		/*
-		if (state == 1) {
+		}else if (win_game) {
 			int widht = 300;
-			int height = 100;
+ 			int height = 100;
 			SDL_Rect txtDstRect = {
 				(windowWidth / 2) - (widht / 2),
 				(windowHeight / 2) - (height / 2),
@@ -92,9 +94,9 @@ public:
 				height
 			};
 
-			SDL_Color fontColor = { 255, 0, 0 };
+			SDL_Color fontColor = { 0, 255, 0 };
 			SDL_Surface* txtSurface = TTF_RenderText_Solid(assetStore->GetFont("press-start-30-game-over"),
-				"Game Over",
+				"Has ganado",
 				fontColor
 			);
 			SDL_Texture* txtTexture = SDL_CreateTextureFromSurface(renderer, txtSurface);
@@ -109,6 +111,5 @@ public:
 				SDL_FLIP_NONE
 			);
 		}
-		*/
 	}
 };

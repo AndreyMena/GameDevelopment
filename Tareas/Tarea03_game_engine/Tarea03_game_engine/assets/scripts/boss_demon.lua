@@ -83,6 +83,7 @@ function on_collision(other)
 
 		if lifes_boss == 0 then
 			this:kill()
+			win_game()
 		end	
 	end	
 end

@@ -275,6 +275,7 @@ void Game::render() {
 	SDL_SetRenderDrawColor(renderer, 35, 35, 35, 255);
 	SDL_RenderClear(this->renderer);
 	
+
 	for (int index = 0; index < backgroundLevels[levelLoader->actualLevel].size(); index++) {
 		//Background
 		SDL_Rect destination;
@@ -283,6 +284,17 @@ void Game::render() {
 		destination.w = 768;
 		destination.h = 416;
 		SDL_RenderCopy(renderer, this->assetStore->GetTexture(backgroundLevels[levelLoader->actualLevel][index]), NULL, &destination);
+	}
+	
+	if (levelLoader->actualLevel == 2) {
+		//Background
+		SDL_Rect destination;
+		destination.x = 0;
+		destination.y = 0;
+		destination.w = 768;
+		destination.h = 416;
+		std::string bg3 = "bg3";
+		SDL_RenderCopy(renderer, this->assetStore->GetTexture(bg3.c_str()), NULL, &destination);
 	}
 
 	manager->GetSystem<RenderSystem>().Update(renderer, assetStore, camera);
