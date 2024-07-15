@@ -10,6 +10,7 @@ struct AnimationComponent {
 	int startTime;
 	bool animationEnd;
 	int lifes;
+	bool isAttacking = false;
 
 	AnimationComponent(int numberFrames = 1, int currentFrame = 1,
 		int frameSpeedRate = 1, bool isLoop = true, bool animationEnd = true, 

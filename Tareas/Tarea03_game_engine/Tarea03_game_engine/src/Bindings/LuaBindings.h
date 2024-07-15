@@ -101,8 +101,8 @@ void ChangeAnimation(Entity entity, const std::string& entityType,
 	}else if (entityType == "boss") {
 		if (id == "attack") {
 			sprite.assetId = animationData.spriteLabel;
-			sprite.width = 240;
-			sprite.height = 192;
+			sprite.width = animationData.widht;
+			sprite.height = animationData.height;
 			sprite.srcRect.x = animationData.srcRectX;
 			sprite.srcRect.y = animationData.srcRectY;
 
@@ -111,7 +111,10 @@ void ChangeAnimation(Entity entity, const std::string& entityType,
 			animation.numberOffFrames = animationData.numberFrames;
 			animation.isLoop = animationData.isLoop;
 			animation.startTime = SDL_GetTicks();
+			animation.isAttacking = true;
 			return;
+		}else {
+			animation.isAttacking = false;
 		}
 	}
 
