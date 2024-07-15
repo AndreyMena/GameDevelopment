@@ -2,7 +2,7 @@
 boss_speed = 0.5 * 64.0
 lifes_boss = 5
 cooldown = 0
-
+cooldown_attack = 0
 boss_idle_state = 1 
 boss_attack_state = 2
 
@@ -15,8 +15,20 @@ end
 -- Funcion update
 function update()
 	-- body
-	cooldown = cooldown +1;
-	if cooldown == 1000 then
+	if boss_current_state == boss_idle_state then
+		cooldown = cooldown +1;
+	end
+	print(cooldown)
+	print(cooldown_attack)
+	if boss_current_state == boss_attack_state then
+		cooldown_attack = cooldown_attack + 1
+ 		if cooldown_attack == 500 then
+			boss_current_state = boss_idle_state
+			change_animation(this, "boss", "idle")
+			cooldown_attack = 0
+		end		
+	end
+	if cooldown == 500 then
 		if boss_current_state ~= boss_attack_state then
 			boss_current_state = boss_attack_state
 			change_animation(this, "boss", "attack")
