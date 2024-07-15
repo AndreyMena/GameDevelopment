@@ -14,6 +14,8 @@
 #include "../Components/TransformComponent.h"
 #include "../Components/ProjectileComponent.h"
 
+#include "../Events/LevelEvent.h"
+
 #include <sstream>
 #include <string>
 #include <../glm/glm.hpp>
@@ -38,6 +40,13 @@ void LevelLoader::LoadLevels(const std::string& game_levels, sol::state& lua) {
 
 	//Lectura de la tabla level
 	sol::table levelsLua = lua["levels"];
+
+	//Lectura de la tabla level
+	sol::table player_lifes = lua["player_lifes"];
+
+	sol::table player_lifes_table = player_lifes[0];
+
+	this->player_lifes = player_lifes_table["lifes"];
 
 	int index = 0;
 	while (true) {
@@ -259,6 +268,11 @@ void LevelLoader::LoadAssets(const sol::table& assets,
 
 		if (type == "texture") {
 			assetStore->AddTexture(id, path, renderer);
+		}
+
+		if (type == "font") {
+			std::size_t size = asset["size"];
+			assetStore->AddFont(id, path, size, renderer);
 		}
 
 		index++;
@@ -495,5 +509,26 @@ void LevelLoader::LoadNextLevel(sol::state& lua,
 	//Se carga el nivel
 	LoadLevel(lua, controllerManager, assetStore,
 		renderer, animationManager, manager);
+}
+
+void LevelLoader::ReloadLevel(sol::state& lua,
+	const std::shared_ptr<ControllerManager>& controllerManager,
+	const std::shared_ptr<AssetStore>& assetStore, SDL_Renderer* renderer,
+	const std::shared_ptr<AnimationManager>& animationManager,
+	const std::shared_ptr<ECSManager>& manager) {
+	//Muerte jugador
+	player_lifes--;
+
+	//Se eliminan todas las entidades del nivel anterior
+	manager->KillAllEntities();
+
+	if (player_lifes == 0) {
+		Game::GetInstance().eventManager->EmitteEvent<LevelEvent>("game_over_event");
+	}else{
+		//Se carga el nivel
+		LoadLevel(lua, controllerManager, assetStore,
+			renderer, animationManager, manager);
+	}
+
 }
 

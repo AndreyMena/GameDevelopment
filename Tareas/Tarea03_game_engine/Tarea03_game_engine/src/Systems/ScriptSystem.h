@@ -28,6 +28,7 @@ public:
 		lua.set_function("get_velocity", GetVelocity);
 		lua.set_function("get_lifes", GetLifes);
 		lua.set_function("discount_life", DiscountLife);
+		lua.set_function("reload_level", ReloadLevel);
 
 		lua.set_function("flip_sprite", FlipSprite);
 

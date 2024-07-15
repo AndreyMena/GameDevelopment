@@ -107,6 +107,7 @@ function on_collision(other)
 	if other:get_tag() == "spikes" then		
 	end
 	if other:get_tag() == "enemy" or other:get_tag() == "boss" or other:get_tag() == "spikes" then		
+		reload_level()
 		this:kill()
 	end
 	if other:get_tag() == "checkpoint" then

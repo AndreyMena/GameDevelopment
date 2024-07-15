@@ -11,4 +11,11 @@ levels = {
 	{level_name = "level_03", level_path = "./assets/scripts/level_03.lua", terrain_name = "terrain_inferno_img", terrain_path = "./assets/img/terrain_inferno.png", terrain_elements = 7},
 }
 
+player_lifes = {
+	-- Tabla de vidas
+	[0] = 
+	{lifes = 3},
+}
+
+
 --terrain_name debe cargarse con el mismo nombre en el archivo correspondiente al nivel

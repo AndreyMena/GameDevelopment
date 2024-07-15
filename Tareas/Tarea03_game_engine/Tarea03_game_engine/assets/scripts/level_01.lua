@@ -32,7 +32,9 @@ level = {
 		{type = "texture", id = "hound_run",	path = "./assets/img/enemies/hound/hell-hound-run.png"},
 		--Bosses
 		{type = "texture", id = "demon_attack",	path = "./assets/img/bosses/flying_demon/demon-attack.png"},
-		{type = "texture", id = "demon_idle",	path = "./assets/img/bosses/flying_demon/demon-idle.png"}
+		{type = "texture", id = "demon_idle",	path = "./assets/img/bosses/flying_demon/demon-idle.png"},
+		--Fonts
+		{type = "font", id = "press-start-30-game-over", path = "./assets/fonts/press_start.ttf", size = 30},
 	},
 
 	-- Tablas de key-action

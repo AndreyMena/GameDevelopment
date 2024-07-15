@@ -233,4 +233,7 @@
     <Library Include="liblua54.a" />
     <Library Include="libs\lua\liblua54.a" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\fonts\press_start.ttf" />
+  </ItemGroup>
 </Project>

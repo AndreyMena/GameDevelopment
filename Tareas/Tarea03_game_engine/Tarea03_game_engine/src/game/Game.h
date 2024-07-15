@@ -66,5 +66,6 @@ public:
 	void destroy();
 
 	void NextLevel();
+	void ReloadLevel();
 };
 

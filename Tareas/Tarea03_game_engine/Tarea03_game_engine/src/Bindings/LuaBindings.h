@@ -52,13 +52,11 @@ std::tuple<double, double> GetVelocity(Entity entity) {
 }
 
 int GetLifes(Entity entity) {
-	// TODO:verificar si tiene rigidbody
 	auto& animation = entity.GetComponent<AnimationComponent>();
 	return animation.lifes;
 }
 
 void DiscountLife(Entity entity) {
-	// TODO:verificar si tiene rigidbody
 	auto& animation = entity.GetComponent<AnimationComponent>();
 	animation.lifes--;
 }
@@ -165,5 +163,13 @@ bool CheckDirectionCollision(Entity a, Entity b, const std::string dir) {
 }
 
 void WinLevel() {
-	Game::GetInstance().eventManager->EmitteEvent<LevelEvent>("win_event");
+	Game::GetInstance().eventManager->EmitteEvent<LevelEvent>("win_level_event");
+}
+
+void WinGame() {
+	Game::GetInstance().eventManager->EmitteEvent<LevelEvent>("win_game_event");
+}
+
+void ReloadLevel() {
+	Game::GetInstance().eventManager->EmitteEvent<LevelEvent>("reload_level_event");
 }

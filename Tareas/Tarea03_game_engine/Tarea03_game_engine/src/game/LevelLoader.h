@@ -39,10 +39,17 @@ class LevelLoader {
 	std::vector<Level> levels;
 public:
 	int actualLevel = 0;
+	int player_lifes = 0;
 	LevelLoader();
 	~LevelLoader();
 
 	void LoadNextLevel(sol::state& lua,
+		const std::shared_ptr<ControllerManager>& controllerManager,
+		const std::shared_ptr<AssetStore>& assetStore, SDL_Renderer* renderer,
+		const std::shared_ptr<AnimationManager>& animationManager,
+		const std::shared_ptr<ECSManager>& manager);
+	
+	void ReloadLevel(sol::state& lua,
 		const std::shared_ptr<ControllerManager>& controllerManager,
 		const std::shared_ptr<AssetStore>& assetStore, SDL_Renderer* renderer,
 		const std::shared_ptr<AnimationManager>& animationManager,

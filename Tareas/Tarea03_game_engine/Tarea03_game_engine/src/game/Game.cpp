@@ -88,6 +88,11 @@ void Game::NextLevel() {
 		renderer, animationManager, manager);
 }
 
+void Game::ReloadLevel() {
+	levelLoader->ReloadLevel(lua, controllerManager, assetStore,
+		renderer, animationManager, manager);
+}
+
 void Game::Setup() {
 	// Agregar Sistemas
 	manager->AddSystem<AnimationSystem>();
@@ -269,6 +274,7 @@ void Game::renderMenu() {
 void Game::render() {
 	SDL_SetRenderDrawColor(renderer, 35, 35, 35, 255);
 	SDL_RenderClear(this->renderer);
+	
 	for (int index = 0; index < backgroundLevels[levelLoader->actualLevel].size(); index++) {
 		//Background
 		SDL_Rect destination;

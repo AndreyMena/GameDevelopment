@@ -72,11 +72,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>C:\SDL\include;C:\Users\andre\OneDrive\Escritorio\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs;C:\Users\andre\OneDrive\Escritorio\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs\lua;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\andre\OneDrive\Escritorio\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs;C:\SDL\lib\x86;C:\Users\andre\OneDrive\Escritorio\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs\lua;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\SDL\lib\x86;C:\Users\andre\OneDrive\Escritorio\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs;C:\Users\andre\OneDrive\Escritorio\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs\lua;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>C:\SDL\include;C:\Users\andre\OneDrive\Escritorio\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs;C:\Users\andre\OneDrive\Escritorio\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs\lua;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\andre\OneDrive\Escritorio\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs;C:\SDL\lib\x86;C:\Users\andre\OneDrive\Escritorio\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs\lua;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\SDL\lib\x86;C:\Users\andre\OneDrive\Escritorio\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs;C:\Users\andre\OneDrive\Escritorio\GameDevelopment\Tareas\Tarea03_game_engine\Tarea03_game_engine\libs\lua;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -84,7 +84,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -100,7 +100,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -230,6 +230,9 @@
   <ItemGroup>
     <Library Include="liblua54.a" />
     <Library Include="libs\lua\liblua54.a" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\fonts\press_start.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
