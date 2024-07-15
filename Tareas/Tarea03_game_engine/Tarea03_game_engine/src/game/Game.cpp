@@ -274,9 +274,8 @@ void Game::renderMenu() {
 void Game::render() {
 	SDL_SetRenderDrawColor(renderer, 35, 35, 35, 255);
 	SDL_RenderClear(this->renderer);
-	
 
-	for (int index = 0; index < backgroundLevels[levelLoader->actualLevel].size(); index++) {
+	for (int index = 0; index < 2; index++) {
 		//Background
 		SDL_Rect destination;
 		destination.x = 0;
