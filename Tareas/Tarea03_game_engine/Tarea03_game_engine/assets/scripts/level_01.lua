@@ -324,45 +324,6 @@ level = {
 					rotation = 0.0
 				}			
 			}
-		},
-		{ -- Boss
-			tag = "boss",
-			components = {
-				animation = {
-					numFrames = 6,
-					currentFrame = 1,
-					frameSpeedRate = 5,
-					lifes = 3,
-					isLoop = true				
-				},
-				boxCollider = {
-					w = 160,
-					h = 144,
-					offset = {x = 0.0, y = 0.0}
-				},
-				rigidbody = { 
-					isStatic = false,
-					mass = 5.0
-				},
-				script = {
-					path = "./assets/scripts/boss_demon.lua"
-				},
-				sprite = {
-					assetId = "demon_idle",
-					w = 160,
-					h = 144,
-					srcRectX = 0,
-					srcRectY = 0,
-					spacingRect = 0,
-					startRect = 0,
-					flip = false,
-				}, 
-				transform = {
-					position = { x = 1000.0, y = 320.0 },
-					scale = { x = 1.0, y = 1.0 },
-					rotation = 0.0
-				}			
-			}
 		}
 	}
 }
