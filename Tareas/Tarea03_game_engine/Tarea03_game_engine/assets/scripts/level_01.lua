@@ -71,7 +71,7 @@ level = {
 		--Hound
 		{entityType = "enemy",	id = "run",  spriteId = "hound_run",w = 67, h = 32, numFrames = 5, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0},
 		--Boss
-		{entityType = "boss",	id = "run",  spriteId = "demon_attack",w = 240, h = 192, numFrames = 11, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0},
+		{entityType = "boss",	id = "attack",  spriteId = "demon_attack",w = 240, h = 192, numFrames = 11, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0},
 		{entityType = "boss",	id = "idle", spriteId = "demon_idle",w = 160, h = 144, numFrames = 6, currentFrame = 01, speedRate = 15, isLoop = true, srcRectX = 0,srcRectY = 0}
 	},
 
@@ -329,7 +329,7 @@ level = {
 			tag = "boss",
 			components = {
 				animation = {
-					numFrames = 6,
+					numFrames = 11,
 					currentFrame = 1,
 					frameSpeedRate = 5,
 					lifes = 3,

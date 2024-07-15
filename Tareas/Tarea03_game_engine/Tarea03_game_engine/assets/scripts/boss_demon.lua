@@ -1,7 +1,12 @@
 -- Variables globales
 boss_speed = 0.5 * 64.0
 lifes_boss = 5
+cooldown = 0
 
+boss_idle_state = 1 
+boss_attack_state = 2
+
+boss_current_state = boss_idle_state
 -- Funcion awake
 function awake()
 	set_velocity(this, -boss_speed, 0)
@@ -10,6 +15,14 @@ end
 -- Funcion update
 function update()
 	-- body
+	cooldown = cooldown +1;
+	if cooldown == 1000 then
+		if boss_current_state ~= boss_attack_state then
+			boss_current_state = boss_attack_state
+			change_animation(this, "boss", "attack")
+		end		
+		cooldown = 0
+	end
 end
 
 

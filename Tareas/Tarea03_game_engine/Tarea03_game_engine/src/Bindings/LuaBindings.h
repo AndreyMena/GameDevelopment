@@ -78,23 +78,40 @@ void ChangeAnimation(Entity entity, const std::string& entityType,
 	animationData = Game::GetInstance().animationManager->GetAnimationData(
 		entityType, id);
 
-	if (id == "attack") {
-		if (animation.currentFrame == animation.numberOffFrames - 1) {
-			std::cout << animation.currentFrame << std::endl;
+	if (entityType == "player") {
+		if (id == "attack") {
+			if (animation.currentFrame == animation.numberOffFrames - 1) {
+				std::cout << animation.currentFrame << std::endl;
 			
-			AllowActionStates();
-			Game::GetInstance().controllerManager->DeactivateAction("attack");
-			animation.animationEnd = true;
+				AllowActionStates();
+				Game::GetInstance().controllerManager->DeactivateAction("attack");
+				animation.animationEnd = true;
 
-			Game::GetInstance().eventManager->EmitteEvent<ProjectileEvent>(
-				glm::vec2(1500, 1500));  // El 1500 no se utiliza, TODO quitar
-			return;  //Para error
-		} else {
-			if (animation.animationEnd == false) {
-				return;
+				Game::GetInstance().eventManager->EmitteEvent<ProjectileEvent>(
+					glm::vec2(1500, 1500));  // El 1500 no se utiliza, TODO quitar
+				return;  //Para error
+			} else {
+				if (animation.animationEnd == false) {
+					return;
+				}
+				animation.animationEnd = false;
+				BlockActionStates();
 			}
-			animation.animationEnd = false;
-			BlockActionStates();
+		}
+	}else if (entityType == "boss") {
+		if (id == "attack") {
+			sprite.assetId = animationData.spriteLabel;
+			sprite.width = 240;
+			sprite.height = 192;
+			sprite.srcRect.x = animationData.srcRectX;
+			sprite.srcRect.y = animationData.srcRectY;
+
+			animation.currentFrame = animationData.currentFrame;
+			animation.frameSpeedRate = animationData.frameSpeedRate;
+			animation.numberOffFrames = animationData.numberFrames;
+			animation.isLoop = animationData.isLoop;
+			animation.startTime = SDL_GetTicks();
+			return;
 		}
 	}
 
