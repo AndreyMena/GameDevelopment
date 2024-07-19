@@ -13,6 +13,7 @@
 #include "../Components/SpriteComponent.h"
 #include "../Components/TransformComponent.h"
 #include "../Components/ProjectileComponent.h"
+#include "../Components/BackGroundComponent.h"
 
 #include "../Events/LevelEvent.h"
 
@@ -111,7 +112,7 @@ void LevelLoader::LoadLevel(sol::state& lua,
 
 	// Lectura de la subtabla de key-action
 	sol::table backgrounds = level["backgrounds"];
-	LoadBackground(backgrounds, controllerManager);
+	LoadBackground(backgrounds, controllerManager, manager);
 
 	// Lectura de la subtabla assets
 	sol::table assets = level["assets"];
@@ -223,7 +224,8 @@ void LevelLoader::LoadKeyAction(const sol::table& keyActions,
 }
 
 void LevelLoader::LoadBackground(const sol::table& backgrounds,
-	const std::shared_ptr<ControllerManager>& controllerManager) {
+	const std::shared_ptr<ControllerManager>& controllerManager,
+	const std::shared_ptr<ECSManager>& manager) {
 	int index = 0;
 	std::vector<std::string> bg;
 	while (true) {
@@ -241,9 +243,11 @@ void LevelLoader::LoadBackground(const sol::table& backgrounds,
 
 		bg.push_back(asset);
 
+		Entity backg = manager->CreateEntity();
+		backg.AddComponent<BackGroundComponent>(asset);
+
 		index++;
 	}
-	Game::GetInstance().backgroundLevels.push_back(bg);
 }
 
 void LevelLoader::LoadAssets(const sol::table& assets, 

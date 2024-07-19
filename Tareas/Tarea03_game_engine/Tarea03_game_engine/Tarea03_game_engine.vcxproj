@@ -142,11 +142,13 @@
     <ClCompile Include="libs\tinyxml2\tinyxml2.cpp" />
     <ClCompile Include="src\AnimationManager\AnimationManager.cpp" />
     <ClCompile Include="src\AssetStore\AssetStore.cpp" />
+    <ClCompile Include="src\Components\BackGroundComponent.h" />
     <ClCompile Include="src\ControllerManager\ControllerManager.cpp" />
     <ClCompile Include="src\ECS\ECS.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\game\LevelLoader.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Systems\RenderBackgroundSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\lua\lauxlib.h" />

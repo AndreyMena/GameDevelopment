@@ -46,7 +46,6 @@ class Game {
 	Game();
 	~Game();
 public:
-	std::vector<std::vector<std::string>> backgroundLevels;
 	bool isRunning = false;
 	bool isPlaying = false;
 	sol::state lua;

@@ -49,7 +49,6 @@ level = {
 	-- Tablas de backgrounds
 	backgrounds = {
 		[0] = 
-		{asset = "dark_houses"},
 		{asset = "bg3"},
 	},
 

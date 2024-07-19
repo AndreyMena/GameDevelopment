@@ -17,10 +17,10 @@
 #include "../Systems/ProjectileEmitterSystem.h"
 #include "../Systems/GameStateSystem.h"
 #include "../Systems/MouseControllerSystem.h"
+#include "../Systems/RenderBackgroundSystem.h"
 
 #include "../Events/MouseMotionEvent.h"
 #include "../Events/MouseClickEvent.h"
-//#include "../Events/MouseRightClickEvent.h"
 
 #include <cstdio>
 #include <sstream>
@@ -106,6 +106,7 @@ void Game::Setup() {
 	manager->AddSystem<WeightForceSystem>();
 	manager->AddSystem<GameStateSystem>();
 	manager->AddSystem<MouseControllerSystem>();
+	manager->AddSystem<RenderBackgroundSystem>();
 
 	manager->GetSystem<ScriptSystem>().CreateLuaBindings(lua);
 
@@ -275,16 +276,9 @@ void Game::render() {
 	SDL_SetRenderDrawColor(renderer, 35, 35, 35, 255);
 	SDL_RenderClear(this->renderer);
 
-	for (int index = 0; index < 2; index++) {
-		//Background
-		SDL_Rect destination;
-		destination.x = 0;
-		destination.y = 0;
-		destination.w = 768;
-		destination.h = 416;
-		SDL_RenderCopy(renderer, this->assetStore->GetTexture(backgroundLevels[levelLoader->actualLevel][index]), NULL, &destination);
-	}
+	manager->GetSystem<RenderBackgroundSystem>().Update(renderer, assetStore, windowWidth, windowHeight);
 	
+	/*
 	if (levelLoader->actualLevel == 2) {
 		//Background
 		SDL_Rect destination;
@@ -294,7 +288,7 @@ void Game::render() {
 		destination.h = 416;
 		std::string bg3 = "bg3";
 		SDL_RenderCopy(renderer, this->assetStore->GetTexture(bg3.c_str()), NULL, &destination);
-	}
+	}*/
 
 	manager->GetSystem<RenderSystem>().Update(renderer, assetStore, camera);
 	if (debugMode) {
@@ -315,9 +309,6 @@ void Game::destroy() {
 		SDL_DestroyTexture(this->entitiesVector[index].txtTexture);
 	}
 
-	TTF_CloseFont(ttfFont);
-
-	TTF_Quit();
 	*/
 	SDL_Quit();
 }

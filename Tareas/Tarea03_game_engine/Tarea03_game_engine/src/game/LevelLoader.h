@@ -23,7 +23,8 @@ class LevelLoader {
 	void LoadKeyAction(const sol::table& keyActions, 
 		const std::shared_ptr<ControllerManager>& controllerManager);
 	void LoadBackground(const sol::table& backgrounds,
-		const std::shared_ptr<ControllerManager>& controllerManager);
+		const std::shared_ptr<ControllerManager>& controllerManager,
+		const std::shared_ptr<ECSManager>& manager);
 	void LoadAssets(const sol::table& assets, 
 		const std::shared_ptr<AssetStore>& assetStore, SDL_Renderer* renderer);
 
