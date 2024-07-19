@@ -35,22 +35,22 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 0.5,
+            "scale": 1.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 332,
-                "y": 441
+                "x": 3869.6666666666665,
+                "y": 1025
             }
         },
         "Level3.tmx": {
             "expandedObjectLayers": [
                 4
             ],
-            "scale": 1,
-            "selectedLayer": -1,
+            "scale": 2,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 582.5,
-                "y": 393.5
+                "x": 1043.25,
+                "y": 395.25
             }
         },
         "level_01.tmx": {
@@ -100,12 +100,13 @@
     "map.tileWidth": 24,
     "map.width": 160,
     "openFiles": [
+        "Level2.tmx",
         "Level3.tmx"
     ],
     "project": "plataformer_terrain.tiled-project",
     "recentFiles": [
-        "Level3.tmx",
         "Level2.tmx",
+        "Level3.tmx",
         "terrain16.tsx",
         "terrain_dark.tsx",
         "terrain_cave.tsx",
