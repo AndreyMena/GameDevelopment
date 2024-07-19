@@ -277,18 +277,6 @@ void Game::render() {
 	SDL_RenderClear(this->renderer);
 
 	manager->GetSystem<RenderBackgroundSystem>().Update(renderer, assetStore, windowWidth, windowHeight);
-	
-	/*
-	if (levelLoader->actualLevel == 2) {
-		//Background
-		SDL_Rect destination;
-		destination.x = 0;
-		destination.y = 0;
-		destination.w = 768;
-		destination.h = 416;
-		std::string bg3 = "bg3";
-		SDL_RenderCopy(renderer, this->assetStore->GetTexture(bg3.c_str()), NULL, &destination);
-	}*/
 
 	manager->GetSystem<RenderSystem>().Update(renderer, assetStore, camera);
 	if (debugMode) {
