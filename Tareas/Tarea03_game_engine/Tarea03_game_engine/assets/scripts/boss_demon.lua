@@ -18,8 +18,8 @@ function update()
 	if boss_current_state == boss_idle_state then
 		cooldown = cooldown +1;
 	end
-	print(cooldown)
-	print(cooldown_attack)
+	--print(cooldown)
+	--print(cooldown_attack)
 	if boss_current_state == boss_attack_state then
 		cooldown_attack = cooldown_attack + 1
  		if cooldown_attack == 500 then

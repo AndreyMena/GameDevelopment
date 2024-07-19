@@ -227,7 +227,6 @@ void LevelLoader::LoadBackground(const sol::table& backgrounds,
 	const std::shared_ptr<ControllerManager>& controllerManager,
 	const std::shared_ptr<ECSManager>& manager) {
 	int index = 0;
-	std::vector<std::string> bg;
 	while (true) {
 		// Verificacion de que exista un asset
 		sol::optional<sol::table> hasbackground = backgrounds[index];
@@ -240,8 +239,6 @@ void LevelLoader::LoadBackground(const sol::table& backgrounds,
 
 		//Obtener valores del asset
 		std::string asset = background["asset"];
-
-		bg.push_back(asset);
 
 		Entity backg = manager->CreateEntity();
 		backg.AddComponent<BackGroundComponent>(asset);

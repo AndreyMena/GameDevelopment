@@ -85,7 +85,7 @@ function update()
 
 	if get_action_state("attack") then
 		--print("attack movement")
-		y_vel = 0;
+		--y_vel = 0;
 		attack = true;
 	end
 	--print(x_vel..", "..y_vel)

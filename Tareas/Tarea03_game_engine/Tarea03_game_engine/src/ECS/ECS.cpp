@@ -146,6 +146,8 @@ void ECSManager::KillAllEntities() {
 		Entity entity(entityId);
 		entitiesToBeKilled.insert(entity);
 	}
+	freeIds.clear();
+	//numEntities = 0;
 
 	// Actualiza el sistema para eliminar las entidades marcadas
 	// Al quitarlo de aqui se bugea en el cambio de niveles
