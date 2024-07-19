@@ -25,6 +25,7 @@ level = {
 		{type = "texture", id = "dark_houses",	path = "./assets/img/backgrounds/dark_houses.png"},
 		{type = "texture", id = "bg3",	path = "./assets/img/backgrounds/bg3.png"},
 		{type = "texture", id = "menu1",	path = "./assets/img/menu/menu.png"},
+		{type = "texture", id = "ghoticvania_menu",	path = "./assets/img/menu/ghoticvania_menu.png"},
 		--Projectiles
 		{type = "texture", id = "arrow",	path = "./assets/img/projectiles/arrow.png"},
 		--Enemies

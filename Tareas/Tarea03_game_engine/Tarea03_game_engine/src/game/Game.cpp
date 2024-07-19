@@ -62,7 +62,7 @@ void Game::init() {
 	windowHeight = 416;//320;  // 600
 
 	this->window = SDL_CreateWindow(
-		"Lab 05: Motor de videojuegos",
+		"Tarea03: Motor de videojuegos con LUA",
 		//SDL_WINDOWPOS_CENTERED, 
 		//SDL_WINDOWPOS_CENTERED, 
 		SDL_WINDOWPOS_UNDEFINED_DISPLAY(1),
@@ -266,7 +266,7 @@ void Game::renderMenu() {
 	menu.y = 0;
 	menu.w = 768;
 	menu.h = 416;
-	SDL_RenderCopy(renderer, this->assetStore->GetTexture("menu1"), NULL, &menu);
+	SDL_RenderCopy(renderer, this->assetStore->GetTexture("ghoticvania_menu"), NULL, &menu);
 
 	SDL_RenderPresent(this->renderer);
 

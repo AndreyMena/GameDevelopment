@@ -29,17 +29,18 @@ public:
 
 	void OnMouseClickEvent(MouseClickEvent& e) {
 		std::cout << "(" << e.position.x << "," << e.position.y << std::endl;
-		if (e.position.x >= 281 && e.position.y >= 150 && 
-			e.position.x <= 492 && e.position.y <= 183) {
+		if (e.position.x >= 172 && e.position.y >= 351 && 
+			e.position.x <= 275 && e.position.y <= 388) {
 			std::cout << "Jugar" << std::endl;
 			Game::GetInstance().isPlaying = true;
 		}
+		/*
 		if (e.position.x >= 181 && e.position.y >= 201 &&
 			e.position.x <= 594 && e.position.y <= 235) {
 			std::cout << "Como jugar" << std::endl;
-		}
-		if (e.position.x >= 300 && e.position.y >= 254 &&
-			e.position.x <= 470 && e.position.y <= 288) {
+		}*/
+		if (e.position.x >= 497 && e.position.y >= 350 &&
+			e.position.x <= 588 && e.position.y <= 387) {
 
 			Game::GetInstance().isRunning = false;
 			std::cout << "Salir" << std::endl;

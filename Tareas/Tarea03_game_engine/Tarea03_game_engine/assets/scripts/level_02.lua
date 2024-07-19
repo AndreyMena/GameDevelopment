@@ -26,6 +26,7 @@ level = {
 		{type = "texture", id = "cave_bg",	path = "./assets/img/backgrounds/cave.png"},
 		{type = "texture", id = "cave_bg2",	path = "./assets/img/backgrounds/cave_bg2.png"},
 		{type = "texture", id = "menu1",	path = "./assets/img/menu/menu.png"},
+		{type = "texture", id = "ghoticvania_menu",	path = "./assets/img/menu/ghoticvania_menu.png"},
 		--Projectiles
 		{type = "texture", id = "arrow",	path = "./assets/img/projectiles/arrow.png"},
 		--Enemies
